@@ -1,0 +1,3790 @@
+%% LyX 2.2.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,english]{article}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\synctex=-1
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{setspace}
+\usepackage[all]{xy}
+\doublespacing
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\DeclareRobustCommand{\greektext}{%
+  \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
+\DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
+\ProvideTextCommand{\~}{LGR}[1]{\char126#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+  \theoremstyle{definition}
+  \newtheorem{defn}{\protect\definitionname}[section]
+  \theoremstyle{definition}
+  \newtheorem{example}{\protect\examplename}[section]
+  \theoremstyle{plain}
+  \newtheorem{prop}{\protect\propositionname}[section]
+  \theoremstyle{plain}
+  \newtheorem{cor}{\protect\corollaryname}[section]
+  \theoremstyle{remark}
+  \newtheorem{rem}{\protect\remarkname}[section]
+  \theoremstyle{plain}
+  \newtheorem{lem}{\protect\lemmaname}[section]
+  \theoremstyle{plain}
+  \newtheorem{thm}{\protect\theoremname}[section]
+  \theoremstyle{plain}
+  \newtheorem{fact}{\protect\factname}[section]
+  \theoremstyle{remark}
+  \newtheorem{claim}{\protect\claimname}[section]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+
+\renewenvironment{bmatrix}{\begin{ytableau}}{\end{ytableau}}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows}
+
+\makeatother
+
+\usepackage{babel}
+  \providecommand{\claimname}{Claim}
+  \providecommand{\definitionname}{Definition}
+  \providecommand{\examplename}{Example}
+  \providecommand{\factname}{Fact}
+  \providecommand{\lemmaname}{Lemma}
+  \providecommand{\propositionname}{Proposition}
+  \providecommand{\remarkname}{Remark}
+\providecommand{\corollaryname}{Corollary}
+\providecommand{\theoremname}{Theorem}
+
+\begin{document}
+
+\title{MATH7520 Principal G-Bundles and Clasifying Spaces}
+
+\author{Spring 2019\\
+Taught by Brian Hwang\\
+Notes by Yun Liu}
+
+\maketitle
+\pagebreak{}\tableofcontents{}
+
+\pagebreak{}
+
+\part{Principal G-bundles}
+
+\section{Fiber Bundle}
+
+\subsection{Fiber Bundle}
+\begin{defn}
+A \emph{fiber bundle} is a structure $\left(E,B,\pi,F\right)$, where
+$E,B$, and $F$ are topological spaces and $\pi:E\to B$ is a continuous
+surjection satisfying a local triviality condition: for every $x\in E$,
+there is an open neighborhood $U\subseteq B$ of $\pi\left(x\right)$
+such that there is a homeomorphism $\varphi:\pi^{-1}\left(U\right)\to U\times F$
+in such a way that $\pi$ agrees with the projection onto the first
+factor. That is, the following diagram should commute: 
+\[
+\xymatrix{\pi^{-1}\left(U\right)\ar[rr]\ar[dr]_{\pi} &  & U\times F\ar[dl]^{\text{pr}_{1}}\\
+ & U
+}
+\]
+The set of all $\left\{ \left(U_{i},\varphi_{i}\right)\right\} $
+is called a \emph{local trivialization} of the bundle.Thus for any
+$p\in B$ in B, the preimage $\pi^{-1}\left(p\right)$ is homeomorphic
+to $F$ and is called the \emph{fiber} over $p$. Every fiber bundle
+$\pi:E\to B$ is an open map, since projections of products are open
+maps. Therefore $B$ carries the quotient topology determined by the
+map $\pi$. The space $B$ is called the \emph{base space} of the
+bundle, $E$ the total space, and $F$ the fiber. The map $\pi$ is
+called the projection map (or bundle projection). A fiber bundle $\left(E,B,\pi,F\right)$
+is often denoted 
+\[
+\xymatrix{F\ar@{^{(}->}[dr]\\
+ & E\ar[d]^{\pi}\\
+ & B
+}
+\]
+\end{defn}
+%
+\begin{example}
+(Trivial bundle) Let $E=B\times F$ and let $\pi:E\to B$ be the projection
+onto the first factor. Then $E$ is a fiber bundle (of $F$) over
+$B$. Here $E$ is not just locally a product but globally one. Any
+such fiber bundle is called a \emph{trivial bundle}. Any fiber bundle
+over a contractible CW-complex is trivial.
+\end{example}
+%
+\begin{example}
+(Covering space) A covering space is a fiber bundle such that the
+bundle projection is a local homeomorphism. It follows that the fiber
+is a discrete space.
+\end{example}
+\begin{defn}
+A \emph{fibration} (or \emph{Hurewicz fibration} or \emph{Hurewicz
+fiber space}) is a continuous mapping ${\displaystyle p\colon E\to B}$
+satisfying the homotopy lifting property with respect to any space,
+i.e. for any space $X$ and for any homotopy ${\displaystyle f\colon X\times[0,1]\to B}$,
+and for any map ${\displaystyle \tilde{f}_{0}\colon X\to E}$ lifting
+${\displaystyle f_{0}=f|_{X\times\{0\}}}$ (i.e., so that ${\displaystyle f_{0}=\pi\circ\tilde{f}_{0}}$),
+there exists a homotopy ${\displaystyle \tilde{f}\colon X\times[0,1]\to E}$
+lifting $f$, (i.e., so that ${\displaystyle f=\pi\circ\tilde{f}}$,)
+which also satisfies ${\displaystyle \tilde{f}_{0}=\tilde{f}|_{X\times\{0\}}}$.
+In other words, we have the following diagram
+\[
+\xymatrix{X\ar[r]^{\tilde{f}_{0}}\ar[d]_{X\times\left\{ 0\right\} } & E\ar[d]^{p}\\
+X\times I\ar[r]^{f}\ar@{..>}[ur]^{\tilde{f}} & B
+}
+\]
+\end{defn}
+%
+\begin{example}
+Fibre bundles are important examples of fibrations. 
+\end{example}
+\begin{defn}
+A \emph{vector bundle} is a fibre bundle with whose fibers are vector
+spaces. 
+\end{defn}
+\begin{example}
+\emph{Tangent} and \emph{cotangent bundles} of smooth manifolds are
+vector bundles. 
+\end{example}
+%
+\begin{example}
+A \emph{sphere bundle} is a fiber bundle whose fiber is an $n$-sphere.
+Given a vector bundle $E$ with a metric (such as the tangent bundle
+to a Riemannian manifold) one can construct the associated unit sphere
+bundle, for which the fiber over a point $x$ is the set of all unit
+vectors in $E_{x}$. When the vector bundle in question is the tangent
+bundle $TM$, the unit sphere bundle is known as the unit tangent
+bundle, and is denoted $UTM$. 
+\end{example}
+%
+Fiber bundles often come with a group of symmetries which describe
+the matching conditions between overlapping local trivialization charts. 
+
+Specifically, let $G$ be a topological group which acts continuously
+on the fiber space $F$ on the right. We lose nothing if we require
+$G$ to act faithfully on $F$ so that it may be thought of as a group
+of homeomorphisms of $F$. A $G$-atlas for the bundle $\left(E,B,\pi,F\right)$
+is a local trivialization such that for any two local trivializations
+for the overlapping charts $\left(U_{i},\varphi_{i}\right)$ and $\left(U_{j},\varphi_{j}\right)$
+the function 
+
+\[
+{\displaystyle \varphi_{i}\varphi_{j}^{-1}\colon\left(U_{i}\cap U_{j}\right)\times F\to\left(U_{i}\cap U_{j}\right)\times F}
+\]
+is given by
+
+\[
+{\displaystyle \varphi_{i}\varphi_{j}^{-1}\left(x,\xi\right)=\left(x,t_{ij}\left(x\right)\xi\right)}
+\]
+where $t_{ij}:U_{i}\cap U_{j}\to G$ is a continuous map called a
+\emph{transition function}. Two $G$-atlases are equivalent if their
+union is also a $G$-atlas. A $G$-bundle is a fiber bundle with an
+equivalence class of $G$-atlases. The group $G$ is called the \emph{structure
+group} of the bundle. 
+
+\begin{defn}
+A \emph{bundle map} (or \emph{bundle morphism}) consists of a pair
+of continuous functions ${\displaystyle \varphi\colon E\to F,f\colon M\to N}$
+such that ${\displaystyle \pi_{F}\circ\varphi=f\circ\pi_{E}}$. That
+is, the following diagram commutes: 
+\[
+\xymatrix{E\ar[r]^{\varphi}\ar[d]_{\pi_{E}} & F\ar[d]^{\pi_{F}}\\
+M\ar[r]^{f} & N
+}
+\]
+\end{defn}
+\pagebreak{}
+
+\section{Principal G-bundles}
+\begin{defn}
+A \emph{principal $G$-bundle} is a fiber bundle $\pi:E\to B$ with
+a free and transitive (right) action by $G$ on the fibers, such that
+the local trivializations intertwine the right $G$-action with right
+translation (i.e. if $\varphi:\pi^{-1}\left(U\right)\to U\times G$
+and $h\left(p\right)=\left(u,g\right)$, then $h\left(p\cdot g'\right)=\left(u,gg'\right)$). 
+\end{defn}
+Equivalently, $E$ is equipped with a free right $G$-action such
+that $\pi:E\to E/G\cong B$ and it satisfies some appropriate local
+trivialization condistion.
+\begin{description}
+\item [{Warning.}] Principal $G$-bundles are not just $G$-fibre bundles.
+There is no canonical identity on fibre $F$. More specifically, fibres
+of principal $G$-bundles are $G$-tosors, i.e. principal homogeneous
+spaces. 
+\end{description}
+\begin{example}
+(unit tangent vectors on $S^{2}$) $E=\left\{ \left(x,v\right)\in TS^{2}|\left|\left|v\right|\right|=1\right\} \to S^{2}$.
+This is a nontrivial principal $S^{1}$-bundle because it contains
+no global sections. 
+\end{example}
+%
+\begin{example}
+(Hopf fibration) $S^{3}\to S^{2}$ is a principal $S^{1}$-bundle. 
+\end{example}
+\begin{description}
+\item [{Question.}] How to tell the difference between the two? 
+\end{description}
+\begin{quote}
+Principal $G$-bundles are much more rigid than fibre bundles. 
+\end{quote}
+\begin{prop}
+\label{prop-id-lift} If $E\to B,E'\to B'$ are principal $G$-bundles
+and $\phi:E\to E'$ is a principal bundle morphism such that the underlying
+map is identity $\text{Id}_{B}:B\to B$, then $\phi$ is an isomorphism. 
+\end{prop}
+\begin{proof}
+Consider the commutative diagram
+\[
+\xymatrix{ & E'\ar@{-->}[dd]\ar@{-->}[dr]\\
+E\ar@{..>}[ur]^{\phi}\ar[dd]\ar[rr] &  & EG\ar[dd]\\
+ & B\ar@{-->}[dr]\\
+B\ar[rr]\ar@{=}[ur]_{Id} &  & BG
+}
+\]
+Since $\text{Bun}_{G}\left(B\right)\cong\left[B,BG\right]$, homotopy
+classes of maps $B\to BG$ corresponds to isomorphism classes of principal
+$G$-bundles on $B$. 
+\end{proof}
+
+\subsection{Sections of Principal $G$-bundles}
+
+Recall a section of $E\xrightarrow{\pi}B$ over $U\subseteq B$ is
+a map $s:U\to E$ such that $\pi\circ s=\text{Id}_{U}:U\to U$ and
+a trvialization over $U$ is a (continuous) map $h:\pi^{-1}\left(U\right)\to U\times G$
+which intertwines the right $G$-action with the right translation. 
+\begin{prop}
+There is a bijection 
+\[
+\left\{ \text{sections }s\in\Gamma\left(U,E\right)\right\} \leftrightarrow\left\{ \text{trivialization }h:\pi^{-1}\left(U\right)\to U\times G\right\} .
+\]
+\end{prop}
+\begin{proof}
+Given a section $s\in\Gamma\left(U,E\right)$, we can define a trivialization
+as follows. For any $p\in\pi^{-1}\left(U\right)$ , let $b=\pi\left(p\right)\in U$
+and $g=\tau\left(s\left(b\right),p\right)\in G$ is the element which
+sends $s\left(b\right)$ to $p$, then we have a map 
+\[
+\begin{array}{cccc}
+h: & \pi^{-1}\left(U\right) & \to & U\times G\\
+ & p & \mapsto & \left(\pi\left(p\right),g\right)
+\end{array}
+\]
+which intertwines the $G$-action $\tau\left(s\left(b\right),p\cdot g'\right)=\tau\left(s\left(b\right),p\right)\cdot g'$,
+and the inverse map is given by $\left(b,g\right)\mapsto s\left(b\right)\cdot g$. 
+
+Conversely, given a trivialization $h:\pi^{-1}\left(U\right)\to U\times G$
+we have a canonical section 
+\[
+\begin{array}{cccc}
+s: & U & \to & E\\
+ & b & \mapsto & h^{-1}\left(b,e\right)
+\end{array}
+\]
+which is an element in $\Gamma\left(U,E\right)$. 
+\end{proof}
+\begin{cor}
+A principal $G$-bundle is trivial if and only if it admits global
+sections. 
+\end{cor}
+\begin{rem}
+The key point is, sections $s\in\Gamma\left(U,E\right)$ gives a choice
+of identity on fibre over $b\in U$. 
+\end{rem}
+
+\subsection{Associated Bundles}
+
+Given a fibre bundle, we can construct a pricipal $G$-bundle and
+vice versa. 
+
+Given a principal $G$-bundle, it comes with a group homomorphism
+$\rho:G\to\text{Aut}\left(F\right)$ which is a left $G$-action on
+$F$, then we have a canonical (right) $G$-action on $E\times F$
+\[
+\begin{array}{ccc}
+G & \to & \text{Aut}\left(E\times F\right)\\
+g & \mapsto & \left(p,f\right)\cdot g=\left(p\cdot g,\rho\left(g^{-1}\right)\cdot f\right)
+\end{array}
+\]
+and we will show that the quotient $\left(E\times F\right)/G$ is
+a fibre bundle. 
+\begin{prop}
+$\left(E\times F\right)/G=E\times^{G}F$ is a fibre bundle over $B$
+with fibre $F$, 
+\[
+\begin{array}{cccc}
+\pi^{G}: & E\times^{G}F & \to & B\\
+ & \left[p,f\right] & \mapsto & \pi\left(p\right)
+\end{array}
+\]
+this fibre bundle $E\times^{G}F$ is called the associated fibre bundle
+to $\pi:E\to B$ via the $G$-action on $F$. 
+\end{prop}
+\begin{proof}
+First, we want to show that the projection map is well-defined. Let
+$\left(p',f'\right)\in\left[p,f\right]$, then $p'=p\cdot g,f'=g^{-1}f\cdot f$
+for some $g\in G$, then $\pi\left(p\cdot g\right)=\pi\left(p\right)$
+because $\pi$ is a principal $G$-bundle. 
+
+Second, we need to show that fibres are homeomophic to $F$. Fix $b\in B$
+and choose $p_{o}\in\pi^{-1}\left(b\right)$, we have a continuous
+map 
+\[
+\begin{array}{ccc}
+F & \to & \left(\pi^{G}\right)^{-1}\left(b\right)\\
+f & \mapsto & \left[p_{0},f\right]
+\end{array}
+\]
+with inverse $\left[p,f\right]\mapsto\tau\left(p_{0},p\right)\cdot f$.
+Then 
+\[
+\begin{array}{ccc}
+\pi^{-1}\left(b\right)\times F & \to & F\\
+\left(p,f\right) & \mapsto & \tau\left(p_{0},p\right)\cdot f
+\end{array}
+\]
+is invariant with respect to the $G$-action, 
+\[
+\left(p,f\right)\cdot g=\left(p\cdot g,g^{-1}f\right)=\tau\left(p_{0},p\cdot g\right)\cdot g^{-1}\cdot f=\tau\left(p_{0},p\right)\cdot g\cdot g^{-1}\cdot f=\tau\left(p_{0},p\right)f
+\]
+thus we get the induced map on quotient $\left(\pi^{-1}\left(b\right)\times F\right)/G=\left(\pi^{G}\right)^{-1}\left(b\right)\xrightarrow{\cong}F$. 
+
+Last, we need to show local triviality. Assume without lose of generality,
+$E=B\times G$ by local trvialization-section correspondence, $\left(E\times F\right)/G=\left(B\times G\times F\right)/G=\left\{ \left[b,g,f\right],b\in B,g\in G,f\in F\right\} $.
+We have isomoprhisms of bundles 
+\[
+\begin{array}{ccc}
+\left(B\times G\times F\right)/G & \to & B\times F\\
+\left[b,g,f\right] & \mapsto & \left(b,g\cdot f\right)
+\end{array}
+\]
+ with inverse map 
+\[
+\begin{array}{ccc}
+B\times F & \to & \left(B\times G\times F\right)/G\\
+\left(b,f\right) & \mapsto & \left[b,e,f\right]
+\end{array}
+\]
+\end{proof}
+\begin{prop}
+Given a fibre bundle $F\hookrightarrow E\xrightarrow{\pi}B$ with
+fibre $F$ and choice of structure group $G=\text{Aut}\left(F\right)$,
+there is a principal $\text{Aut}\left(F\right)$-bundle $P$ such
+that $E=P\times^{G}F$. 
+\end{prop}
+\begin{proof}
+For $b\in B$, let $P_{b}=$ set of $G$-isomorphisms $\phi:F\to\pi^{-1}\left(b\right)$,
+then $P_{b}$ has a right $G$-action since for any $g\in G=\text{Aut}\left(F\right)$,
+$\phi\circ g\in P_{b}$. This is a free and transitive action because
+if $\phi,\phi':F\to\pi^{-1}\left(b\right)$ are two $G$-isomorphisms,
+then $\phi^{-1}\circ\phi'\in\text{Aut}\left(F\right)=G$. The bundle
+is defined as $P={\displaystyle \bigsqcup_{b\in B}}P_{b}\to B$. 
+\begin{description}
+\item [{Case1:}] If $E=B\times F$, $\pi^{-1}\left(b\right)=\left\{ b\right\} \times F$,
+so we have a canonical isomorphism $P_{b}\cong G$, then $P={\displaystyle \bigsqcup_{b\in B}}P_{b}={\displaystyle \bigsqcup_{b\in B}}\left\{ b\right\} \times G=B\times G$. 
+\item [{Case2:}] do the above construction for local trivialization. 
+\end{description}
+Then it remains to show that $P\times^{G}F\cong E$. Note that any
+element in $P\times^{G}F$ is an equivalence class $\left[b,\phi,f\right]$
+where $b\in B,\phi:F\to\pi^{-1}\left(b\right),f\in F$, then we have
+a map
+\[
+\begin{array}{ccc}
+P\times^{G}F & \to & E\\
+\left[b,\phi,f\right] & \mapsto & \phi\left(f\right)
+\end{array}
+\]
+this is well-defined because $\left[b,\phi\cdot g,g^{-1}f\right]\mapsto\phi\left(gg^{-1}f\right)=\phi\left(f\right)$.
+And since $\phi$ is an isomorphism, this map is a piecewise isomorphism,
+with inverse given by $p\mapsto\left[\pi\left(p\right),\phi_{0},\tau\left(p,\phi_{0}\left(f_{0}\right)\right)f_{0}\right]$
+where $\phi_{0}:F\to\pi^{-1}\left(b\right)$ and $f_{0}\in F$ are
+fixed. 
+\end{proof}
+\begin{rem}
+We've shown that for any principal $G$-bundle $\pi:E\to B$, there
+is an associated fibre bundle $\pi^{G}:E\times^{G}F\to B$, and for
+each fibre bundle $F\hookrightarrow E\xrightarrow{\pi}B$ with fibre
+$F$ and choice of structure group $G=\text{Aut}\left(F\right)$,
+there is a principal $G$-bundle whose associated fibre bundle is
+isomorphic to the one given. In particular, trivial principal $G$-bundles
+corresponds to trivial fibre bundles. 
+\end{rem}
+\begin{example}
+(Vector bundles as principal bundles) If $F=V$ is a vector space
+and $\rho:G\to GL\left(V\right)$ is a linear $G$-action (e.g. representation)
+on $V$, the $P\times^{G}V$ is the associated fibre bundle. Conversely,
+each real/complex vector bundle $\pi:E\to B$ is associated to a principal
+$GL\left(n,\mathbf{R}\right)/GL\left(n,\mathbf{C}\right)$-bundle.
+By chossing an inner product on $F$, we can take a principal $O\left(n\right)/U\left(n\right)$
+bundle. 
+\end{example}
+%
+\begin{example}
+(Associated self-principal bundle) Let $\rho:G\to\text{Aut}\left(G\right)$
+be an adjoint representation of $G$ on itself, this does not preserves
+the group structure of $G$ but it commutes with right multiplication
+and preserves the $G$-torsor structure. Given a principal $G$-bundle
+$G\hookrightarrow P\xrightarrow{\pi}B$, what is $P\times_{\rho}^{G}G$?
+This is also a principal $G$-bundle $\left[p,g\right]g'=\left[p,gg'\right]$
+and is isomorphic to $P$. Consider the map 
+\[
+\begin{array}{ccc}
+P\times_{\rho}^{G}G & \to & P\\
+\left[p,g\right] & \mapsto & p\cdot g
+\end{array}
+\]
+ This map is well-defined $\left[p\cdot h,h^{-1}g\right]\mapsto p\cdot hh^{-1}g=p\cdot g$,
+with inverse $p\mapsto\left[p.e\right]$. 
+
+(Variant) Let $\phi\in\text{Aut}\left(G\right)$ be an automorphism,
+consider the left action $g\cdot h=\phi\left(g\right)h$, what is
+$P\times_{\rho}^{G}G$? This is already a principal $G$-bundle. We
+have two cases. 
+\begin{enumerate}
+\item If $\phi\left(g\right)=\gamma g\gamma^{-1}$ for some $\gamma\in G$
+is an inner automorphism, then we have 
+\[
+P\times_{\phi}^{G}G\xrightarrow{\cong}P,\left[p,g\right]\mapsto p\gamma g.
+\]
+This is well-defined $\left[p\cdot h,\gamma h^{-1}\gamma^{-1}g\right]\mapsto ph\gamma\gamma^{-1}h^{-1}\gamma g=p\gamma g$,
+with inverse 
+\[
+P\times_{\phi}^{G}G\xleftarrow{\cong}P,\left[p\cdot\gamma^{-1},e\right]\mapsfrom p.
+\]
+\item If $\phi$ is not an inner product, $P\times_{\rho}^{G}G\not\cong P$. 
+\end{enumerate}
+%
+(General) Given a group homomorphism $\phi:G\to H$, we have a left
+$G$-action on $H$, $g\cdot h=\phi\left(g\right)h$, so we can form
+a principal $H$-bundle $P\times_{\phi}^{G}H$. 
+\end{example}
+%
+
+\subsection{Sections of Associated Bundles}
+\begin{description}
+\item [{Key.}] relate to equivariant functions on $P$. 
+\end{description}
+If $F$ has a left $G$-action, we say $f:P\to F$ is \emph{equivariant}
+if $f\left(p\cdot g\right)=g^{-1}f\left(p\right),g\in G$, denote
+the set of all equivariant maps $P\to F$ by $\mathbf{Map}\left(P,F\right)^{G}$
+.
+\begin{prop}
+Let $\pi:P\to B$ be a principal $G$-bundle, and $F$ has a left
+$G$-action. Let $E=P\times^{G}F$. There is a bijection $\Gamma\left(U,E\right)=\mathbf{Map}\left(\pi^{-1}\left(U\right),F\right)^{G}$. 
+\end{prop}
+\begin{proof}
+We use the local section/trivialization correspondence to identify
+$\pi^{-1}\left(U\right)\cong U\times F$. 
+
+Given an equivariant map $\tilde{s}:\pi^{-1}\left(U\right)\to F$,
+define a section $s:U\to E$ by 
+\[
+b\mapsto\left[p,\tilde{s}\left(p\right)\right],p\in\pi^{-1}\left(b\right).
+\]
+By equivariance, $\left[p\cdot g,\tilde{s}\left(p\cdot g\right)\right]=\left[p\cdot g,g^{-1}\tilde{s}\left(p\right)\right]=\left[p,\tilde{s}\left(p\right)\right]$,
+so we obtain a local section. 
+
+Conversely, given $s\in\Gamma\left(U,E\right)$, suppose $s\left(\pi\left(p\right)\right)=\left[p,f\right]$,
+then we can define 
+\[
+\begin{array}{cccc}
+\tilde{s}: & \pi^{-1}\left(U\right) & \to & F\\
+ & p & \mapsto & f
+\end{array}
+\]
+note $\tilde{s}\left(p\cdot g\right)=g^{-1}f$ because $s\left(\pi\left(p\cdot g\right)\right)=s\left(\pi\left(p\right)\right)=\left[p,f\right]=\left[p\cdot g,g^{-1}f\right]$. 
+\end{proof}
+\begin{prop}
+\label{prop-hom-sec} Fix $G$, let $\pi:P\to B$ be a principal $G$-bundle.
+There is a bijection morphisms $\left(\phi:P\to Q,\bar{\phi}:B\to B'\right)$
+of principal bundles and sections of $P\times^{G}Q$ where $Q$ is
+a left $G$-space with action $g\cdot q=qg^{-1}$. 
+\end{prop}
+\begin{proof}
+Any principal bundle morphism $\phi:P\to Q$ is equivalent to a $G$-equivariant
+map $\phi:P\to Q$, so we have 
+\[
+\mathbf{Mor}\left(P,Q\right)=\mathbf{Map}\left(P,Q\right)^{G}\cong\Gamma\left(B,P\times^{G}Q\right).
+\]
+\end{proof}
+
+\subsection{Homotopy Classes of Principal $G$-bundles}
+
+Recall we have $\mathbf{Prin}_{G}\left(X\right)=\left[X,BG\right]$
+obtained by pulling back the universal bundle 
+\[
+\xymatrix{P\cong f^{*}\left(EG\right)\ar[r]\ar[d]_{\pi} & EG\ar[d]\\
+X\ar[r]^{f} & BG
+}
+\]
+
+\begin{prop}
+If $\pi:P\to B'$ is a principal $G$-bundle and if $f_{0},f_{1}:B\to B'$
+are homotopic, then $f_{0}^{*}\left(P\right)=f_{1}^{*}\left(P\right)$
+as $G$-bundles over $B$. 
+\end{prop}
+\begin{proof}
+Consider the pullback by homotopy $f_{t}:B\times I\to B'$, it suffices
+to show that for any principal $G$-bundle $Q\to B\times I$, the
+restrictions $Q_{0}\coloneqq Q|_{B\times\left\{ 0\right\} }\to B\times\left\{ 0\right\} \cong B$
+and $Q_{1}:Q|_{B\times\left\{ 1\right\} }\to B\times\left\{ 1\right\} \cong B$
+are isomorphisms and so we can produce an isomorphism $Q\cong Q_{0}\times I$
+of bundles over $B\times I,$then restricts to $B\times\left\{ 1\right\} $
+to get an isomorphism $Q_{1}\cong Q_{0}$. 
+
+We want to show that $Q$ and $Q_{0}\times I$ are isomorphic as bundles
+over $B\times I$. Assuming that $Q\to B\times I$ is a principal
+$G$-bundle, by Proposition \ref{prop-id-lift} it's enough to give
+a morphsim $Q\to Q_{0}\times I$ lying over $\text{Id}:B\times I\to B\times I$.
+Equivalently, we need to find a section of $Q\times^{G}\left(Q_{0}\times I\right)\to B\times I$.
+Note $Q\times^{G}\left(Q_{0}\times I\right)$ has a section over $B\times\left\{ 0\right\} $
+because $Q|_{B\times\left\{ 0\right\} }$ and $Q_{0}\times I|_{B\times\left\{ 0\right\} }\cong Q_{0}$
+are isomorphic.  To extend this section, we use the homotopy lifting
+property. Since $Q\times^{G}\left(Q_{0}\times I\right)\to B\times I$
+is a fibration, we have a lift in the following commuting diagram.
+\[
+\xymatrix{B\times\left\{ 0\right\} \ar[r]\ar[d] & Q\times^{G}\left(Q_{0}\times I\right)\ar[d]\\
+B\times I\ar[r]^{\text{Id}}\ar@{..>}[ur]^{\exists} & B\times I
+}
+\]
+\end{proof}
+%
+
+\subsection{Classifying Space $BG$}
+
+Note that we have a functor
+\[
+\begin{array}{ccc}
+\mathbf{Space} & \longrightarrow & \mathbf{Set}\\
+B & \longmapsto & \mathbf{Prin}_{G}\left(B\right)=\mathbf{Bun}_{G}\left(G\right)\\
+\left(A\xrightarrow{f}B\right) & \longmapsto & \left(\begin{array}{ccc}
+\mathbf{Prin}_{G}\left(B\right) & \to & \mathbf{Prin}_{G}\left(A\right)\\
+P & \mapsto & f^{*}P
+\end{array}\right)
+\end{array}
+\]
+ Since homotopic maps gives isomorphic principal $G$-bundles, we
+can look at $\mathbf{Prin}_{G}:\mathbf{hTop}\to\mathbf{Set}$ where
+in $\mathbf{hTop}$, morphisms are homotopy classes of maps in $\mathbf{Space}$.
+We wang to show this contravariant functor is representable. 
+\begin{defn}
+A principal $G$-bundle $EG\to BG$ is \emph{universal} if the total
+space $EG$ is contractible. 
+\end{defn}
+There are many ways to realize the classifying space. 
+\begin{itemize}
+\item Moduli space. 
+\[
+\left[X,BG\right]=\mathbf{Prin}_{G}\left(X\right)=\mathbf{Bun}_{G}\left(X\right).
+\]
+If the moduli functor is representable, it is represneted by $BG$. 
+\item Infinitely dimensional realization. For example, line bundles are
+represented by $\mathbb{C}P^{\infty}$ , vector bundles are represented
+by Grassmannians. 
+\item Simplicial realization. 
+\end{itemize}
+\begin{lem}
+If $\left(B,A\right)$ is a CW pair and $F$ is a space such that
+$\pi_{k}\left(F\right)=0$ if $B\backslash A$ has cells of dimension
+$k+1$, then every map $f:A\to F$ extends to a map $\tilde{f}:B\to F$
+such that $\tilde{f}|_{A}=f$. 
+\end{lem}
+\begin{proof}
+Induction on $k$. We can assume that without lose of generality that
+$f$ has been extended to the $k$-skeleton $B^{k}$ of the pair $\left(B,A\right)$.
+For each $\left(k+1\right)$-cell $e^{k+1}\in B$ with attaching map
+$\phi:\partial I^{k+1}\to B^{k}$, by assumption, the composition
+$f\circ\phi:\partial I^{k+1}\to B^{k}\to F$ is null-homotopic, hence
+we can extend to $B^{k}\cup e^{k+1}$. Do the same for each $\left(k+1\right)$-cell. 
+\end{proof}
+\begin{cor}
+\label{cor-ext}If $\left(B,A\right)$ is a CW pair and $F\hookrightarrow E\xrightarrow{\pi}B$
+is a fibre bundle, and if $\pi_{k}\left(F\right)=0$ for all $k$
+where $B\backslash A$ has $\left(k+1\right)$-cells, then every section
+over $A$ can be extended to global section. In particular, if $\left(B,A\right)=\left(B,\phi\right)$,
+then $E\to B$ admits a global section if and only if $F$ is $\dim\left(B\right)$-connected. 
+\end{cor}
+\begin{proof}
+If $E=B\times F$ is trivial, then a section is equivalent to a map
+$B\to F$, then we are done by previou lemma. 
+
+In general, refine CW structure on $B$ to open coverings corresponds
+to local trvializations. Namely, we proceed by induction on $k$,
+assuming that a section $s$ has been extended to $k$-skeleton, so
+$s\in\Gamma\left(B^{k},E\right)$. Let $e^{k+1}\subseteq B$ be a
+$\left(k+1\right)$-cell. It may not be in the domain of one trivialization,
+but then subdivide $e^{k+1}\cong I^{k+1}$ into small cubes, then
+we can reduce to $e^{k+1}\subseteq U_{\alpha}$ where $\left\{ U_{\alpha}\right\} $
+is an open covering of $B$ and $\pi^{-1}\left(U_{\alpha}\right)\cong U_{\alpha}\times F$
+. 
+\end{proof}
+\begin{thm}
+Let $EG\to BG$ be a universal bundle, i.e. $EG$ is weakly contractible.
+Then for any CW complex $B$, we have a bijection $\left[B,BG\right]\longleftrightarrow\mathbf{Prin}_{G}\left(B\right)$
+where 
+\[
+\begin{array}{ccc}
+\left[-,BG\right] & \to & \mathbf{Prin}_{G}\left(-\right)\\
+\left[f\right] & \mapsto & f^{*}\left(EG\right)
+\end{array}
+\]
+ is an equivalence of functors $\mathbf{hTop}\to\mathbf{Set}$. 
+\end{thm}
+\begin{proof}
+Surjectivity. Let $Q\to B$ be a principal $G$-bundle, then by Corollary
+\ref{cor-ext} the associated fibre bundle $Q\times^{G}EG$ has a
+global section over $B$ because $EG$ is contractible, thus by Proposition
+\ref{prop-hom-sec} we have a morphism of $G$-bundles 
+\[
+\xymatrix{Q\ar[r]\ar[d] & EG\ar[d]\\
+B\ar[r]^{f} & BG
+}
+\]
+Such a moprhism is equivalent to a morphism 
+\[
+\xymatrix{Q\ar[r]^{\cong}\ar[d] & f^{*}\left(EG\right)\ar[d]\\
+B\ar@{=}[r]^{\text{Id}} & B
+}
+\]
+which is an isomorphism. 
+
+Injectivity. Suppose $f_{0},f_{1}:B\to BG$ gives $f_{0}^{*}\left(EG\right)\cong f_{1}^{*}\left(EG\right)$,
+we want to show that $f_{0}\sim f_{1}$. Consider the principal $G$-bundle
+$P=f_{0}^{*}\left(EG\right)\times I\to B\times I$ such that $p|_{B\times\left\{ 0\right\} }\cong f_{0}^{*}\left(EG\right)\cong p|_{B\times\left\{ 1\right\} }$.
+Consider the $G$-bundle morphism 
+\[
+\xymatrix{P|_{B\times\left\{ 0\right\} }\ar[r]^{\cong}\ar[dr] & f_{0}^{*}\left(EG\right)\ar[r]\ar[d] & EG\ar[d]\\
+ & B\ar[r]^{f_{0}} & BG
+}
+\]
+it corresponds to a section $s_{0}\in\Gamma\left(B\times\left\{ 0\right\} ,P\times^{G}EG\right)$.
+Similarly, if we look over $B\times\left\{ 1\right\} $, we get a
+local section $s_{1}\in\Gamma\left(B\times\left\{ 1\right\} ,P\times^{G}EG\right)$.
+So we obtain a section $s_{0}\cup s_{1}\in\Gamma\left(B\times\left\{ 0,1\right\} ,P\times^{G}EG\right)$.
+Since $EG$ is contractible, this extends to a global section $s\in\Gamma\left(B\times I,P\times^{G}EG\right)$,
+which corresponds to a principal bundle morphism 
+\[
+\xymatrix{P\ar[r]\ar[d] & EG\ar[d]\\
+B\times I\ar[r]^{h} & BG
+}
+\]
+and induces a map $h:B\times I\to BG$ which is a homotopy from $f_{0}$
+to $f_{1}$. 
+\end{proof}
+\begin{fact}
+\cite{key-1} Given a topological group $G$, there exists a universal
+principal bundle $EG\to BG$. 
+\end{fact}
+\begin{cor}
+We can take $BG$ to have the structure of a CW complex when $BG$
+admits a simplicial realization and such a $BG$ is unique up to homotopy. 
+\end{cor}
+\begin{rem}
+We really should think of the equivalence as equivalences between
+bifunctors $\left[-,B\left(\bullet\right)\right]\simeq\mathbf{Prin}_{\bullet}\left(-\right)$. 
+\end{rem}
+
+\subsection{Classifying Space Functor $B$ }
+
+We want to show that the classifying space construction 
+\[
+\begin{array}{cccc}
+B: & \mathbf{Gp} & \longrightarrow & \mathbf{hCW}\\
+ & G & \longmapsto & BG
+\end{array}
+\]
+is functorial (up to homotopy). Note there is no canonical construction
+of $BG$. 
+\begin{prop}
+For each homomorphism $\phi\in\text{Hom}_{\mathbf{Gr}}\left(G,H\right)$,
+there exists a homotopy class $B\phi\in\left[BG,BH\right]$ such that
+$B\left(\phi\circ\psi\right)=B\left(\phi\right)\circ B\left(\psi\right)$,
+$B\left(\text{Id}\right)=\text{Id}$, and $B\left(G\times H\right)=BG\times BH$,
+i.e. $B$ respects products. 
+\end{prop}
+\begin{proof}
+We have a universal bundle $EG\to BG$. Consider the associated bundle
+$EG\times_{\phi}^{G}H$ which is a principal $H$-bundle over $BG$,
+thus it correpsonds to a map $B\phi\in\left[BG,BH\right]$. We get
+the composition property because 
+\[
+\left(EG\times_{\phi}^{G}H\right)\times_{\psi}^{H}K\cong EG\times_{\psi\phi}^{H}K.
+\]
+Furthermore, $EG\times^{G}G\cong EG$, so $B\left(\text{Id}\right)=\text{Id}$. 
+
+For products, note that $EG\times EH$ is a contractible space with
+a $G\times H$-action, 
+\[
+\left(EG\times EH\right)/G\times H\cong BG\times BH.
+\]
+\end{proof}
+\begin{prop}
+Let $i:H\hookrightarrow G$ be a subgroup such that $G\to G/H$ is
+a principal $H$-bundle (e.g. $H$ is a closed subgroup such that
+$G/H$ is a homogeneous space). Then we can view $Bi:BH\to BG$ as
+a fibre bundle with fibre $G/H$. 
+\end{prop}
+\begin{proof}
+Under our hypothesis, $EG$ is a contractible space with a free (right)
+$H$-action, so $EG/H$ is a classifying space of $H$. Furthermore,
+$EG$ is universal bundle of $H$. 
+
+We have $EG/H\cong\left(EG\times^{G}G\right)/H\cong EG\times^{G}\left(G/H\right)$,
+thus we have a morphism of principal $G$-bundles 
+\[
+\xymatrix{EG\ar[r]^{\text{Id}}\ar[d] & EG\ar[d]\\
+BH=EG/H\ar[r] & BG=EG/G
+}
+\]
+so the induced map can be identified with $BH\cong EG\times^{G}\left(G/H\right)\to BG$,
+this is a $G/H$-fibre bundle. 
+\end{proof}
+\begin{prop}
+If $\phi:G\to G$ is an inner automorphism, then $B\phi:BG\to BG$
+is homotopic to $\text{Id}$. 
+\end{prop}
+\begin{proof}
+It follows from the fact that $EG\times^{G}G=EG$. 
+\end{proof}
+
+\subsection{Grassmannians and Classifying Spaces}
+
+Let $V$ be a finite-dimensional vector space over a field $F$, say
+$\mathbf{R}$, or $\mathbf{C}$. Let $0\leq k\leq\dim V$. 
+\begin{defn}
+The Grassmannians are defiend as $\text{Gr}_{k}\left(V\right)=\left\{ W\subseteq V|\dim W=k\right\} ,\text{Gr}^{k}\left(V\right)=\left\{ W\subseteq V|\dim W+k=\dim V\right\} $. 
+\end{defn}
+%
+Grassmannians can be viewed as smooth manifolds, or algebraic varieties. 
+
+Over $\text{Gr}_{k}\left(V\right)$ we have a tautological exact sequence
+$0\to S\to V\to Q\to0$ of vector bundles. 
+\begin{itemize}
+\item fibre of universal subbundle $S_{W}\cong W,W\in\text{Gr}_{k}\left(V\right)$.
+\item fibre of universal quotient bundle $Q_{W}\cong V/W$ .
+\item $V_{W}\cong V$. 
+\end{itemize}
+\begin{fact}
+Any vector bundle of rank $k$ $\pi:E\to M$ for $M$ compact can
+be expressed as pullback of the universal quotient bundle/ subbundle
+over $\text{Gr}^{k}\left(V\right)$/$\text{Gr}_{k}\left(V\right)$,
+i.e. there exists finite dimensional vector space $V$ and smooth
+maps 
+\[
+\xymatrix{E\ar[r]\ar[d] & Q\ar[d] & \ar@{-}[d] & E\ar[r]\ar[d] & Q\ar[d]\\
+M\ar[r]^{f} & \text{Gr}^{k}\left(V\right) &  & M\ar[r]^{f} & \text{Gr}_{k}\left(V\right)
+}
+\]
+\end{fact}
+\begin{proof}
+Since $E\to M$ is locally trivial and $M$ is compact, there exists
+finite open cover $\left\{ U_{\alpha}\right\} _{\alpha\in A}$ of
+$M$ and basis $s_{1}^{\alpha},\cdots,s_{k}^{\alpha}\in\Gamma\left(U_{\alpha},E\right)$
+of local trivializations. Let $\left\{ \rho^{\alpha}\right\} $ be
+a partition of unity subordinate to $\left\{ U_{\alpha}\right\} $,
+then $\tilde{s}_{i}^{\alpha}=\rho^{\alpha}s_{i}^{\alpha}\in\Gamma\left(M,E\right)$
+which vanishes outside $U_{\alpha}$. Define a finite dimensional
+vector space $V=\text{Span}_{F}\left\{ \tilde{s}_{i}^{\alpha}\right\} _{\alpha\in A,1\leq i\leq k}$,
+the for any $p\in M$, there is a linear map 
+\[
+\begin{array}{cccc}
+\text{ev}_{p}: & V & \to & E_{p}\\
+ & \tilde{s}_{i}^{\alpha} & \mapsto & \tilde{s}_{i}^{\alpha}\left(p\right)
+\end{array}
+\]
+which is surjective. Thus $V/\text{Ker}\left(\text{ev}_{p}\right)\cong E_{p}$.
+By taking the inverse of this isomorphism, we obtain a map $\tilde{f}:E\to Q$
+with 
+\[
+\xymatrix{E\ar[r]^{\tilde{f}}\ar[d] & Q\ar[d]\\
+M\ar[r]^{f} & \text{Gr}^{k}\left(V\right) & p\ar@{|->}[r] & \text{Ker}\left(\text{ev}_{p}\right)
+}
+\]
+\end{proof}
+There are natural questions as follows. 
+\begin{description}
+\item [{Quetsion.}] What if $M$ is not compact? What about all vector
+bundles instead of just $k$-dimensional vector bundles? 
+\end{description}
+It motivates us to study infinite Grassmannians. 
+
+\subsubsection{Infinite Grassmannians}
+
+Given an integer $k\geq1$, consider the sequence of clsed inclusions
+\[
+\begin{array}{ccccccc}
+\mathbf{R}^{q} & \hookrightarrow & \mathbf{R}^{q+1} & \hookrightarrow & \mathbf{R}^{q+2} & \hookrightarrow & \cdots\\
+\left(x_{1},x_{2},\cdots\right) & \mapsto & \left(0,x_{1},x_{2},\cdots\right) & \mapsto & \left(0,0,x_{1},x_{2},\cdots\right)
+\end{array}
+\]
+ which gives corresponding closed inclusions 
+\[
+\begin{array}{ccccccc}
+\text{Gr}_{k}\left(\mathbf{R}^{q}\right) & \hookrightarrow & \text{Gr}_{k}\left(\mathbf{R}^{q+1}\right) & \hookrightarrow & \text{Gr}_{k}\left(\mathbf{R}^{q+2}\right) & \hookrightarrow & \cdots\\
+W & \mapsto & 0\oplus W & \mapsto & 0\oplus0\oplus W
+\end{array}
+\]
+and 
+\[
+\begin{array}{ccccccc}
+\text{Gr}^{k}\left(\mathbf{R}^{q}\right) & \hookrightarrow & \text{Gr}^{k}\left(\mathbf{R}^{q+1}\right) & \hookrightarrow & \text{Gr}^{k}\left(\mathbf{R}^{q+2}\right) & \hookrightarrow & \cdots\\
+W & \mapsto & \mathbf{R}\oplus W & \mapsto & \mathbf{R}^{2}\oplus W
+\end{array}
+\]
+
+We can get a corresponding sequence of pullback maps of universal
+quotient bundle 
+\[
+\xymatrix{Q_{q}\ar[r]\ar[d] & Q_{q+1}\ar[r]\ar[d] & Q_{q+2}\ar[r]\ar[d] & \cdots\\
+\text{Gr}_{k}\left(\mathbf{R}^{q}\right)\ar[r] & \text{Gr}_{k}\left(\mathbf{R}^{q+1}\right)\ar[r] & \text{Gr}_{k}\left(\mathbf{R}^{q+2}\right)\ar[r] & \cdots
+}
+\]
+By taking colimit of this diagram we get a vector bundle $\pi:Q^{\text{univ}}\to B_{k}$.
+$B_{k}$ is a topological space, but not a manifold. 
+\begin{description}
+\item [{Question.}] If we want to make $\pi:Q^{\text{univ}}\to B_{k}$
+continuous, what is the best topology to impose here? 
+\end{description}
+\begin{fact}
+If $X$ is metrizable and $\pi:E\to X$ is a vector bundle over $X$,
+then there exists a classfying diagram 
+\[
+\xymatrix{E\ar[r]^{\tilde{f}}\ar[d]_{\pi} & Q^{\text{univ}}\ar[d]\\
+X\ar[r]^{f} & B_{k}
+}
+\]
+\end{fact}
+\begin{description}
+\item [{Question.}] What does it mean for $Q^{\text{univ}}$ to be contractible? 
+\end{description}
+%
+One model for $B_{k}$ is Hilbert manifold, a manifold modeled on
+Hilbert spaces. Thus it is a separable Hausdorff space in which each
+point has a neighbourhood homeomorphic to an infinite dimensional
+Hilbert space. 
+
+Let $\mathcal{H}$ be a seperable Hilbert space over $\mathbf{R}$
+or $\mathbf{C}$. The topological on $\mathcal{H}$ is induced by
+inner product $\left\langle -,-\right\rangle $ on $\mathcal{H}$.
+Given an integer $k\geq1$, $\text{Gr}_{k}\left(\mathcal{H}\right)=\left\{ W\subseteq H|\dim W=k\right\} $.
+Usually $\text{Gr}^{k}\left(\mathcal{H}\right)=\left\{ W\subseteq H|\dim H/W=k\right\} $
+is called a Hilbert manifold, or Grassmannian. Since $\mathcal{H}$
+is separable, we can pick an orthogonal basis $\left\{ e_{1},\cdots,e_{n},\cdots\right\} $
+of $\mathcal{H}$. Define $\mathbf{R}^{q}\subseteq\mathcal{H}$ by
+$\mathbf{R}^{q}\cong\text{Span}_{\mathbf{R}}\left\{ e_{1},\cdots,e_{q}\right\} $,
+then we have a commutative diagram 
+\[
+\xymatrix{\cdots\ar[r] & \text{Gr}^{k}\left(\mathbf{R}^{q}\right)\ar[rr]\ar[dr] &  & \text{Gr}^{k}\left(\mathbf{R}^{q+1}\right)\ar[r]\ar[dl] & \cdots\\
+ &  & \text{Gr}^{k}\left(\mathcal{H}\right)
+}
+\]
+taking colimit we can get a map $i:B_{k}\to\text{Gr}^{k}\left(\mathcal{H}\right)$. 
+\begin{prop}
+The map $i:B_{k}\to\text{Gr}^{k}\left(\mathcal{H}\right)$ is a homotopy
+equivalence. 
+\end{prop}
+\begin{fact}
+Let $F\hookrightarrow E\xrightarrow{p}B$ be a fibre bundle such that
+$F$ is contractible and metrizable topological manifold. If $B$
+is metrizable, then $\pi$ admits a section. 
+\end{fact}
+\begin{cor}
+Given the conditions above, and suppose that $F,E,B$ are all homotopic
+to CW complexes, then $\pi$ is a homotopy equivalence. 
+\end{cor}
+\begin{proof}
+As $F$ is contractible, the long exact sequence in homotopy groups
+shows that $p_{n}:\pi_{n}\left(E\right)\to\pi_{n}\left(B\right)$
+is always an isomorphism. The Whitehead theorem (that a weak homotopy
+equivalence of CW-complexes is an homotopy equivalence) now shows
+that $p$ is a homotopy equivalence. 
+\end{proof}
+%
+Let $\mathcal{H}$ be a Hilbert space, we want to understand how to
+get a universal $GL_{k}\left(\mathbf{R}\right)$-bundle over its classifying
+space. 
+
+Consider the \emph{Stiefel manifold} $St_{k}\left(\mathcal{H}\right)=\left\{ \left(e_{1},\cdots,e_{k}\right)\in\mathcal{H}^{k}|\left\langle e_{i},e_{j}\right\rangle =\delta_{ij},\forall1\leq i,j\leq k\right\} $
+which is the set of all orthonormal $k$-frames in $\mathcal{H}$,
+this is an infinite dimensional vector space which is a Hilbert manifold.
+We have a projection map 
+\[
+\begin{array}{cccc}
+\pi: & St_{k}\left(\mathcal{H}\right) & \to & Gr_{k}\left(\mathcal{H}\right)\\
+ & \left(e_{1},\cdots,e_{n}\right) & \mapsto & \text{Span}\left\{ e_{1},\cdots,e_{n}\right\} 
+\end{array}
+\]
+which is smooth (involves work) and is a principal $GL_{k}\left(\mathbf{R}\right)$-bundle. 
+\begin{thm}
+\label{Thm-Stiefel} $St_{k}\left(\mathcal{H}\right)$ is contractible. 
+\end{thm}
+\begin{cor}
+$\pi:St_{k}\left(\mathcal{H}\right)\to Gr_{k}\left(\mathcal{H}\right)$
+is a universal $GL_{k}\left(\mathbf{R}\right)$-bundle. 
+\end{cor}
+\begin{rem}
+Usually theorem can be proved like this for complete, metrizable,
+locally convex vector spaces. Alternatively, we can prove it via an
+induction argument for $St_{k}\left(\mathbf{R}^{\infty}\right)$ with
+a colimit topology. 
+\end{rem}
+\pagebreak{}
+
+\part{Classifying Spaces}
+
+\section{Construction of Universal Bundles}
+
+In previous lectures, we have shown that for given topological group
+$G$ and topological space $X$, the homotopy classes of principal
+$G$-bundles over $X$ can be uniquely determined by a map $f:X\to BG$
+from $X$ to the classifying space of $G$, i.e. $\mathbf{Prin}_{G}\left(X\right)=\left[X,BG\right]$
+can be obtained by pulling back the universal bundle 
+\[
+\xymatrix{P\cong f^{*}\left(EG\right)\ar[r]\ar[d]_{\pi} & EG\ar[d]\\
+X\ar[r]^{f} & BG
+}
+\]
+We ssen that classifying space characterizes the principal $G$-bundles
+on $X$, so it is appealing to know how to construct $BG$ and whether
+such construction is canonical. 
+\begin{description}
+\item [{Question1.}] How to construct a classifying space of $G$, and
+in particular, when will this construction be a CW complex? Is this
+construction unique (up tp homotopy)?
+\item [{Question2.}] For any CW complex $X$, when will it be the classifying
+space for some group $G$? Is such group unique? 
+\end{description}
+
+\subsection{Mail Result}
+\begin{defn}
+A topological group $G$ is called a \emph{countable CW-group} if
+$G$ is a countable CW complex such that the inverse map $G\to G,g\mapsto g^{-1}$
+and the product map $G\times G\to G,\left(f,g\right)\mapsto fg$ are
+both cellular (i.e. carry the $k$-skeleton into the $k$-skeleton). 
+\end{defn}
+\begin{thm}
+$ $
+\begin{enumerate}
+\item Any countable CW-group $G$ has a countable CW complex $X$ as classifying
+space. If there is another CW complex $X'$ which is a classifying
+space for $G$, then $X,X'$ are of the same homotopy type. 
+\item Any countable connected CW complex $X$ is the classifying space for
+some countable CW-group $G$. If there is another countable CW-group
+$G'$ with the same classifying space $X$, then $G'=G$. 
+\end{enumerate}
+\end{thm}
+
+\subsection{Topology of Joins}
+\begin{defn}
+The \emph{join} $A_{1}\circ\cdots\circ A_{n}$ of $n$ topological
+spaces is defined with the following data: 
+\begin{itemize}
+\item $n$ real numbers $t_{i},1\leq i\leq n$ satisfying $t_{i}\geq0,\sum t_{i}=1$,
+and 
+\item a point $a_{i}\in A_{i}$ for each $i$ if $t_{i}\neq0$. 
+\end{itemize}
+Such a point in $A_{1}\circ\cdots\circ A_{n}$ will be denoted by
+$t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n}$ where the element $a_{i}$
+may be chosen randomly or omitted whenever the corresponding $t_{i}=0$. 
+\end{defn}
+%
+\begin{defn}
+The \emph{strong topology} in $A_{1}\circ\cdots\circ A_{n}$ is the
+initial topology with respect to the coordinate functions 
+\[
+\begin{array}{ccc}
+t_{i}:A_{1}\circ\cdots\circ A_{n}\to\left[0,1\right] & \text{and} & a_{i}:t_{i}^{-1}(0,1]\to a_{i}\end{array},
+\]
+i.e. any $f:X\to A_{1}\circ\cdots\circ A_{n}$ is continuous if and
+only if the compositions $\left\{ t_{i}f:X\to\left[0,1\right],a_{i}f:X_{i}\to A_{i}|X_{i}=f^{-1}\left(t_{i}^{-1}(0,1]\right)\right\} $
+are continuous. 
+\end{defn}
+\begin{rem}
+The join of infinitely many topological spaces in the strong topology
+can be defined in the same manner, with the restriction that all but
+a finite number of $t_{i}$ should vanish. 
+\end{rem}
+%
+This operation of finite/infinite joins is associative and commutative
+(up to isomorphism). 
+\begin{prop}
+Let $1\leq i\leq n$. There is a canonical homeomorphism 
+\[
+\alpha:\left(A_{1}\circ\cdots\circ A_{r}\right)\circ\left(A_{r+1}\circ\cdots\circ A_{n}\right)\to A_{1}\circ\cdots\circ A_{n}.
+\]
+\end{prop}
+\begin{proof}
+The map is given by 
+\[
+\begin{array}{cccc}
+\alpha: & \left(A_{1}\circ\cdots\circ A_{r}\right)\circ\left(A_{r+1}\circ\cdots\circ A_{n}\right) & \to & A_{1}\circ\cdots\circ A_{n}\\
+ & s\left(t_{1}a_{1}\oplus\cdots\oplus t_{r}a_{r}\right)\oplus\left(1-s\right)\left(t_{r+1}a_{r+1}\right) & \mapsto & st_{1}a_{1}\oplus\cdots st_{r}a_{r}\oplus\left(1-s\right)t_{r+1}\oplus\cdots\oplus\left(1-s\right)t_{n}
+\end{array}
+\]
+with inverse 
+\[
+\begin{array}{cccc}
+\beta: & A_{1}\circ\cdots\circ A_{n} & \to & \left(A_{1}\circ\cdots\circ A_{r}\right)\circ\left(A_{r+1}\circ\cdots\circ A_{n}\right)\\
+ & t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n} & \mapsto & \left({\displaystyle \sum_{i=1}^{r}t_{i}}\right)\left(\frac{t_{1}}{{\displaystyle \sum_{i=1}^{r}t_{i}}}a_{1}\oplus\cdots\oplus\frac{t_{r}}{{\displaystyle \sum_{i=1}^{r}t_{i}}}a_{r}\right)\oplus{\displaystyle \sum_{i=r}^{n}}t_{i}\left(\frac{t_{r+1}}{{\displaystyle \sum_{i=1}^{r}t_{i}}}a_{r+1}\oplus\cdots\oplus\frac{t_{n}}{{\displaystyle \sum_{i=r}^{n}}t_{i}}a_{n}\right)
+\end{array}
+\]
+which is well-defined because when ${\displaystyle \sum_{i=1}^{r}}t_{i}=0$,
+the image is of the form $0\oplus\cdots\oplus0\oplus t_{r+1}a_{r+1}\oplus\cdots\oplus t_{n}a_{n}$,
+and ${\displaystyle \sum_{i=1}^{r}}t_{i}=1$, the image is of the
+form $t_{1}a_{1}\oplus\cdots\oplus t_{r}a_{r}\oplus0\oplus\cdots\oplus0$. 
+\end{proof}
+A subbasis of $A_{1}\circ\cdots\circ A_{n}$ is given by two types
+of sets: 
+\begin{enumerate}
+\item $\left\{ t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n}|\alpha<t_{i}<\beta\right\} $,
+the set of all $t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n}$ such that
+$\alpha<t_{i}<\beta$. 
+\item $\left\{ t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n}|t_{i}\neq0,a_{i}\in U\right\} $,
+the set of all $t_{1}a_{1}\oplus\cdots\oplus t_{n}a_{n}$ suhc that
+$t_{i}\neq0$ and $a_{i}\in U$ where $U$ is an open set in $A_{i}$. 
+\end{enumerate}
+\begin{lem}
+\label{Lem1} The reduced singular homology groups of the join $A\circ B$
+with coefficient in a principal ideal domain are given by 
+\[
+\tilde{H}_{r+1}\left(A\circ B\right)\cong\sum_{i+j=r}\tilde{H}_{i}\left(A\right)\otimes\tilde{H}_{j}\left(B\right)+\sum_{i+j=r-1}\text{Tor}\left(\tilde{H}_{i}\left(A\right),\tilde{H}_{j}\left(B\right)\right).
+\]
+\end{lem}
+\begin{proof}
+We have 
+\[
+A\circ B\cong\left(C\left(A\right)\times B\right)\bigcup_{A\times B}\left(A\times C\left(B\right)\right)
+\]
+so the triad $\left(A\circ B,C\left(A\right)\times B,A\times C\left(B\right)\right)$
+gives us the reduced Mayer-Vietoris sequence 
+\[
+{\displaystyle \cdots\to\tilde{H}_{n+1}\left(A\circ B\right)\xrightarrow{\partial_{*}}\tilde{H}_{n}\left(A\times B\right)\xrightarrow{(i_{*},j_{*})}\tilde{H}_{n}\left(A\right)\oplus\tilde{H}_{n}\left(B\right)\xrightarrow{k_{*}-l_{*}}\tilde{H}_{n}\left(A\circ B\right)\xrightarrow{\partial_{*}}\tilde{H}_{n-1}\left(A\times B\right)\to\cdots\to\tilde{H}_{0}\left(A\right)\oplus\tilde{H}_{0}\left(B\right)\xrightarrow{k_{*}-l_{*}}\tilde{H}_{0}\left(A\circ B\right)\to0.}
+\]
+since the inclusion $k:A\times C\left(B\right)\to A\circ B$ and $l:C\left(A\right)\times B\to A\circ B$
+are null-homotopic, this long exact sequence splits into short exact
+sequences 
+\[
+0\to\tilde{H}_{n+1}\left(A\circ B\right)\xrightarrow{\partial_{*}}\tilde{H}_{n}\left(A\times B\right)\xrightarrow{(i_{*},j_{*})}\tilde{H}_{n}\left(A\right)\oplus\tilde{H}_{n}\left(B\right)\to0.
+\]
+Since the singular complex $S_{*}\left(A\times B\right)$ and $S_{*}\left(A\right)\otimes S_{*}\left(B\right)$
+has the same homology group (theorem of Eilenberg and Zilber), and
+the later is given by the Künneth theorem (over PID),
+
+\[
+{\displaystyle 0\to\bigoplus_{i+j=k}H_{i}\left(S_{*}\left(A\right)\right)\otimes_{R}H_{j}\left(S_{*}\left(B\right)\right)\to H_{k}\left(S_{*}\left(A\right)\otimes S_{*}\left(B\right)\right)\to\bigoplus_{i+j=k-1}\mathrm{Tor}_{1}^{R}\left(H_{i}\left(S_{*}\left(A\right)\right),H_{j}\left(S_{*}\left(B\right)\right)\right)\to0.}
+\]
+By computing $\ker\left(i_{*},j_{*}\right)\cong\tilde{H}_{n+1}\left(A\circ B\right)$
+we get our desired result. 
+\end{proof}
+\begin{lem}
+\label{Lem2}If $B$ is path connected and $A$ is nonempty, then
+$A\circ B$ is simply connected. 
+\end{lem}
+\begin{proof}
+Note any $\left[f\right]\in\pi_{1}\left(A\circ B\right)$ is represented
+by a map 
+\[
+\begin{array}{cccc}
+f: & S^{1} & \to & A\circ B\\
+ & s & \mapsto & t\left(s\right)a\left(s\right)\oplus\left(1-t\left(s\right)\right)b\left(s\right)
+\end{array}
+\]
+where $t:S^{1}\to\left[0,1\right]$, and $a\left(s\right)$ is defined
+when $t\left(s\right)\neq0$ and $b\left(s\right)$ is defined when
+$t\left(s\right)\neq1$. We will show that $f$ is null-homotopic. 
+
+Since $B$ is path-connected, we can define a map $p:S^{1}\to B$
+such that $p\left(s\right)=b\left(s\right)$ whenever $t\left(s\right)\leq\frac{1}{2}$.
+Fix $a_{0}\in A$. Define a map 
+\[
+\begin{array}{cccc}
+t: & S^{1}\times\left[0,2\right] & \to & \left[0,1\right]\\
+ & \left(s,t\right) & \mapsto & \begin{cases}
+\min\left\{ 1,\left(1+u\right)t\left(s\right)\right\}  & 0\leq u\leq1\\
+\left(2-u\right)t\left(s,1\right) & 1\leq u\leq2
+\end{cases}
+\end{array}
+\]
+and our homotopy is given by 
+\[
+\begin{array}{cccc}
+F: & S^{1}\times\left[0,3\right] & \to & A\circ B\\
+ & \left(s,t\right) & \mapsto & \begin{cases}
+t\left(s,u\right)a\left(s\right)\oplus\left(1-t\left(s,u\right)\right)b\left(s\right) & 0\leq u\leq1\\
+t\left(s,u\right)a\left(s\right)\oplus\left(1-t\left(s,u\right)\right)p\left(s\right) & 1\leq u\leq2\\
+\left(u-2\right)a_{0}\oplus\left(3-u\right)p\left(s\right) & 2\leq u\leq3
+\end{cases}
+\end{array}
+\]
+where $F\left(s,0\right)=f\left(s\right)$ and $F\left(s,3\right)=\left(a_{0}\oplus0\right)$. 
+\end{proof}
+We call a nonempty space $\left(-1\right)$-connected. 
+\begin{lem}
+\label{Lem3} The join of $n+1$ nonempty spaces is always $\left(n-1\right)$-connected.
+In fact, if $A_{i}$ is $\left(c_{i}-1\right)$-connected, then $A_{0}\circ\cdots\circ A_{n}$
+is $\left(c_{0}+\cdots+c_{n}+n-1\right)$-connected. 
+\end{lem}
+\begin{proof}
+Induction on $n$ by applying Lemma \ref{Lem2}. It suffices to prove
+for $n=1$. 
+
+When $c_{0}=c_{1}=0$, there is a path between any point $t_{0}a_{0}\oplus\cdots\oplus t_{n}a_{n}$
+with $t_{i}\neq0$ and $x_{i}=0\oplus\cdots\oplus0\oplus a_{i}\oplus0\oplus\cdots\oplus0$
+given by 
+\[
+\begin{array}{cccc}
+p: & I & \to & A_{0}\circ\cdots\circ A_{n}\\
+ & t & \mapsto & \left(1-t\right)t_{0}a_{0}\oplus\cdots\oplus\left(t_{i}+t-tt_{i}\right)a_{i}\oplus\cdots\oplus\left(1-t\right)t_{n}a_{n}
+\end{array}
+\]
+and each $x_{i}$ is connected to $x_{j}$ for $i\neq j$ via 
+\[
+\begin{array}{cccc}
+p: & I & \to & A_{0}\circ\cdots\circ A_{n}\\
+ & t & \mapsto & 0\oplus\cdots\oplus ta_{i}\oplus\cdots\oplus\left(1-t\right)a_{j}\oplus\cdots\oplus0
+\end{array}
+\]
+hence the join of any two nonempty spaces is path-connected, so the
+statement holds. 
+
+When $c_{0}>0$ or $c_{1}>0$, Lemma \ref{Lem2} implies $A_{0}\circ A_{1}$
+is connected, and Lemma \ref{Lem1} implies $H_{r}\left(A_{0}\circ A_{1}\right)=0,\forall r\leq c_{0}+c_{1}$,
+so $A_{0}\circ A_{1}$ is $\left(c_{0}+c_{1}\right)$-connected. 
+\end{proof}
+%
+\begin{cor}
+\label{Inf-Join} The join of infinitely many nonempty spaces is always
+$\infty$-connected. 
+\end{cor}
+\begin{proof}
+Let $A=A_{0}\circ A_{1}\circ\cdots$ be a join of infinitely many
+nonempty spaces. We will prove by induction that $\pi_{n}\left(A\right)=0,\forall n\geq0$.
+
+When $n=0$, $A$ is path-connected because $A=A_{0}\circ\left(A_{1}\circ\cdots\right)$
+and by Lemma \ref{Lem3}, $A$ is path-connected. 
+
+Assume that $A$ is $\left(n-1\right)$-connected, then $A=\left(A_{0}\circ A_{1}\circ\cdots\circ A_{n+2}\right)\circ A'$
+where $A'$ is a join of infinitely many nonempty spaces, so by induction
+hypothesis, $A'$ is $n-1$-connected. Note $A_{0}\circ\cdots\circ A_{n+2}$
+is $\left(n+1\right)$-connected, so Lemma \ref{Lem3} implies $A$
+is $\left(2n\right)$-connected, and thus $A$ is $n$-connected. 
+\end{proof}
+
+\subsection{Construction of $BG$ }
+\begin{defn}
+An \emph{$n$-universal bundle} is a principal fibre bundle such that
+the bundle space is $\left(n-1\right)$-connected. 
+\end{defn}
+Given any topological group $G$, let $E_{n}=G\circ\cdots\circ G$
+be the join of $n+1$ copies of $G$ in the strong topology. Define
+the right translation 
+\[
+\begin{array}{cccc}
+R: & E_{n}\times G & \to & E_{n}\\
+ & \left(t_{0}g_{0}\oplus\cdots\oplus t_{n}g_{n},g\right) & \mapsto & t_{0}\left(g_{0}g\right)\oplus\cdots\oplus t_{n}\left(g_{n}g\right)
+\end{array}
+\]
+Let $X_{n}=E_{n}/G$ and $p:E_{n}\to X_{n}$ be tha canonical projection. 
+\begin{thm}
+$G$ is the group of the $n$-universal bundle $p:E_{n}\to X_{n}$. 
+\end{thm}
+\begin{proof}
+$E_{n}$ is $\left(n-1\right)$-connected by \ref{Lem3}. The bundle
+structure is defined as follows. 
+
+Let $V_{j}=\left\{ p\left(t_{0}g_{0}\oplus\cdots\oplus t_{n}g_{n}\right)\in X_{n}|t_{j}\neq0\right\} $
+be an open cover $X_{n}$. Define a map 
+\[
+\begin{array}{cccc}
+\phi_{j}: & V_{j}\times G & \to & p^{-1}\left(V_{j}\right)\\
+ & \left(p\left(t_{0}g_{0}\oplus\cdots\oplus t_{n}g_{n}\right),g\right) & \mapsto & t_{0}\left(g_{0}g_{j}^{-1}g\right)\oplus\cdots\oplus t_{n}\left(g_{n}g_{j}^{-1}g\right)
+\end{array}
+\]
+this is well-defined, 
+\[
+\left(p\left(t_{0}\left(g_{0}h\right)\oplus\cdots\oplus t_{n}\left(g_{n}h\right)\right),g\right)\mapsto t_{0}\left(g_{0}h\right)\left(g_{j}h\right)^{-1}g\oplus\cdots\oplus t_{n}\left(g_{n}h\right)\left(g_{j}h\right)^{-1}g=t_{0}\left(g_{0}g_{j}^{-1}g\right)\oplus\cdots\oplus t_{n}\left(g_{n}g_{j}^{-1}g\right)
+\]
+with inverse 
+\[
+\begin{array}{cccc}
+\varphi_{j}=\left(p,p_{j}\right): & p^{-1}\left(V_{j}\right) & \to & V_{j}\times G\\
+ & t_{0}g_{0}\oplus\cdots\oplus t_{n}g_{n} & \mapsto & \left(p\left(t_{0}g_{0}\oplus\cdots\oplus t_{n}g_{n}\right),g_{j}\right)
+\end{array}
+\]
+
+The definition of the strong topology in the join shows that $R$
+and $\varphi_{j}$ are continuous. Let $e\in G$ be identity, then
+\[
+\phi_{j}\left(p\left(y\right),e\right)=R\left(e,p_{j}\left(y\right)^{-1}\right)
+\]
+shows that $\phi_{j}\left(p\left(y\right),e\right)$ is continuous
+in $y$, so $\phi_{j}\left(x,e\right)$ is continuous in $x$, and
+hence $\phi_{j}\left(x,g\right)=R\left(\phi_{j}\left(x,e\right),g\right)$
+is continuous. 
+
+Last, note that the right $G$-action commutes with the coordinate
+maps. The $G$-action on $E_{n}$ is free and transitive. 
+\end{proof}
+\begin{rem}
+An $\infty$-universal bundle $p:E_{\infty}\to X_{\infty}$ can be
+constructed in the same way.
+\end{rem}
+%
+There is a natural embedding of $E_{n}\hookrightarrow E_{n+1}$ given
+by $x\mapsto x\oplus0$, which gives a map betweem principal $G$-bundles
+and thus we have the following diagram 
+\[
+\xymatrix{\cdots\ar[r] & E_{n-1}\ar[r]\ar[d] & E_{n}\ar[r]\ar[d] & E_{n+1}\ar[r]\ar[d] & \cdots\\
+\cdots\ar[r] & X_{n-1}\ar[r] & X_{n}\ar[r] & X_{n+1}\ar[r] & \cdots
+}
+\]
+and taking the colimit of this diagram we get $p:E_{\infty}\to X_{\infty}$.
+The topology on $E_{\infty}$ is the colimit topology, i.e. the terminal
+topology with respect to the upper sequence of inclusions, equivalently,
+any $f:E_{\infty}\to Y$ is continuous if and only if the compositions
+$f\circ\varphi_{n}:E_{n}\to E_{\infty}\to Y$ is continuous. The topology
+on $X_{\infty}$ is the quotient topology. 
+\begin{claim}
+The space $E_{\infty}$ is weakly contractible. 
+\end{claim}
+\begin{proof}
+This is an immediate result of Corollary \ref{Inf-Join}. 
+\end{proof}
+
+\subsection{Countable CW-groups}
+\begin{thm}
+Every countable CW-group $G$ is the group of an $\infty$-universal
+bundle for which the base space $X_{\infty}$ is a countable CW complex. 
+\end{thm}
+\begin{rem}
+The continuity of $R:E_{n}\times G\to E_{n}$ requires the fact that
+$E_{n}$ is a countable CW complex.
+\end{rem}
+\begin{proof}
+Let $E_{n}$ be the join of $\left(n+1\right)$ copies of $G$ in
+the weak topology, then we can construct $p:E_{n}\to X_{n}$ in the
+same way. 
+
+CW structure for $E_{n}$: induction on $n$. $E_{0}=G$ same as $G$.
+For $E_{n}=\left(E_{n-1}\circ G\right)$, cells are of the form 
+\[
+\tau\circ\emptyset,\emptyset\circ\sigma,\left(\tau\circ e\right)\sigma=\left\{ R\left(tx\oplus\left(1-t\right)e,g\right)|x\in\tau,g\in\sigma,t\in\left(0,1\right)\right\} 
+\]
+ where $\tau$ is a generic cell in $E_{n}$ and $\sigma$ is a generic
+cell in $G$, and $\emptyset$ is the emptyset. 
+
+CW structure for $X_{n}$: for $X_{n}=p\left(E_{n-1}\circ G\right)$,
+cells are
+\begin{enumerate}
+\item cells in $X_{n-1}$, and
+\item $p\left(\emptyset\circ e\right)$, and 
+\item $p\left(\tau\circ e\right)$ where $\tau$ is a cell in $E_{n-1}$. 
+\end{enumerate}
+Then $X_{n}$ is a countable CW complex with respect to this subdivision. 
+
+The union $E_{\infty},X_{\infty}$ of $\left\{ E_{n},X_{n}\right\} $
+can be topologized as CW complexes and the map $p_{\infty}:E_{\infty}\to X_{\infty}$
+is the projection map of an $\infty$-universal bundle. 
+\end{proof}
+
+\subsection{Universal Bundle of Base Space $X$}
+\begin{thm}
+For any countable, connected simplicial complex $X$ in the weak topology,
+there exists an $\infty$-universal bundle with base space $X$, and
+the bundle space and group being CW complexes. 
+\end{thm}
+The standard construction of contractible fibre space over a space
+is based on $X^{I}$ of paths in $X$. Our construction here is based
+on a similar space $\tilde{S}$ of simplicial paths in $X$. 
+\begin{lem}
+{[}HA{]} The product of two countable CW complexes is a CW complex. 
+\end{lem}
+%
+Let $S_{n}=\left\{ \left(x_{n},x_{n-1},\cdots,x_{0}\right)\in X^{n+1}||x_{i},x_{i-1}\text{ lies in a common simplex of }X\right\} \subseteq X^{n+1}$. 
+
+Let $S={\displaystyle \bigsqcup_{n\geq1}}S_{n}$. 
+
+Let $\tilde{S}=S/\sim$ where $\left(x_{n},\cdots,x_{i},\cdots,x_{0}\right)\sim\left(x_{n},\cdots,\hat{x}_{i},\cdots,x_{0}\right)$
+if either $x_{i}=x_{i-1}$ or $x_{i+1}=x_{i-1}$. 
+
+Fix $v_{0}\in X$. Take $\tilde{E}=\left\{ \left[x_{n},\cdots,x_{0}\right]\in\tilde{S}|x_{0}=v_{0}\right\} $
+and 
+\[
+\begin{array}{cccc}
+p: & \tilde{E} & \to & X\\
+ & \left[x_{n},\cdots,x_{1},v_{0}\right] & \mapsto & x_{n}
+\end{array}
+\]
+
+Take the fibre $\tilde{G}=p^{-1}\left(v_{0}\right)\left\{ \left[x_{n},\cdots,x_{0}\right]\in\tilde{S}|x_{n}=x_{0}=v_{0}\right\} \subseteq\tilde{E}$. 
+
+A product on elements of $\tilde{S}$ is defined as follows: if $\left[x_{n},\cdots,x_{0}\right]$
+and $\left[y_{m},\cdots,y_{0}\right]$ satisfy $x_{0}=y_{m}$, then
+\[
+\left[x_{n},\cdots,x_{0}\right]\cdot\left[y_{m},\cdots,y_{0}\right]=\left[x_{n},\cdots,x_{0},y_{m},\cdots,y_{0}\right]
+\]
+this multiplication is well-defined and associative. 
+\begin{lem}
+The space $\tilde{S}$ can be given a structure of a CW-complex, with
+subcomplexes $\tilde{E},\tilde{G}$. 
+\end{lem}
+Let $D\subseteq S$ be the subset of all degenerate $\left(x_{n},\cdots,x_{0}\right)$
+in the sense that either $x_{i}=x_{i-1}$ or $x_{i-1}=x_{i+1}$. 
+\begin{fact}
+Every element of $S$ is equivalent to a unique nondegenerate element
+in $S\backslash D$. 
+\end{fact}
+\begin{proof}
+Define a map $\mu:S\to S$ by 
+\[
+\mu\left(x_{n},\cdots,x_{0}\right)=\begin{cases}
+\left(x_{n},\cdots,x_{0}\right) & \text{nondegenerate}\\
+\left(x_{n},\cdots,\hat{x}_{i},\cdots,x_{0}\right) & i=\max\left\{ x_{i}=x_{-1}\vee x_{i+1}=x_{i-1}\right\} 
+\end{cases}
+\]
+Let $\nu:S\to S\backslash D$ be the map by applying $\mu$ until
+a nondegenerate point is obtained. Then $\nu\left(s\right)=\nu\left(s'\right)$
+whenever $s\sim s'$. 
+\end{proof}
+\begin{fact}
+$D$ is a subcomplex of $S$. In other words, if $x\in\sigma$ a simplex
+in $S$ is a nondegenerate point, then $\forall y\in\sigma^{o}$,
+$y$ is nondegenerate. 
+\end{fact}
+%
+\begin{fact}
+If $\sigma$ is a simplex in $S$, then there is a unique map $\sigma\mapsto\sigma'$
+where $\sigma'$ is nondegenerate which maps points onto equivalent
+points. 
+\end{fact}
+\begin{lem}
+Let $A$ be a simplicial complex and $\Delta_{ij}=\left\{ \left(a_{1},\cdots,a_{n}\right)\in A^{n}|a_{i}=a_{j}\right\} $.
+Then $\Delta_{ij}$ is a subcomplex of the first derived complex of
+$A^{n}$.  
+\end{lem}
+\begin{prop}
+Given a (not necessarily Hausdorff) space $A$ and a collection of
+maps $f:\sigma^{n}\to A$ where each $\sigma^{n}$ is a closed $n$-cell,
+and let $e^{n}=f\left(\sigma^{n}\right)^{0}$, $A^{n}=\bigcup_{i\leq n}e^{i}$.
+If the following conditions are satisfied, then $A$, together with
+cells $\left\{ e^{n}\right\} $ form a CW complex. 
+\begin{enumerate}
+\item $\left(\sigma^{n}\right)^{0}$ maps 1-1 onto correpsonding $e^{n}$,
+every point of $A$ belongs to exactly one $e^{n}$. 
+\item $f\left(\partial\sigma^{n}\right)\subseteq A^{n-1}$. 
+\item A subset of $A^{n},0\leq n\leq\infty$ is closed if and only if its
+inverse image in each cell $\sigma^{i}$ is closed. 
+\end{enumerate}
+\end{prop}
+%
+Now we want to show that $\tilde{S}$ has a CW structure. The cells
+in $\tilde{S}$ are defined as the image of the interiors of the nondegenerate
+simplexes in $S$. 
+
+By applying the proposition, we see that condition (1) and (2) are
+satisfied, and for (3), consider any subset $C$ of the $n$-skeleton
+of $\tilde{S}$ such that the inverse image in each nondegenerate
+simplex of $\dim\leq n$ is closed, we need to show that its inverse
+image in any simplex is closed. This is true for any $j$-simplex
+$\sigma^{j},j\leq n$, and for $j>n$, the inverse image contains
+no interior point. So we only need to consider the boundary and apply
+indcution hypothesis. Since $S$ has the weak topology, the inverse
+image of $C$ in $S$ is a closed subset. Since $\tilde{S}$ is the
+quotient space, $C$ is closed. 
+\begin{lem}
+The projection map $p:\tilde{E}\to X$ is continuous. 
+\end{lem}
+\begin{proof}
+Let $\eta:S\to\tilde{S}$ be the quotient map and $\bar{p}:\tilde{S}\to X,\left[x_{n},\cdots,x_{0}\right]\mapsto x_{n}$,
+since the compostion $\bar{p}\eta:S\to X$ is continuous, $p$ is
+continuous. 
+\end{proof}
+\begin{lem}
+The product operation is continuous. 
+\end{lem}
+\begin{proof}
+Let $\Delta$ be the subcomplex of $\tilde{S}\times\tilde{S}$ consisting
+of $\left[x_{n},\cdots,x_{0}\right],\left[y_{m},\cdots,y_{0}\right]$
+such that $x_{0},y_{m}\in\sigma$ lies in the same simplex. Need to
+show $\Delta\to\tilde{S}$ is continuous, it suffices to verify on
+each closed cell of $\Delta$. A cell in $\Delta$ is of the form
+$\eta\left(\sigma\right)\times\eta\left(\tau\right)$ with $\sigma,\tau$
+nongenenerate, the composition $\sigma\times\tau\to\Delta\to\tilde{S}$
+is the same as $\sigma\times\tau\to S\to\tilde{S}$ which is continuous. 
+\end{proof}
+\begin{rem}
+This follows from the fact that any CW complex is locally compact,
+and therefore the operations of taking quotients and products commute.
+\end{rem}
+Every element $\left[x_{n},\cdots,x_{0}\right]$ has an inverse $\left[x_{n},\cdots,x_{0}\right]^{-1}=\left[x_{0},\cdots,x_{n}\right]$
+such that $\left[x_{n},\cdots,x_{0}\right]^{-1}\cdot\left[x_{n},\cdots,x_{0}\right]=\left[x_{0},x_{0}\right]$. 
+\begin{prop}
+$\tilde{G}$ is a topological group with identity $\left[v_{0},v_{0}\right]$
+with the above multiplication. 
+\end{prop}
+The bundle structure is defined as follows. Let $V_{j}$ be the star
+neighborhood of the $j$-th vertex $v_{j}\in X$. Fix $e_{j}=\left[v_{j},x_{n-1},\cdots,x_{1},v_{0}\right]\in p^{-1}\left(v_{j}\right)$,
+we have coordinate map 
+\[
+\begin{array}{cccc}
+\phi_{j}: & V_{j}\times\tilde{G} & \to & p^{-1}\left(V_{j}\right)\\
+ & \left(x,g\right) & \mapsto & \left[x,v_{j}\right]\cdot e_{j}\cdot g
+\end{array}
+\]
+which is continuous with inverse 
+\[
+\begin{array}{cccc}
+\varphi_{j}=\left(p,p_{j}\right): & p^{-1}\left(V_{j}\right) & \to & V_{j}\times\tilde{G}\\
+ & e & \mapsto & \left(p\left(e\right),e_{j}^{-1}\cdot\left[v_{j},p\left(e\right)\right]e\right)
+\end{array}
+\]
+which is also continuous. The transition map is 
+\[
+\begin{array}{cccc}
+g_{ij}: & V_{i}\cap V_{j} & \to & \tilde{G}\\
+ & x & \mapsto & e_{i}^{-1}\cdot\left[v_{i},x,v_{j}\right]\cdot e_{j}
+\end{array}
+\]
+which satisfies $\varphi_{i}\phi_{j}\left(x,g\right)=g_{ij}\left(x\right)\cdot g$. 
+
+Note that the right $G$-action commutes with the coordinate maps.
+Furthermore, the $G$-action on $E_{n}$ is free and transitive. Thus
+$\left(\tilde{G}\hookrightarrow\tilde{E}\xrightarrow{p}X,\tilde{G},\left\{ V_{j}\right\} \right)$
+is a principal fibre bundle. 
+\begin{lem}
+$\tilde{E}$ is contractible. 
+\end{lem}
+\begin{proof}
+Let $E_{n}\subset S_{n}$ be the set of sequences $\left(x_{n},\cdots,x_{1},v_{0}\right)$
+with endpoint $v_{0}$. $\tilde{E}_{n}$ is the image of $E_{n}$
+in $\tilde{S}_{n}$. Let $R_{n}=E_{n}\cap D$ the degenerate sequences. 
+
+We want to show that $E_{n},R_{n}$ are contractible. Then it follows
+from the below proposition that $R_{n}$ is a strong deformation retract
+of $E_{n}$. 
+
+The map $\eta:E_{n}\to\tilde{E}_{n}$ takes $R_{n}$ onto $\tilde{E}_{n-1}$
+and carries $E_{n}\backslash R_{n}$ 1-1 onto $\tilde{E}_{n}\backslash\tilde{E}_{n-1}$
+and maps simplexes of $E_{n}$ onto cells of $\tilde{E}_{n}$, then
+$\tilde{E}_{n-1}$ is a strong deformation retract of $\tilde{E}_{n}$.
+(Let $r:E_{n}\times I\to E_{n}$ be the strong deformation retract
+of $E_{n}$ to $R_{n}$, and define $\tilde{\eta}:E_{n}\times I\to\tilde{E}_{n}\times I,\left(e,t\right)\mapsto\left(\eta\left(e\right),t\right)$
+then $\tilde{\eta}r\tilde{\eta}^{-1}$ strong deformation retract
+of $\tilde{E}_{n}$. ) Thus we have $\tilde{E}_{0}\subset\tilde{E}_{1}\subset\cdots\subset\tilde{E}_{n}\subset\cdots$
+where each $\tilde{E}_{n-1}$ is a strong deformation retract of $\tilde{E}_{n}$,
+hence $\tilde{E}=\bigcup\tilde{E}_{n}$ is contractible (each contraction
+of $\tilde{E}_{n-1}$ can be extended to a contraction of $\tilde{E}_{n}$
+by extension theorem). 
+
+To show that $E_{n}$ is contractible, let $T_{n}$ be the linear
+graph with vertices $\left\{ \left[0\right],\left[1\right],\cdots,\left[n\right]\right\} $
+and edges $\left[0,1\right],\cdots,\left[n-1,n\right]$, then we can
+identify $E_{n}$ with the set of maps $\left(T_{n},\left[0\right]\right)\to\left(X,v_{0}\right)$
+which carry edges linearly into simplexes. es. A contraction of $T_{n}$
+is obtained by first deforming the edge $\left[n-1,n\right]$ into
+the vertex $\left[n-1\right]$; then deforming $\left[n-2,n-1\right]$
+into $\left[n-2\right]$ etc. This induces a contraction of $E_{n}$.
+
+To show $R_{n}$ is contractible, note that $R_{n}=P_{1}\cup P_{2}\cup\cdots\cup P_{s}\cup Q_{1}\cup\cdots\cup Q_{t}$
+where $P_{i}=\left\{ \left(x_{n},\cdots,x_{0}\right)\in E_{n}|x_{i}=x_{i-1}\right\} $
+and $Q_{j}=\left\{ \left(x_{n},\cdots,x_{0}\right)\in E_{n}|x_{j+1}=x_{j-1}\right\} \subset E_{n}$
+it suffices to show that $R'=P_{1}\cap\cdots\cap Q_{t}$ is contractible.
+Let $T'$ be a linear graph obtained by identifying $\left[j_{l}+1,j_{l}\right]$
+and $\left[j_{m}-1,j_{m}\right]$ of $T_{n}$ for $1\leq l\leq t$
+and identifying all points in the edge $\left[i_{l}-1,i_{l}\right]$
+for $1\leq l\leq s$ then $R'$ can be considered as the set of maps
+$\left(T',\left[0\right]\right)\to\left(X,v_{0}\right)$. Since $T'$
+is a tree and contractible, $R'$ is contractible. Thus $R_{n}$ is
+contractible. 
+\end{proof}
+\begin{prop}
+If $A$ is a contractible complex and $B$ is contractible subcomplex,
+then $B$ is a strong deformation retract of $A$. 
+\end{prop}
+%
+\begin{thm}
+Let $p:\tilde{E}\to X$ be the universal bundle cosntrcuted with group
+$\tilde{G}$, then any principal $G$-bundle $E\to X$ is induced
+by a continuous map $h:\tilde{G}\to G$. 
+\end{thm}
+\pagebreak{}
+
+\section{The Bar and Cobar Construction}
+
+\subsection{Simplicial Objects}
+
+\subsubsection{The (Co)simplex Category $\Delta$}
+\begin{defn}
+$\Delta$ is the simplex category with 
+\begin{itemize}
+\item objects are the finite totally ordered sets $\left[n\right]=\left\{ 0\leq1\leq2\leq\cdots\leq n\right\} ,n\geq0$,
+and 
+\item morphisms are order-preserving maps 
+\[
+\text{Hom}_{\Delta}\left(\left[m\right],\left[n\right]\right)\coloneqq\left\{ f\in\text{Hom}_{\mathbf{Set}}\left(\left[m\right],\left[n\right]\right)|f\left(i\right)\leq f\left(j\right),\forall0\leq i\leq j\leq m\right\} 
+\]
+\end{itemize}
+\end{defn}
+The morphisms in $\Delta$ are generated by the following two classes
+of morphisms: 
+\begin{itemize}
+\item the \emph{coface} maps $d^{i}:\left[n-1\right]\hookrightarrow\left[n\right],0\leq i\leq n,n\geq1$
+defined by the property that $d^{i}$ is injective and contains no
+``$i$'' in its image, i.e. 
+\[
+d^{i}\left(k\right)=\begin{cases}
+k & k<i\\
+k-1 & k\geq i
+\end{cases}
+\]
+\item the \emph{codegeneracy} maps $s^{j}:\left[n+1\right]\twoheadrightarrow\left[n\right],0\leq j\leq n,n\geq0$
+defined by the property that $s^{j}$ is surjective and takes the
+value ``$j$'' twice, i.e. 
+\[
+s^{j}\left(k\right)=\begin{cases}
+k & k\leq i\\
+k-1 & k>i
+\end{cases}
+\]
+\end{itemize}
+and they satisfies the following cosimplical conditions 
+\[
+\begin{array}{cclc}
+d^{j}d^{i} & = & d^{j+1}d^{i} & i\leq j\\
+s^{j}d^{i} & = & d^{i}s^{j+1} & i<j\\
+s^{j}d^{i} & = & \text{Id} & i=j,j+1\\
+s^{j}d^{i} & = & d^{i-1}s^{j} & i>j+1\\
+s^{j}s^{i} & = & s^{i}s^{j+1} & i\leq j
+\end{array}
+\]
+
+The dual category $\Delta^{op}$ has the presentation $Ob\left(\Delta^{op}\right)=Ob\left(\Delta\right)=\left\{ \left[n\right],n\geq0\right\} $,
+and morphisms are generated by the \emph{face} maps $d_{i}:\left[n\right]\to\left[n-1\right]$
+and the \emph{degeneracy} maps $s_{j}:\left[n\right]\to\left[n+1\right]$
+satisfying simplicial relations. 
+
+\subsubsection{(Co)simplicial Objects}
+\begin{defn}
+Let $\mathscr{C}$ be a category. 
+\begin{enumerate}
+\item a\emph{ cosimplicial object} in $\mathcal{C}$ is a functor $X^{*}:\Delta\to\mathscr{C},\left[n\right]\mapsto X^{n}\coloneqq X^{*}\left[n\right]$. 
+\item a \emph{simplicial object} in $\mathcal{C}$ is a functor $X_{*}:\Delta^{op}\to\mathscr{C},\left[n\right]\mapsto X_{n}\coloneqq X_{*}\left[n\right]$.
+\end{enumerate}
+The category of simplicial ans cosimplicial objects in $\mathscr{C}$
+are denoted $\mathbf{s}\mathscr{C}=\mathscr{C}^{\Delta^{op}}=\mathbf{Fun}\left(\Delta^{op},\mathscr{C}\right)=\mathscr{C}_{\Delta}$
+and $\mathbf{cs}\mathscr{C}=\mathscr{C}^{\Delta}=\mathbf{Fun}\left(\Delta,\mathscr{C}\right)$.
+In both cases, morphisms are natural transformations of functors. 
+\end{defn}
+%
+We will discuss about simplical objects mostly, and dualize everything
+will give us the construction about cosimplicial objects. 
+
+Let $\mathcal{C}$ be a category. If $X_{*}\in Ob\left(\mathbf{sSet}\right)$,
+then $X_{n}\coloneqq X_{*}\left[n\right]$ is called the set of \emph{$n$-simplices}.
+An $n$-simplex $x\in X_{n}$ is called \emph{degenerate} if $x\in\text{Im}\left(s_{j}\right)$
+for some $j$. 
+
+Any simplicial object $X_{*}$ can be written explicitly in the following
+manner.
+\[
+X_{*}=\left[\xymatrix{X_{0}\ar@{.>}[r]|-{s_{0}} & X_{1}\ar@<-1ex>[l]_{d_{0}}\ar@<1ex>[l]^{d_{1}}\ar@{.>}@<1ex>[r]\ar@{.>}@<-1ex>[r] & \cdots\ar@<-2ex>[l]\ar[l]\ar@<2ex>[l]}
+\right]
+\]
+where $d_{i}\coloneqq X_{*}\left(d^{i}\right),s_{j}\coloneqq X_{*}\left(s^{j}\right)$
+satisfies the simplicial conditions
+\[
+\begin{array}{ccll}
+d_{i}d_{j} & = & d_{j-1}d_{i} & i\leq j\\
+d_{i}s_{j} & = & s_{j-1}d_{i} & i<j\\
+d_{i}s_{j} & = & \text{Id} & i=j.j+1\\
+d_{i}s_{j} & = & s_{j}d_{i-1} & i>j+1\\
+s_{i}s_{j} & = & s_{j+1}s_{i} & i\leq j
+\end{array}
+\]
+
+\begin{example}
+$\mathscr{C}=\mathbf{Set},\mathbf{s}\mathscr{C}=\mathbf{sSet}$ is
+the category of simplicial sets. The \emph{cartesian product} of simplicial
+sets is the categorical product in $\mathbf{sSet}$. Explicitly, given
+simplicial sets $X$ and $Y$, the product $X\times Y$ is given by
+\[
+\begin{array}{ccc}
+\left(X\times Y\right)_{n} & = & X_{n}\times Y_{n}\end{array}
+\]
+with face and degenracy maps given by 
+\[
+\begin{array}{ccc}
+d_{i}\left(x,y\right) & = & \left(d_{i}x,d_{i}y\right)\\
+s_{j}\left(x,y\right) & = & \left(s_{j}x,s_{j}y\right)
+\end{array}
+\]
+\end{example}
+\begin{defn}
+The \emph{standard $n$-simplex}, denoted $\Delta\left[n\right]_{*}$,
+is a simplicial set defined as the functor $\text{Hom}_{\Delta}\left(-,\left[n\right]\right)$
+where $\left[n\right]$ denotes the ordered set $\left\{ 0,1,\cdots n\right\} $. 
+\end{defn}
+By the Yoneda lemma, the $n$-simplices of a simplicial set $X$ stand
+in 1-1 correspondence with the natural transformations from $\Delta\left[n\right]_{*}$
+to $X$, i.e. 
+\[
+{\displaystyle X_{n}=X([n])\cong\text{Hom}_{\textbf{sSet}}\left(\Delta\left[n\right]*,X\right)}
+\]
+
+\begin{rem}
+Here we abuse the notation $s_{j}$ by taking it as $X_{*}\left(s_{j}\right)$
+in the category $\mathcal{C}$. The proper elements should be considered
+when used. 
+\end{rem}
+
+\subsection{Geometric Realization}
+
+\subsubsection{Geometric $n$-simplex $\Delta^{n}$ }
+
+The \emph{geometric $n$-simplex} $\Delta^{n}$ is the topological
+space defined by 
+\[
+\Delta^{n}=\left\{ \left(x_{0},\cdots,x_{n}\right)\in\mathbb{R}^{n+1}|\sum_{i=0}^{n}x_{i}=1,x_{i}\geq0,\forall0\leq i\leq n\right\} ,
+\]
+ i.e. it is the convex hull of unit vectors $\left\{ e_{i}=\left(0,\cdots,1,\cdots,0\right)\right\} _{i=0}^{n}$
+in $\mathbb{R}^{n+1}$. 
+
+Given a morphism $f:\left[n\right]\to\left[m\right]$ in $\Delta$,
+we define 
+\[
+\begin{array}{cccc}
+\Delta^{*}\left(f\right): & \Delta^{n}\subseteq\mathbb{R}^{n+1} & \longrightarrow & \Delta^{m}\subseteq\mathbb{R}^{m+1}\\
+ & e_{i} & \longmapsto & e_{f\left(i\right)}
+\end{array}
+\]
+which defines a functor 
+\[
+\begin{array}{cccc}
+\Delta^{*}: & \Delta & \longrightarrow & \mathbf{Top}\\
+ & \left[n\right] & \longmapsto & \Delta^{n}
+\end{array}
+\]
+i.e. a cosimplicial space. Recall that 
+\[
+d^{i}\left(e_{k}\right)=\begin{cases}
+e_{k}, & k<i\\
+e_{k+1}, & k\geq i
+\end{cases}
+\]
+so it extends to ${\displaystyle \sum_{k=0}^{n-1}x_{k}e_{k}}\mapsto{\displaystyle \sum_{k=0}^{i-1}x_{k}e_{k}}+{\displaystyle \sum_{k=i}^{n-1}x_{k}e_{k+1}}$,
+and we have $d^{i}:\Delta^{n-1}\to\Delta^{n},\left(x_{0},\cdots,x_{n-1}\right)\mapsto\left(x_{0},\cdots,x_{i-1},0,x_{i},\cdots,x_{n}\right)$.
+Geometrically, in $\Delta^{n}$ we define $i$-th $\left(n-1\right)$-dimensional
+face to be the one opposite to $e_{i}$. Then $d^{i}:\Delta^{n-1}\hookrightarrow\Delta^{n}$
+is the inclusion of $i$-th face into $\Delta^{n}$. 
+
+Dually, $s^{j}:\Delta^{n+1}\to\Delta^{n}$ is given by $\left(x_{0},\cdots,x_{n+1}\right)\mapsto\left(x_{0},\cdots,x_{j-1},x_{j}+x_{j+1},\cdots,x_{n+1}\right)$.
+Geometrically, $s^{j}$ collapse the $j$-th and $\left(j+1\right)$-th
+vertices in $\Delta^{n+1}$ to a point. 
+\begin{defn}
+The (classical) \emph{geometric realization} of a simplicial set $X$
+is 
+\[
+\left|X\right|\coloneqq\bigcup_{\sigma\in X}\Delta_{\sigma}=\coprod_{n\geq0}X_{n}\times\Delta^{n}/\sim
+\]
+ where $\left(d_{i}x,\sigma\right)\sim\left(x,d_{i}\sigma\right)$
+and $\left(s_{j}x,\sigma\right)\sim\left(x,s_{j}\sigma\right)$. 
+\end{defn}
+\begin{thm}
+The natural map $\left|X\times Y\right|\to\left|X\right|\times\left|Y\right|$
+is a bijection, and is a homeomorphism if the product is formed in
+the category of compactly generated spaces. 
+\end{thm}
+
+\subsubsection{Geometric Realization As Coends}
+
+Assume $\mathcal{D}$ is a cocomplete category with arbitrary coproducts
+and $\mathcal{C}$ is a small category. 
+\begin{defn}
+Given a bifunctor $S:\mathcal{C}^{op}\times\mathcal{C}\rightarrow\mathcal{D}$,
+define the coend of $S$ by
+\[
+\int^{c\in\text{Ob}\left(\mathcal{C}\right)}S\left(c,c\right):=\text{Coeq}\left\{ \begin{array}{c}
+\xymatrix{\underset{\underset{f\in\text{Mor}\left(\mathcal{C}\right)}{f:c\rightarrow d}}{\coprod}S\left(d,c\right)\ar@<1ex>[r]^{f^{*}}\ar@<-1ex>[r]_{f_{*}} & \underset{c\in\text{Ob}\left(\mathcal{C}\right)}{\coprod}S\left(c,c\right)}
+\end{array}\right\} 
+\]
+ where $f^{*}=S\left(f,\text{Id}\right):S\left(d,c\right)\rightarrow S\left(c,c\right)$
+and $f_{*}=S\left(\text{Id},f\right):S\left(d,c\right)\rightarrow S\left(d,d\right)$.
+By UMP for colimits, a coend $X:=\int^{c\in\text{Ob}\left(\mathcal{C}\right)}S\left(c,c\right)$
+comes together with a family of morphisms $\left\{ \varphi_{c}:S\left(c,c\right)\rightarrow X\right\} _{c\in\text{Ob}\left(\mathcal{C}\right)}$
+making the diagram 
+\[
+\xymatrix{S\left(d,c\right)\ar[r]^{f^{*}}\ar[d]_{f_{*}} & S\left(c,c\right)\ar[d]^{\varphi_{c}}\\
+S\left(d,d\right)\ar[r]^{\varphi_{d}} & X
+}
+\]
+ commute and is initial among all such pairs. 
+\end{defn}
+We can extend some natural constructions as coends of some bifunctors.
+
+\subsubsection{Functor Tensor Products}
+\begin{defn}
+A category $\mathcal{S}$ is called \emph{symmetric monoidal} if 
+\begin{enumerate}
+\item there is a bifunctor $\otimes:\mathcal{S}\times\mathcal{S}\to\mathcal{S}$
+called \emph{tensor product}, and
+\item there exists an object $\mathbf{1}\in Ob\left(\mathcal{S}\right)$
+called the \emph{unit object} such that for any $a,b,c\in Ob\left(\mathcal{S}\right)$,
+there are isomorphisms 
+\[
+\begin{array}{l}
+a\otimes b\cong b\otimes a\\
+\left(a\otimes b\right)\otimes c\xrightarrow[\cong]{\alpha_{a,b,c}}a\otimes\left(b\otimes c\right)\\
+\mathbf{1}\otimes a\xrightarrow[\cong]{\lambda_{a}}a\xrightarrow[\cong]{\rho_{a}}a\otimes\mathbf{1}
+\end{array}
+\]
+which are natural in $a,b,c$ and compatible in the sense that 2 axioms
+\emph{triangle} 
+\[
+\xymatrix{\left(a\otimes\mathbf{1}\right)\otimes b\ar[rr]^{\alpha_{a,1,b}}\ar[dr]_{\rho_{a}^{-1}\otimes\text{Id}} &  & a\otimes\left(\mathbf{1}\otimes b\right)\ar[dl]^{\text{Id}\otimes\lambda_{b}}\\
+ & a\otimes b
+}
+\]
+and \emph{pentagon}
+\[
+\xymatrix{ &  & \left(a\otimes\left(b\otimes c\right)\right)\otimes d\ar[drr]^{\alpha_{a,b\otimes c,d}}\\
+\left(\left(a\otimes b\right)\otimes c\right)\otimes d\ar[urr]^{\alpha_{a,b,c}\otimes\text{Id}}\ar[dr]_{\alpha_{a\otimes b,c,d,}} &  &  &  & a\otimes\left(\left(b\otimes c\right)\otimes d\right)\ar[dl]^{\text{Id}\otimes\alpha_{b,c,d}}\\
+ & \left(a\otimes b\right)\otimes\left(c\otimes d\right)\ar[rr]^{\alpha_{a,b,c\otimes d}} &  & a\otimes\left(b\otimes\left(c\otimes d\right)\right)
+}
+\]
+ holds.
+\end{enumerate}
+\end{defn}
+%
+\begin{defn}
+$\mathcal{S}$ is called \emph{closed} if there exists a bifunctor
+\[
+\mathbf{Hom}_{\mathcal{S}}\left(-,-\right):\mathcal{S}^{op}\times\mathcal{S}\to\mathcal{S}
+\]
+such that 
+\[
+\mathbf{Hom}_{\mathcal{S}}\left(a\otimes b,c\right)\cong\mathbf{Hom}_{\mathcal{S}}\left(a,\mathbf{Hom}_{\mathcal{S}}\left(b,c\right)\right),\forall a,b,c\in Ob\left(\mathcal{S}\right).
+\]
+\end{defn}
+\begin{example}
+In $\mathcal{S}=\mathbf{sSet}$, the tensor product is given by 
+\[
+\begin{array}{cccc}
+\otimes=\times: & \mathbf{sSet}\times\mathbf{sSet} & \to & \mathbf{sSet}\\
+ & \left(X,Y\right) & \mapsto & X\times Y=\left\{ X_{n}\times Y_{n}\right\} _{n\geq0}
+\end{array}
+\]
+and internal hom is given by 
+\[
+\begin{array}{cccl}
+\mathbf{Hom}: & \mathbf{sSet}^{op}\times\mathbf{sSet} & \to & \mathbf{sSet}\\
+ & \left(Y,Z\right) & \mapsto & \mathbf{Hom}\left(Y,Z\right)=\left\{ \text{Hom}_{\mathbf{sSet}}\left(Y\times\Delta\left[n\right],Z\right)\right\} _{n\geq0}
+\end{array}
+\]
+we have 
+\[
+\mathbf{Hom}\left(X\times Y,Z\right)\cong\mathbf{Hom}\left(X,\mathbf{Hom}\left(Y,Z\right)\right).
+\]
+\end{example}
+\begin{defn}
+An \emph{$\mathcal{S}$-category} is a category $\mathcal{M}$ enriched
+over $\mathcal{S}$, thus 
+\begin{description}
+\item [{(S1)}] For any objects $X,Y$ in $\mathcal{M}$, there exists an
+object $\mathbf{Hom}_{\mathcal{M}}\left(X,Y\right)$ in $\mathcal{S}$
+\item [{(S2)}] For any objects $X,Y,Z$ in $\mathcal{M}$, there exists
+a morphism 
+\[
+c_{X,Y,Z}:\mathbf{Hom}_{\mathcal{M}}\left(Y,Z\right)\times\mathbf{Hom}_{\mathcal{M}}\left(X,Y\right)\to\mathbf{Hom}_{\mathcal{M}}\left(X,Z\right)
+\]
+in $\mathcal{S}$ called\emph{ composition law}. 
+\item [{(S3)}] For any object $X$ in $\mathcal{M}$, there is a morphism
+$i_{X}:\bullet\to\mathbf{Hom}_{\mathcal{M}}\left(X,X\right)$ called
+\emph{unit}. 
+\item [{(S4)}] There is an isomorphism 
+\[
+\mathbf{Hom}_{\mathcal{S}}\left(\bullet,\mathbf{Hom}_{\mathcal{M}}\left(X,Y\right)\right)\cong\text{Hom}_{\mathcal{M}}\left(X,Y\right).
+\]
+Thus the usual hom can be recovered from internal hom. 
+\end{description}
+\end{defn}
+These data satisfy the compatibility axioms (\emph{triangle} and \emph{pentagon})
+similar to the ones in $\mathcal{S}$. 
+\begin{defn}
+An $\mathcal{S}$-enriched category is called 
+\begin{enumerate}
+\item \emph{tensored over $\mathcal{S}$} if there exists a bifunctor 
+\[
+\boxtimes:\mathcal{S}\times\mathcal{M}\to\mathcal{M}
+\]
+viewed as an action of $\mathcal{S}$ on $\mathcal{M}$, such that
+\[
+\mathbf{Hom}_{\mathcal{M}}\left(v\boxtimes x,y\right)\cong\mathbf{Hom}_{\mathcal{M}}\left(v,\mathbf{Hom}_{\mathcal{M}}\left(x,y\right)\right).
+\]
+\item \emph{cotensored over $\mathcal{S}$} if there exists a bifunctor
+\[
+\left(-\right)^{-}:\mathcal{S}^{op}\times\mathcal{M}\to\mathcal{M}
+\]
+such that 
+\[
+\mathbf{Hom}_{\mathcal{M}}\left(v,\mathbf{Hom}_{\mathcal{M}}\left(x,y\right)\right)\cong\mathbf{Hom}_{\mathcal{M}}\left(x,y^{v}\right).
+\]
+\end{enumerate}
+\end{defn}
+Let $\mathcal{S}=\left(\mathbf{sSet},\times,\bullet\right)$ and $\mathcal{M}=\mathbf{s}\mathcal{C}=\mathbf{Fun}\left(\Delta^{op},\mathcal{C}\right)$,
+then $\mathcal{M}$ has a canonical structure of simplicial category
+tensored and cotensored over $\mathcal{S}$. 
+\begin{itemize}
+\item Tensor
+\[
+\begin{array}{cccl}
+\boxtimes: & \mathbf{sSet}\times\mathbf{s}\mathcal{C} & \to & \mathbf{s}\mathcal{C}\\
+ & \left(K,X\right) & \mapsto & K\boxtimes X=\left\{ {\displaystyle \coprod_{K_{n}}X_{n}}\right\} _{n\geq0}
+\end{array}
+\]
+\item Internal hom 
+\[
+\mathbf{Hom}_{\mathbf{s}\mathcal{C}}\left(X,Y\right)=\left\{ \text{Hom}_{\mathbf{s}\mathcal{C}}\left(\Delta\left[n\right]\boxtimes X,Y\right)\right\} _{n\geq0}
+\]
+Note that $\left(K\boxtimes L\right)\boxtimes X\cong K\boxtimes\left(L\boxtimes X\right)$
+and $\Delta\left[0\right]\boxtimes X\cong X\cong*\boxtimes X$. 
+\item Fix $K\in Ob\left(\mathbf{sSet}\right)$, consider $K\boxtimes-:\mathbf{s}\mathcal{C}\to\mathbf{s}\mathcal{C}$.
+Since $\mathcal{C}$ is cocomplete, so is $\mathbf{s}\mathcal{C}$,
+hence $K\boxtimes-$ has right adjoint defined by left Kan extension
+\[
+\xymatrix{\mathbf{s}\mathcal{C}\ar[r]^{\text{Id}}\ar[d]_{K\boxtimes-} & \mathbf{s}\mathcal{C}\\
+\mathbf{s}\mathcal{C}\ar[ur]_{L_{K\boxtimes-}\left(\text{Id}_{\mathbf{s}\mathcal{C}}\right)}
+}
+\]
+Denote 
+\[
+Y^{K}\coloneqq L_{K\boxtimes-}\left(\text{Id}_{\mathbf{s}\mathcal{C}}\right)\left(Y\right),\forall Y\in Ob\left(\mathbf{s}\mathcal{C}\right),
+\]
+then by general properties of Kan extensions, we have 
+\[
+\text{Hom}_{\mathbf{s}\mathcal{C}}\left(K\boxtimes X,Y\right)\cong\text{Hom}_{\mathbf{s}\mathcal{C}}\left(X,Y^{K}\right).
+\]
+This implies for any $n\geq0$, 
+\[
+\begin{array}{ccl}
+\mathbf{Hom}_{\mathbf{s}\mathcal{C}}\left(K\boxtimes X,Y\right)_{n} & = & \text{Hom}_{\mathbf{s}\mathcal{C}}\left(\Delta\left[n\right]\boxtimes K\boxtimes X,Y\right)\cong\text{Hom}_{\mathbf{s}\mathcal{C}}\left(K\boxtimes\Delta\left[n\right]\boxtimes X,Y\right)\\
+ & \cong & \text{Hom}_{\mathbf{s}\mathcal{C}}\left(\Delta\left[n\right]\boxtimes X,Y^{K}\right)\eqqcolon\mathbf{Hom}_{\mathbf{s}\mathcal{C}}\left(X,Y^{K}\right)_{n}.
+\end{array}
+\]
+\end{itemize}
+%
+
+\paragraph{Special cases}
+\begin{enumerate}
+\item Let $\mathcal{C}=\mathbf{Mod}\left(R\right)$ where $R$ is a unital
+(commutative) associative ring. Then $\coprod=\bigoplus$. Let $\mathcal{M}=\mathbf{sMod}\left(R\right)\cong\mathbf{Com}_{\geq0}\left(R\right)$.
+The tensor product is given by
+\[
+\begin{array}{cccl}
+\bigoplus: & \mathbf{sSet}\times\mathbf{sMod}\left(R\right) & \to & \mathbf{sMod}\left(R\right)\\
+ & \left(K,X\right) & \mapsto & \left\{ {\displaystyle \bigoplus_{K_{n}}X_{n}}\right\} _{n\geq0}=\left\{ R\left[K_{n}\right]\otimes_{R}X_{n}\right\} _{n\geq0}
+\end{array}
+\]
+where $R\left[K_{n}\right]$ is the free bimodule based on $K_{n}$.
+We need to check that this agrees with simplicial operations. Internal
+hom is defined by 
+\[
+\mathbf{Hom}_{\mathbf{sMod}\left(R\right)}\left(X,Y\right)\coloneqq\left\{ \text{Hom}_{\mathbf{sMod}\left(R\right)}\left(R\left[\Delta\left[n\right]\right]\otimes_{R}X,Y\right)\right\} _{n\geq0}.
+\]
+And 
+\[
+Y^{K}\coloneqq\mathbf{Hom}_{\mathbf{sSet}}\left(X,Y\right)
+\]
+where the $R$-module structure comes from the target. 
+\item Let $\mathcal{C}=\mathbf{CommAlg}_{k}$ with $k$ a commutative ring.
+$\mathcal{M}=\mathbf{sCommAlg}_{k}$, then $\coprod=\bigotimes_{k}$.
+The tensor product is given by
+\[
+K\boxtimes A\cong\left\{ {\displaystyle \bigotimes_{K_{n}}}A\right\} _{n\geq0}.
+\]
+And internal hom is defined as 
+\[
+\mathbf{Hom}_{\mathbf{sCommAlg}_{k}}\left(A,B\right)=\left\{ \text{Hom}_{\mathbf{sCommAlg}_{k}}\left(\bigotimes_{\Delta\left[n\right]}A,B\right)\right\} _{n\geq0}.
+\]
+\item Let $\mathcal{M}=\mathbf{Top}$ the category of compactly generated
+weak Hausdorff spaces, then we have 
+\[
+\begin{array}{cccc}
+\boxtimes: & \mathbf{sSet}\times\mathbf{Top} & \to & \mathbf{Top}\\
+ & \left(K,X\right) & \mapsto & \left|K\right|\times X
+\end{array}
+\]
+and 
+\[
+\begin{array}{cccl}
+\left(-\right)^{-}: & \mathbf{sSet}^{op}\times\mathbf{Top} & \to & \mathbf{Top}\\
+ & \left(K,Y\right) & \mapsto & Y^{K}\coloneqq\mathbf{Map}\left(\left|K\right|,Y\right)
+\end{array}
+\]
+\end{enumerate}
+%
+Let $\mathcal{S}=\left(\mathcal{S},\bigotimes,\mathbf{1}\right)$
+be a closed symmetric monoidal category and $\mathcal{C}$ be a small
+category. $\mathcal{M}$ is a cocomplete $\mathcal{S}$-category (tensored
+over $\mathcal{S}$). 
+\[
+\boxtimes:\mathcal{S}\times\mathcal{M}\to\mathcal{M}
+\]
+
+\begin{defn}
+Given two functors $G:\mathcal{C}^{op}\to\mathcal{S}$ and $F:\mathcal{C}\to\mathcal{M}$,
+define the \emph{functor tensor product} $G\underset{\mathcal{C}}{\boxtimes}F$
+as
+\[
+G\underset{\mathcal{C}}{\boxtimes}F\coloneqq\int^{c\in Ob\left(\mathcal{C}\right)}G\left(c\right)\boxtimes F\left(c\right)=\text{coeq}\left\{ \xymatrix{{\displaystyle \coprod_{f:c\to c'}}G\left(c'\right)\boxtimes F\left(c\right)\ar@<1ex>[r]^{f^{*}}\ar@<-1ex>[r]_{f_{*}} & {\displaystyle \coprod_{c\in Ob\left(\mathcal{C}\right)}}G\left(c\right)\boxtimes F\left(c\right)}
+\right\} 
+\]
+where 
+\[
+\begin{array}{cccccc}
+f^{*}: & G\left(c'\right)\boxtimes F\left(c\right) & \xrightarrow{G\left(f\right)\boxtimes\text{Id}} & G\left(c\right)\boxtimes F\left(c\right) & \hookrightarrow & {\displaystyle \coprod_{c\in Ob\left(\mathcal{C}\right)}}G\left(c\right)\boxtimes F\left(c\right)\\
+f_{*}: & G\left(c'\right)\boxtimes F\left(c\right) & \xrightarrow{\text{Id}\boxtimes F\left(f\right)} & G\left(c'\right)\boxtimes F\left(c'\right) & \hookrightarrow & {\displaystyle \coprod_{c\in Ob\left(\mathcal{C}\right)}}G\left(c\right)\boxtimes F\left(c\right)
+\end{array}
+\]
+\end{defn}
+\begin{example}
+Let $\mathcal{S}=\left(\mathbf{Ab},\bigotimes_{\mathbb{Z}},\mathbb{Z}\right)$
+and $\mathcal{M}=\mathcal{S}$ with $\mathbf{Hom}_{\mathcal{S}}=\text{Hom}_{\mathbf{Ab}}=\text{Hom}_{\mathbb{Z}}$.
+$\mathcal{S}$ is enriched and tensored over itself with $\boxtimes=\bigotimes_{\mathbb{Z}}$.
+
+Take a unital associative ring $R$, we can think of $\underline{R}$
+as the category with one object $\left\{ *\right\} $ enriched over
+$\mathcal{S}$. 
+
+A left module over $R$ is an $\mathcal{S}$-functor 
+\[
+\begin{array}{cccc}
+\underline{F}: & \underline{R} & \to & \mathbf{Ab}\\
+ & * & \mapsto & M\\
+ & R & \mapsto & \text{End}\left(M\right)
+\end{array}
+\]
+
+A right module over $R$ is an $\mathcal{S}$-functor 
+\[
+\begin{array}{cccc}
+\underline{G}: & \underline{R}^{op} & \to & \mathbf{Ab}\\
+ & * & \mapsto & N\\
+ & R^{op} & \mapsto & \text{End}\left(N\right)
+\end{array}
+\]
+
+Let's think of $R$ as a monoid and take the underlying (unenriched)
+functors 
+\[
+\begin{array}{cccc}
+F: & R & \to & \mathbf{Ab}\\
+G: & R^{op} & \to & \mathbf{Ab}
+\end{array}
+\]
+Then 
+\[
+G\underset{R}{\boxtimes}F=\int^{R}N\bigotimes_{\mathbb{Z}}M\cong\frac{N\bigotimes_{\mathbb{Z}}M}{\left\langle nr\otimes m-n\otimes rm\right\rangle }\cong N\bigotimes_{R}M
+\]
+is the usual tensor product of left and right modules. 
+\end{example}
+%
+\begin{example}
+(Kan extension) Given 
+\[
+\xymatrix{\mathcal{C}\ar[r]^{F}\ar[d]_{G} & \mathcal{D}\\
+\mathcal{E}\ar[ur]_{\mathcal{L}_{G}\left(F\right)}^{\Downarrow\eta}
+}
+\]
+the left Kan extension can be interpreted as a tensor product 
+\[
+\mathcal{L}_{G}\left(F\right)\left(e\right)=\left(G\circ h_{e}\right)\underset{\mathcal{C}}{\boxtimes}F,e\in Ob\left(G\right).
+\]
+where $G\circ h_{e}=\text{Hom}_{\mathcal{D}}\left(G\left(-\right),e\right):\mathcal{C}^{op}\to\mathbf{Set}$. 
+\end{example}
+\begin{proof}
+See later. We can also prove it by universal properties $\mathcal{L}_{G}\left(F\right)\left(e\right)\cong\text{colim}_{G/e}\left(F\right)$.
+\[
+\left(G\circ h_{e}\right)\underset{\mathcal{C}}{\boxtimes}F=\text{coeq}\left\{ \xymatrix{{\displaystyle \coprod_{f:c\to c'}}\text{Hom}_{\mathcal{C}}\left(G\left(c'\right),e\right)\boxtimes F\left(c\right)\ar@<1ex>[r]^{f^{*}}\ar@<-1ex>[r]_{f_{*}} & {\displaystyle \coprod_{c\in Ob\left(\mathcal{C}\right)}}\text{Hom}_{\mathcal{C}}\left(G\left(c\right),e\right)\boxtimes F\left(c\right)}
+\right\} \cong\text{colim}_{G/e}\left(F\right)
+\]
+\end{proof}
+\begin{example}
+(classical geometric realization) Given 
+\[
+\xymatrix{\Delta\ar[r]^{\Delta^{\bullet}}\ar[d]_{h} & \mathbf{Top}\\
+\mathbf{sSet}\ar[ur]_{\left|-\right|=\mathcal{L}_{h}\left(\Delta^{\bullet}\right)}^{\Downarrow\eta}
+}
+\]
+For $X\in Ob\left(\mathbf{sSet}\right)$, $\mathcal{L}_{h}\left(\Delta^{\bullet}\right)\left(X\right)\cong\text{colim}_{\Delta X}\left(\Delta^{\bullet}\right)$.
+Then
+\[
+\mathcal{L}_{h}\left(\Delta^{\bullet}\right)\left(X\right)\cong\text{Hom}_{\mathbf{sSet}}\left(\Delta\left[\cdot\right],X\right)\underset{\Delta}{\boxtimes}\Delta^{\bullet}\cong X\underset{\Delta}{\boxtimes}\Delta^{\bullet}=\coprod_{n\geq0}X_{n}\times\Delta^{n}/\left\langle \left(x,f_{*}\left(u\right)\right)\sim\left(f^{*}\left(x\right),u\right)\right\rangle _{f\in Mor\left(\Delta\right)}
+\]
+where $X_{n}$ is given the discrete topology. 
+\end{example}
+In particular, if $X:\Delta^{op}\to\mathbf{Space}$ is a simplicial
+space ($\mathbf{Top}$ or $\mathbf{sSet}$) then $\left|-\right|:\mathbf{Space}^{\Delta^{op}}\to\mathbf{Space}$
+is given by
+\[
+\left|X\right|\coloneqq X\underset{\Delta}{\boxtimes}\Delta^{\bullet}=\coprod_{n\geq0}X_{n}\times\Delta^{n}/\sim
+\]
+ where $X_{n}\times\Delta^{n}$ is given the product topology. 
+
+\subsection{Classifying Space of A Category}
+
+\subsubsection{Nerve of a category }
+
+Recall a category $\mathscr{C}$ is small if its objects form a (proper)
+set. Associate to such a category a simplicial set $\mathcal{N}_{*}\mathscr{C}$
+(or $\mathcal{B}_{*}\mathscr{C}$) defined by 
+\[
+\begin{array}{ccl}
+\mathcal{N}_{0}\mathscr{C} & = & \left\{ \text{objects in }\mathscr{C}\right\} =Ob\left(\mathscr{C}\right)\\
+\mathcal{N}_{1}\mathscr{C} & = & \left\{ \text{morphisms in }\mathscr{C}\right\} =Mor\left(\mathscr{C}\right)\\
+\mathcal{N}_{2}\mathscr{C} & = & \left\{ \text{composable morphisms }c_{0}\xrightarrow{f_{0}}c_{1}\xrightarrow{f_{1}}c_{2}\text{ in }\mathscr{C}\right\} \\
+ & \cdots\\
+\mathcal{N}_{n}\mathscr{C} & = & \left\{ n\text{-composable morphisms }c_{0}\xrightarrow{f_{0}}c_{1}\xrightarrow{f_{1}}\cdots\xrightarrow{f_{n-1}}c_{n}\text{ in }\mathscr{C}\right\} 
+\end{array}
+\]
+\[
+\xymatrix{\mathcal{N}_{2}\mathscr{C}: & c_{1}\ar[dr]^{f_{1}}\\
+\bullet\ar[ur]^{f_{0}}\ar@{-->}[rr]^{f_{1}f_{1}} &  & c_{2}
+}
+\]
+\[
+\xymatrix{\mathcal{N}_{3}\mathscr{C}: & c_{1}\ar[ddr]^{f_{1}}\ar[drr]^{f_{2}f_{1}}\\
+\bullet\ar[ur]^{f_{0}}\ar[drr]_{f_{1}f_{0}}\ar@{-->}[rrr]^{f_{2}f_{1}f_{0}} &  &  & c_{3}\\
+ &  & c_{2}\ar[ur]_{f_{2}}
+}
+\]
+This suggests that 
+\[
+\begin{array}{cccc}
+d_{i}: & \mathcal{N}_{n}\mathscr{C} & \longrightarrow & \mathcal{N}_{n-1}\mathscr{C}\\
+ & \left(c_{0}\xrightarrow{f_{0}}c_{1}\xrightarrow{f_{1}}\cdots\xrightarrow{f_{n-1}}c_{n}\right) & \longmapsto & \left(c_{0}\xrightarrow{f_{0}}\cdots\xrightarrow{f_{i-2}}c_{i-1}\xrightarrow{f_{i-1}}\hat{c}_{i}\xrightarrow{f_{i}}c_{i+1}\xrightarrow{f_{i+1}}\cdots\xrightarrow{f_{n-1}}c_{n}\right)\\
+ & \left(f_{n-1},\cdots,f_{0}\right) & \longmapsto & \begin{cases}
+\left(f_{n-1},\cdots,f_{1}\right) & i=0\\
+\left(f_{n-1},\cdots,f_{i}f_{i-1},\cdots,f_{0}\right) & 1\leq i\leq n-1\\
+\left(f_{n-2},\cdots,f_{0}\right) & i=n
+\end{cases}
+\end{array}
+\]
+\[
+\begin{array}{cccc}
+s_{j}: & \mathcal{N}_{n}\mathscr{C} & \longrightarrow & \mathcal{N}_{n+1}\mathscr{C}\\
+ & \left(c_{0}\xrightarrow{f_{0}}c_{1}\xrightarrow{f_{1}}\cdots\xrightarrow{f_{n-1}}c_{n}\right) & \longmapsto & \left(c_{0}\xrightarrow{f_{0}}\cdots\xrightarrow{f_{i-1}}c_{i}\xrightarrow{\text{Id}}c_{i}\xrightarrow{f_{i}}c_{i+1}\xrightarrow{f_{i+1}}\cdots\xrightarrow{f_{n-1}}c_{n}\right)\\
+ & \left(f_{n-1},\cdots,f_{0}\right) & \longmapsto & \left(f_{n-1},\cdots,f_{i},f_{i},\cdots,f_{0}\right)
+\end{array}
+\]
+
+Another way to view this construction is the following. Let 
+\begin{itemize}
+\item $s,t:Mor\left(\mathscr{C}\right)\to Ob\left(\mathscr{C}\right)$ the
+source and target maps. 
+\item $i:Ob\left(\mathscr{C}\right)\to Mor\left(\mathscr{C}\right)$ the
+identity morphism map.
+\item $\circ:Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)\to Mor\left(\mathscr{C}\right)$
+where $Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)$
+is the fibred product 
+\[
+\xymatrix{Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)\ar[r]^{\text{pr}_{1}}\ar[d]_{\text{pr}_{2}} & Mor\left(\mathscr{C}\right)\ar[d]^{t}\\
+Mor\left(\mathscr{C}\right)\ar[r]^{s} & Ob\left(\mathscr{C}\right)
+}
+\]
+\end{itemize}
+Notice that the structure of $\mathscr{C}$ gives us 
+\[
+\xymatrix{Ob\left(\mathscr{C}\right)\ar@{-->}[r]^{i} & Mor\left(\mathscr{C}\right)\ar@<1ex>[l]^{t}\ar@<-1ex>[l]_{s}\ar@{-->}@<1ex>[r]\ar@{-->}@<-1ex>[r] & Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)\ar[l]\ar@<2ex>[l]\ar@<-2ex>[l]}
+.
+\]
+The new construction can be viewed as an ``extension'' of a category
+to a ``full'' simplicial set 
+\[
+\xymatrix{\mathcal{N}_{0}\left(\mathscr{C}\right)\ar@{-->}[r]^{i} & \mathcal{N}_{1}\left(\mathscr{C}\right)\ar@<1ex>[l]^{t}\ar@<-1ex>[l]_{s}\ar@{-->}@<1ex>[r]\ar@{-->}@<-1ex>[r] & \mathcal{N}_{2}\left(\mathscr{C}\right)\ar[l]\ar@<2ex>[l]\ar@<-2ex>[l]\cdots}
+\]
+where 
+\[
+\mathcal{N}_{n}\left(\mathscr{C}\right)=\underset{n}{\underbrace{Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)\times_{Ob\left(\mathscr{C}\right)}\cdots\times_{Ob\left(\mathscr{C}\right)}Mor\left(\mathscr{C}\right)}}\eqqcolon Mor_{n}\left(\mathscr{C}\right)
+\]
+The maps $d_{i}'s$ and $s_{j}$'s are the structure maps of iterated
+fibred products.
+
+$\mathcal{N}_{*}\mathscr{C}$ (as a simplicial set up to isomorphism)
+determines $\mathscr{C}$ uniquely up to isomorphism. 
+\begin{defn}
+The \emph{classifying space} $B\mathcal{C}$ of a category $\mathcal{C}$
+is the geometric realization of $\mathcal{NC}$. 
+\end{defn}
+\begin{prop}
+If $\mathcal{C},\mathcal{C}'$ are topological categories and $F_{0},F_{1}:\mathcal{C}\to\mathcal{C}'$
+are continuous functors, and $\alpha:F_{0}\to F_{1}$ is a morphism
+of functors, then the induced map $BF_{0},BF_{1}:B\mathcal{C}\to B\mathcal{C}'$
+are homotopic. 
+\end{prop}
+\begin{proof}
+$\alpha$ can be regarded as a functor $\mathcal{C}\times\mathbf{1}\to\mathcal{C}'$
+where $\mathbf{1}=\left\{ 0<1\right\} $ is a category, then 
+\[
+B\alpha:B\left(\mathcal{C}\times\mathbf{1}\right)\cong B\mathcal{C}\times B\mathbf{1}=B\mathcal{C}\times I\to B\mathcal{C}'
+\]
+is a homotopy between $BF_{0}$ and $BF_{1}$. 
+\end{proof}
+%
+
+\subsection{The Classifying Space of a Topological Group}
+
+Let $G$ be a topological group. $G$ can be viewed as a topological
+category with a single object $*$ and $Mor\left(G\right)=G$, then
+$\mathcal{N}_{*}G=\left\{ \mathcal{N}_{k}G=G^{k}\right\} _{k\geq0}$. 
+
+The space $BG=\left|\mathcal{N}_{*}G\right|$ is the classifying space
+of $G$ in the usual sense as one can see in the follows. 
+
+Consider the category $\overline{G}$ with $Ob\left(\overline{G}\right)=G$
+and $Mor\left(\overline{G}\right)=G\times G$ where there is a unique
+isomorphism $\left(g_{1},g_{2}\right)$ between any two objects $g_{1}\to g_{2}$,
+then $\overline{G}\simeq*$ as category via 
+\[
+\xymatrix{p:\overline{G}\ar@<1ex>[r] & \bullet:i\ar@<1ex>[l]}
+\]
+where $i\left(\bullet\right)=e\in G$ and $i\left(\text{Id}_{\bullet}\right)=\left(e,e\right)\in G$
+and $p\left(g\right)=\bullet$ and $p\left(g_{1},g_{2}\right)=\text{Id}_{\bullet}$,
+then we observe that 
+\[
+pi=\text{Id}_{\bullet}
+\]
+ and 
+\[
+ip\cong\text{Id}_{\overline{G}}
+\]
+via the natural isomorphism $\eta:\text{Id}_{\overline{G}}\Rightarrow ip$
+where $\eta_{\left(g\right)}=\left(g,g^{-1}\right)$, and we have
+\[
+\xymatrix{g_{1}\ar[r]^{\left(g_{1},g_{1}^{-1}\right)}\ar[d]_{\left(g_{1},g_{1}^{-1}g_{2}\right)} & ip\left(g_{1}\right)=e\ar[d]^{\left(e,e\right)}\\
+g_{2}\ar[r]_{\left(g_{2},g_{2}^{-1}\right)} & e
+}
+\]
+so $EG\coloneqq B\overline{G}$ is contractible. 
+
+. 
+
+Note $G$ acts on $\mathcal{N}_{*}\overline{G}$ freely, $G$ acts
+on $EG$ freely, 
+
+\paragraph{Relation between $\mathcal{N}_{*}\bar{G}$ and $\mathcal{N}_{*}G$}
+\begin{enumerate}
+\item There is a functor $\overline{G}\to G,\left(g_{1},g_{2}\right)\mapsto g_{2}g_{1}^{-1}$
+and it induces a map $\mathcal{N}_{*}\overline{G}\to\mathcal{N}_{*}G$
+given by 
+\[
+\begin{array}{ccc}
+\mathcal{N}_{n}\overline{G} & \longrightarrow & \mathcal{N}_{n}G\\
+\left(g_{0},g_{1},\cdots,g_{n}\right) & \mapsto & \left(g_{1}g_{0}^{-1},g_{2}g_{1}^{-1},\cdots,g_{n}g_{n-1}^{-1}\right)
+\end{array}
+\]
+\item There is a right $G$-action of $\mathcal{N}_{*}\bar{G}$ 
+\[
+\begin{array}{ccc}
+\mathcal{N}_{n}\overline{G}\times G & \longrightarrow & \mathcal{N}_{n}G\\
+\left(g_{0},\cdots,g_{n}\right)\times g & \longmapsto & \left(g_{0}g,\cdots,g_{n}g\right)
+\end{array}
+\]
+such that 
+\[
+\xymatrix{\mathcal{N}_{*}\overline{G}\ar[rr]^{p}\ar@{->>}[dr] &  & \mathcal{N}_{*}G\\
+ & \mathcal{N}_{*}\overline{G}/G\ar[ur]_{\cong}
+}
+\]
+This gives an example of simplicial principal $G$-bundle. In particular,
+this gives us 
+\[
+EG/G\cong BG.
+\]
+\item Note that $\mathcal{N}_{*}\bar{G}$ is a simplicial group which acts
+on the left on $\mathcal{N}_{*}G$
+\[
+\begin{array}{ccc}
+\mathcal{N}_{*}\bar{G}\times\mathcal{N}_{*}G & \longrightarrow & \mathcal{N}_{*}G\\
+\left(g_{0},\cdots,g_{n}\right)\times\left(h_{1},\cdots,h_{n}\right) & \longmapsto & \left(g_{0}h_{1}g_{1}^{-1},g_{1}h_{2}g_{2}^{-1},\cdots,g_{n-1}h_{n-1}g_{n}^{-1}\right)
+\end{array}
+\]
+\end{enumerate}
+
+\subsubsection{Relation between $B\underline{G}$ and $BG$}
+
+Recall Milnor's construction of a classifying space $X^{\infty}G$
+for a topological group $G$ in last chapter, and we will compare
+this with our construction here when view $G$ as a topological category
+$G$ with single object and morphisms are elements in $G$. Since
+$X^{\infty}G$ and and $BG$ can both be identified with the quotient
+of a contractible space, it suffices compare $E^{\infty}G$ and $EG$. 
+
+If $G$ is a countable CW group, then $E^{\infty}G\cong EG$ since
+we can take the normal join topology on $E^{n}G$. Otherwise the topology
+on $E^{\infty}G$ is stronger than $EG$. 
+
+\subsection{Categorical Bar Construction }
+
+\subsubsection{(Co)Monad}
+\begin{defn}
+A \emph{monad} (\emph{triple}) on a category $\mathcal{C}$ is given
+by an endofunctor $T:\mathcal{C}\Rightarrow\mathcal{C}$ with two
+morphisms $\eta:\text{Id}_{\mathcal{C}}\Rightarrow T$ and $\mu:T\circ T\Rightarrow T$
+satisfying 
+\begin{enumerate}
+\item associativity 
+\[
+\xymatrix{T\circ T\circ T\ar@{=>}[r]^{T\mu}\ar@{=>}[d]_{\mu T} & T\circ T\ar@{=>}[d]^{\mu}\\
+T\circ T\ar@{=>}[r]^{\mu} & T
+}
+\]
+\item unitality 
+\[
+\xymatrix{T\ar@{=>}[r]^{\eta T}\ar@{=>}[d]_{T\eta} & T\circ T\ar@{=>}[d]^{\mu}\\
+T\circ T\ar@{=>}[r]^{\mu} & T
+}
+\]
+\end{enumerate}
+\end{defn}
+\begin{rem}
+This can be regarded as a ``generalized'' associative, unital algebras. 
+\end{rem}
+\begin{defn}
+A \emph{comonad} (\emph{cotriple}) on a category $\mathcal{C}$ is
+given by an endofunctor $\bot:\mathcal{C}\Rightarrow\mathcal{C}$
+with two morphisms $\varepsilon:\bot\Rightarrow\text{Id}_{\mathcal{C}}$
+and $\delta:\bot\Rightarrow\bot\circ\bot$ satisfying coassociative
+and counital diagrams. 
+\end{defn}
+
+\subsubsection{Main application}
+
+Given a pair of adjoint functors $\xymatrix{F:\mathcal{C}\ar@<1ex>[r] & \mathcal{D}:U\ar@<1ex>[l]}
+$ with unit $\eta:\text{Id}_{\mathcal{C}}\Rightarrow UF$ and counit
+$\varepsilon:FU\Rightarrow\text{Id}_{\mathcal{D}}$, we can define
+\[
+\begin{array}{ll}
+T=UF:\mathcal{C}\to\mathcal{C} & \mu:T\circ T\Rightarrow T,UFUF\overset{U\varepsilon F}{\Longrightarrow}UF\\
+\bot=FU:\mathcal{D}\to\mathcal{D} & \delta:\bot\to\bot\circ\bot,FU\overset{F\eta U}{\Longrightarrow}FUFU
+\end{array}
+\]
+
+\begin{claim}
+$\left(T=UF,\eta,\mu\right)$ is a monad on $\mathcal{C}$ and $\left(\bot=FU,\varepsilon,\delta\right)$
+is a comonad in $\mathcal{D}$.
+\end{claim}
+\begin{proof}
+Use identities \ref{eq:comp} for adjunction morphisms. Then we have
+\[
+\begin{array}{c}
+\left(FU\overset{F\eta U}{\Rightarrow}FUFU\overset{\varepsilon FU}{\Rightarrow}FU\right)=\text{Id}_{FU}\\
+\left(UF\overset{\eta UF}{\Rightarrow}UFUF\overset{U\varepsilon F}{\Rightarrow}UF\right)=\text{Id}_{UF}
+\end{array}
+\]
+which gives the unitality diagrams. The associativity diagram follows
+from naturality of the unit and counit functors, i.e. we have 
+\[
+\xymatrix{UFUFUFx\ar[r]^{UFU\varepsilon_{Fx}}\ar[d]_{U\varepsilon_{FUFx}} & UFUFx\ar[d]^{U\varepsilon_{Fx}}\\
+UFUFx\ar[r]^{U\varepsilon_{Fx}} & UFx
+}
+\]
+and 
+\[
+\xymatrix{FUy\ar[r]^{F\eta_{Uy}}\ar[d]_{F\eta_{Uy}} & FUFUy\ar[d]^{FUF\eta_{Uy}}\\
+FUFUy\ar[r]^{F\eta_{UFUy}} & FUFUFUy
+}
+\]
+\end{proof}
+\begin{claim}
+Every monad in $\mathcal{C}$ gives a functor $\mathcal{C}\to\mathbf{c}\mathcal{C}$
+and every comonad gives a functor $\mathcal{D}\to\mathbf{s}\mathcal{D}$. 
+\end{claim}
+\begin{proof}
+Given $\left(\bot,\varepsilon,\delta\right)$ on $\mathcal{D}$, and
+$A\in Ob\left(\mathcal{D}\right)$, we define 
+\[
+\begin{array}{cccl}
+\bot_{*}: & \mathcal{D} & \to & \mathbf{s}\mathcal{D}\\
+ & A & \mapsto & \bot_{*}A=\left\{ \bot_{n}A\right\} _{n\geq0}
+\end{array}
+\]
+where $\bot_{n}A=\bot^{n+1}A$ and 
+\[
+\begin{array}{cccc}
+d_{i}=\bot^{i}\cdot\varepsilon\cdot\bot^{n-i}: & \bot^{n+1}A & \to & \bot^{n}A\\
+s_{j}=\bot^{j}\cdot\delta\cdot\bot^{n-j}: & \bot^{n+1}A & \to & \bot^{n+2}A
+\end{array}
+\]
+which is similar to the bar construction. Explicitly, $\bot_{*}A$
+can be expressed as follows
+\[
+\xymatrix{\bot A & \bot^{2}A\ar@<1ex>[l]\ar@<-1ex>[l] & \bot^{3}A\cdots\ar[l]\ar@<2ex>[l]\ar@<-2ex>[l]}
+\]
+The simplicial identities are satisfied because of the functoriality
+of units and counits and the identity for adjunction morphisms. In
+particular, $d_{i}s_{j}=\text{Id},i=j,j+1$ follows from 
+\[
+\begin{array}{c}
+\left(FU\overset{F\eta U}{\Rightarrow}FUFU\overset{\varepsilon FU}{\Rightarrow}FU\right)=\text{Id}_{FU}\\
+\left(FU\overset{F\eta U}{\Rightarrow}FUFU\overset{FU\varepsilon}{\Rightarrow}FU\right)=\text{Id}_{FU}
+\end{array}
+\]
+\end{proof}
+%
+\begin{defn}
+Let $\mathcal{C}$ be a category and $\left(T,\eta,\mu\right)$ be
+a monad on $\mathcal{C}$. A \emph{$T$-algebra} is a pair $\left(A,\rho\right)$
+where $A$ is an object in $\mathcal{C}$ and $\rho:TA\to A$ called
+the structure map of the algebra such that the diagrams 
+\[
+\xymatrix{T^{2}A\ar[r]^{T\rho}\ar[d]_{\mu_{A}} & TA\ar[d]^{\rho} &  & A\ar[r]^{\eta_{A}}\ar@{=}[dr] & TA\ar[d]^{\rho}\\
+TA\ar[r]^{\rho} & A &  &  & A
+}
+\]
+commute. A morphism $f:\left(A,\rho_{A}\right)\to\left(B,\rho_{B}\right)$
+of $T$-algebras is an morphism $f:A\to B$ in $\mathcal{C}$ such
+that the diagram 
+\[
+\xymatrix{TA\ar[r]^{Tf}\ar[d]_{\rho_{A}} & TB\ar[d]^{\rho_{B}}\\
+A\ar[r]^{f} & B
+}
+\]
+commutes. 
+\end{defn}
+The category $\mathcal{C}^{T}$ of $T$-algebras and their morphisms
+is called the \emph{Eilenberg\textendash Moore category} or category
+of (Eilenberg\textendash Moore) algebras of the monad $T$. The forgetful
+functor $U:\mathcal{C}^{T}\to\mathcal{C}$ has a left adjoint $F:\mathcal{C}\to\mathcal{C}^{T}$
+which takes $A$ to $\left(TA,\mu_{A}\right)$. 
+
+\subsubsection{Classifying Space of a Category}
+
+Let $\mathcal{C}$ be a category and $\left(T,\eta,\mu)\right)$ be
+a monad on $\mathcal{C}$. Let $\mathcal{C}^{T}$ be the category
+of $T$-algebras in $\mathcal{C}$, there is a natural fogetful functor
+$U:\mathcal{C}^{T}\to\mathcal{C}$ which has a left adjoint $F:\mathcal{C}\to\mathcal{C}^{T}$.
+This pair of adjoint functors gives a comonad 
+\[
+\bot=FU:\mathcal{C}^{T}\to\mathcal{C}^{T},\eta:\bot\Rightarrow\text{Id}_{\mathcal{C}^{T}},\delta:\bot\Rightarrow\bot\circ\bot,FU\overset{F\eta U}{\Longrightarrow}FUFU
+\]
+ on $\mathcal{C}^{T}$, and it induces a functor 
+\[
+\begin{array}{cccl}
+\bot_{*}: & \mathcal{C}^{T} & \to & \mathbf{s}\mathcal{C}^{T}\\
+ & A & \mapsto & \bot_{*}A=\left\{ \bot_{n}A=\bot^{n+1}A\right\} _{n\geq0}
+\end{array}
+\]
+where $\bot_{n}A=\bot^{n+1}A$ . 
+
+Recall that the (augmented) simplex category $\Delta_{+}$ is defined
+as follows. The category $\Delta$ has terminal object $\left[0\right]$
+but no initial object. Define the augmented simplex categor $\Delta_{+}$
+as 
+
+$Ob\left(\Delta_{+}\right)=Ob\left(\Delta\right)\cup\left\{ \left[-1\right]\right\} $.
+
+$\text{Hom}_{\Delta_{+}}\left(\left[n\right],\left[m\right]\right)=\begin{cases}
+\text{Hom}_{\Delta}\left(\left[n\right],\left[m\right]\right) & n,m\geq0\\
+\left[-1\right]\to\left[m\right] & n=-1\\
+\emptyset & m=-1,n\geq0
+\end{cases}$
+\begin{defn}
+For any category $\mathcal{C}$ we define the \emph{augmented simplicial
+object} as a functor $X:\Delta_{+}\to\mathcal{C}$. Denote $\mathbf{\mathbf{s}_{+}\mathcal{C}}=\mathbf{Fun}\left(\Delta_{+},\mathcal{C}\right)$
+. 
+
+Explicitly, each $X\in Ob\left(\mathbf{s}_{+}\mathcal{C}\right)$
+is given by $X\in Ob\left(\mathbf{s}\mathcal{C}\right)$ together
+with $X_{-1}\in Ob\left(\mathcal{C}\right)$ and $\varepsilon:X_{0}\to X_{-1}$
+in $Mor\left(\mathcal{C}\right)$ such that 
+\[
+\xymatrix{X_{-1} & X_{0}\ar[l]^{\varepsilon} & X_{1}\ar@<-1ex>[l]_{d_{1}}\ar@<1ex>[l]^{d_{0}}\cdots}
+\]
+agrees in the sense that $\varepsilon d_{1}=\varepsilon d_{0}$. We
+can denote $\varepsilon=d_{0}$ and extend $d_{i}d_{j}=d_{j-1}d_{i},i<j$
+for $n=0$. 
+\end{defn}
+%
+Therefore the above functor $\bot_{*}$ is in fact a functor $\bot_{*}:\mathcal{C}^{T}\to\mathbf{s}_{+}\mathcal{C}^{T}$. 
+\begin{defn}
+The \emph{bar construction} $B\left(T,A\right)$ is the simplicial
+$T$-algebra given by $\bot_{*}\left(A\right)$. If we forget the
+$T$-algebra structure on $A$, $\bot_{*}\left(A\right)$ is an (aumented)
+simplicial object in $\mathcal{C}$ which is called the bar resolution
+of $A$. 
+\end{defn}
+%
+
+\subsection{Special cases (Algebraic Bar Construction)}
+
+\subsubsection{Modules over Commutative Algebras }
+
+Let $A$ be a commutative associative algebras over some ring $k$.
+Write $\text{Mod}\left(A\right)$ for the category of connective chain
+complexes of modules over $A$.
+
+For $N$ a right module, $A\otimes_{k}N$ is canonically a module.
+This construction extends to a functor 
+\[
+\left(-\right)\otimes_{k}A:\text{Mod}\left(A\right)\to\text{Mod}\left(A\right).
+\]
+The monoid-structure on $A$ makes this a monad in $\mathbf{Cat}$:
+the monad product and unit are given by the product and unit in $A$.
+
+For $N$ a module its right action $\rho:N\otimes_{k}A\to N$ makes
+the module an algebra over this monad. The bar construction $B\left(A,N\right)$
+is then the simplicial module 
+\[
+\xymatrix{\cdots\ar[r] & N\otimes_{k}A\otimes_{k}A\ar@<1ex>[r]^{1_{N}\otimes\mu_{A}}\ar@<-1ex>[r]_{\rho\otimes1_{A}} & N\otimes_{k}A}
+\]
+
+Under the Moore complex functor of the Dold-Kan correspondence this
+is identified with a chain complex whose differential is given by
+the alternating sums of the face maps indicated above. 
+
+This chain complex provides a resolution that computes the Tor. This
+gives the Hochschild homology of $A$. 
+\begin{rem}
+This chain complex is what originally was called the bar complex in
+homological algebra. Because the first authors denoted its elements
+using a notation involving vertical bars (Ginzburg). 
+\end{rem}
+
+\subsubsection{Bar and cobar constructions of differential graded Hopf algebras}
+\begin{defn}
+A $\mathbb{Z}$-graded Hopf algebra is a $\mathbb{Z}$-graded vector
+space, which, for that grading, is both a $\mathbb{Z}$-graded algebra,
+$\left(A,\mu,\varepsilon\right)$, with unity $\varepsilon:k\to A$,
+and a Z-graded coalgebra $\left(A,\Delta,\eta\right)$ such that:
+\begin{itemize}
+\item $\varepsilon:k\to A$ is a morphism of $\mathbb{Z}$-graded coalgebras;
+\item $\eta:A\to k$ is a morphism of $\mathbb{Z}$-graded algebras; 
+\item $\mu:A\otimes A\to A$ is a morphism of $\mathbb{Z}$-graded coalgebras. 
+\end{itemize}
+\end{defn}
+
+\paragraph{Bar Construction}
+
+Let $\left(A,d,\varepsilon\right)$ be a commutative, augmented differential
+$\mathbb{Z}$-graded algebra, $d\left(A_{n}\right)\subseteq A_{n-1}$
+and $\overline{A}=\text{Ker}\left(\varepsilon\right)$. 
+
+The \emph{bar construction} $BA$ is given by 
+\[
+BA=\left(T\left(s\overline{A}\right),D\right)
+\]
+where 
+\begin{itemize}
+\item $T\left(s\overline{A}\right)$ is the commutative differential graded
+Hopf algebra generated by $s\overline{A}$ where $s:A\to A$ is the
+suspension operator, i.e. $\left(sA\right)_{n}=A_{n-1}$. 
+\item $D=d_{I}+d_{E}$, where 
+\[
+\begin{array}{ccl}
+d_{I}\left(sa_{1}\otimes\cdots\otimes sa_{n}\right) & = & -{\displaystyle \sum_{i=1}^{n}\eta\left(i-1\right)sa_{1}\otimes\cdots\otimes sa_{i-1}\otimes sda_{i}\otimes\cdots sa_{n}}\\
+d_{E}\left(sa_{1}\otimes\cdots\otimes sa_{n}\right) & = & -{\displaystyle \sum_{i=1}^{n}\eta\left(i-1\right)sa_{1}\otimes\cdots\otimes sa_{i-1}a_{i}\otimes\cdots sa_{n}}
+\end{array}
+\]
+with $\eta\left(i\right)=\left(-1\right)^{\sum_{k=1}^{i}\left|sa_{k}\right|}$. 
+\end{itemize}
+%
+$BA$ has a tensor algebra construction. This from one point of view
+handles the formal concatenation aspect, but has also a structure
+of a coalgebraic structure with reduced diagonal, given by 
+\[
+\overline{\Delta}\left(v_{1}\otimes\cdots\otimes v_{n}\right)=\sum_{i=1}^{n-1}\left(v_{1}\otimes\cdots\otimes v_{p}\right)\otimes\left(v_{p+1}\otimes\cdots\otimes v_{n}\right).
+\]
+
+
+\paragraph{Cobar Construction}
+
+Let $\left(C,\partial,\eta\right)$ be a cocommutative differential
+Z-graded coaugmented coalgeba, $\partial\left(C_{n}\right)\subseteq C_{n-1}$,
+$\overline{C}=C/\eta\left(k\right)$, $\overline{\Delta}:\overline{C}\to\overline{C}\otimes\overline{C}$. 
+
+The cobar construction $\Omega C$ is the cocommutative pre-dgha defined
+by 
+\[
+\Omega C=\left(T\left(s^{-1}\overline{C}\right),\delta\right)
+\]
+where 
+\begin{itemize}
+\item $T\left(s^{-1}\overline{C}\right)$ is the commutative differential
+graded Hopf algebra generated by $s^{-1}\overline{C}$. 
+\item $\delta=\partial_{I}+\partial_{E}$, where 
+\[
+\begin{array}{ccl}
+\partial_{I}\left(s^{-1}c_{1}\otimes\cdots\otimes s^{-1}c_{n}\right) & = & -{\displaystyle \sum_{i=1}^{n}\eta\left(i-1\right)s^{-1}c_{1}\otimes\cdots\otimes s^{-1}c_{i-1}\otimes s^{-1}\partial c_{i}\otimes\cdots s^{-1}c_{n}}\\
+\partial_{E}\left(s^{-1}c_{1}\otimes\cdots\otimes s^{-1}c_{n}\right) & = & -{\displaystyle \sum_{i=1}^{n}\eta\left(i-1\right)\sum_{\mu}\left(-1\right)^{\left|c_{i\mu}'\right|+1}s^{-1}c_{1}\otimes\cdots\otimes s^{-1}c_{i\mu}'\otimes s^{-1}c_{i\mu}''\otimes\cdots s^{-1}c_{n}}
+\end{array}
+\]
+with $\eta\left(i\right)=\left(-1\right)^{\sum_{k=1}^{i}\left|s^{-1}c_{k}\right|}$
+and $\overline{\Delta}\left(c_{i}\right)={\displaystyle \sum_{\mu}c_{i\mu}'\otimes c_{i\mu}''}$. 
+\end{itemize}
+%
+\begin{rem}
+If $A$ is not (graded) commutative, the differential $d_{E}$ of
+$BA$ does not respect the shuffle product on $T\left(s\overline{A}\right)$;
+$BA$ thus becomes merely a differential $\mathbb{Z}$-graded coalgebra.
+Similarly if $C$ is not (graded) cocommutative $\Omega C$ is merely
+a differential $\mathbb{Z}$-graded algebra. 
+\end{rem}
+
+\paragraph{Twisting cochains}
+\begin{defn}
+Let $\left(C,d_{C}\right)$ be a differential graded coalgebra with
+comultiplication $\Delta$ and $\left(A,d_{A}\right)$ a dg-algebra
+with multiplication $\mu$. A \emph{twisting cochain} is a morphism
+$\tau:C\to A\left[1\right]$ such that the following Maurer-Cartan
+equation holds:
+\[
+d_{A}\circ\tau+\tau\circ d_{C}+\mu\circ\left(\tau\otimes\tau\right)\circ\Delta=0.
+\]
+\end{defn}
+%
+Let $\mathbf{DGC}_{0}$ be the category of connected dg-coalgebras
+and $\mathbf{DGA}_{a}$ the category of augmented dg-algebras. Then
+the barconstruction functor $B:\mathbf{DGA}_{a}\to\mathbf{DGC}_{0}$
+is a right adjoint to the cobar construction functor $\Omega:\mathbf{DGC}_{0}\to\mathbf{DGA}_{a}$. 
+
+Starting from a dg-coalgebra map $f:C\to BA$, one constructs a twisting
+cochain $\tau f$ by postcomposing $f$ by the natural projection
+$BA\to A\left[1\right]$, the Maurer-Cartan equation for $\tau f$
+translates to saying that $f$ is a chain map, $d_{BA}\circ f=f\circ d_{C}$.
+One then replaces $\tau f$ by the composition of the evident canonical
+map $\tau_{0}:\Omega C\to C\left[-1\right]$ (called the canonical
+twisting cochain) and $\tau f\left[-1\right]:C\left[-1\right]\to A$
+to obtain a morphism $f':\Omega C\to A$. The Maurer\textendash Cartan
+equation for $\tau$ is equivalent also to saying that $f'$ is a
+chain map, i.e. $d_{A}\circ f=f'\circ d_{\Omega C}$. 
+
+\pagebreak{}
+
+\section{Dold-Kan Correspondence}
+
+\subsection{Pointwise Kan Extensions}
+\begin{defn}
+A right Kan extension is called \emph{pointwise} if it is preserved
+by all (covariant) representable functors $h^{d}=\text{Hom}\left(d,-\right):\mathcal{D}\to\mathbf{Set},d\in Ob\left(\mathcal{D}\right)$.
+\[
+\xymatrix{\mathcal{C}\ar[r]^{F}\ar[d]_{G} & \mathcal{D}\ar[r]^{h^{d}} & \mathbf{Set}\\
+\mathcal{D}\ar[ur]_{L_{G}\left(F\right)}^{\Uparrow}\ar@/_{1.5pc}/[urr]_{L_{G}\left(h^{d}\circ F\right)}
+}
+\]
+\end{defn}
+%
+\begin{defn}
+A left Kan extension is called \emph{pointwise} if it is mapped to
+a right Kan extension by all (contravariant) representable functors
+$h_{d}=\text{Hom}\left(-,d\right):\mathcal{D}^{op}\to\mathbf{Set},d\in Ob\left(\mathcal{D}\right)$.
+\[
+\xymatrix{\mathcal{C}\ar[r]^{F}\ar[d]_{G} & \mathcal{D}\ar[r]^{h_{d}} & \mathbf{Set}^{op}\\
+\mathcal{D}\ar[ur]_{R_{G}\left(F\right)}^{\Downarrow}\ar@/_{1.5pc}/[urr]_{L_{G}\left(h_{d}\circ F\right)}
+}
+\]
+\end{defn}
+%
+\begin{rem}
+This is very similar to the property of limits and colimits.
+\end{rem}
+We have the following: 
+\begin{quotation}
+Absolute Kan extensions $\subsetneqq$ pointwise Kan extensions $\subsetneqq$
+Kan extensions.
+\end{quotation}
+We will give a characterization (formula) for pointwise Kan extensions.
+
+\subsubsection{Comma Category}
+\begin{defn}
+Given a functor $F:\mathcal{C}\to\mathcal{D}$ and an object $d\in Ob\left(\mathcal{D}\right)$,
+we can define the \emph{comma category }$F/d$ (or $F\downarrow d$)
+as follows. 
+\begin{description}
+\item [{Objects:}] $Ob\left(F/d\right)=\left\{ \left(c,f\right)|c\in Ob\left(\mathcal{C}\right),f\in\text{Hom}_{\mathcal{D}}\left(Fc,d\right)\right\} $.
+\item [{Morphisms:}] $\text{Hom}_{F/d}\left(\left(c,f\right),\left(c',f'\right)\right)=\left\{ \varphi\in\text{Hom}_{\mathcal{C}}\left(c,c'\right)|f'\circ F\varphi=f\right\} $,
+i.e. morphisms are those $\varphi:c\to c'$ such that the following
+diagram 
+\[
+\xymatrix{Fc\ar[rr]^{F\varphi}\ar[dr]_{f} &  & Fc'\ar[dl]^{f'}\\
+ & d
+}
+\]
+commutes.
+\end{description}
+\end{defn}
+Dually we can define cocomma category $d\backslash F$ (or $d\downarrow F$). 
+
+Note that there is a forgetful functor $U:F/d\to\mathcal{C}$ which
+can be thought as a fibre functor. 
+\begin{example}
+Let $F=\text{Id}_{\mathcal{D}}:\mathcal{D}\to\mathcal{D}$, then $F/d$
+is the category over $d$ and $d\backslash F$ is the category under
+$d$. 
+\end{example}
+%
+\begin{example}
+(Category of simplicial sets) Take 
+\[
+\begin{array}{cccc}
+F=h_{*}: & \Delta & \to & \mathbf{sSet}\\
+ & \left[n\right] & \mapsto & \Delta\left[n\right]_{*}
+\end{array}
+\]
+For any $X\in Ob\left(\mathbf{sSet}\right)$ we call the category
+$\Delta X\coloneqq h_{*}/X$ the category of simplices of $X$, which
+is given by 
+\begin{description}
+\item [{Objects:}] $Ob\left(\Delta X\right)=\left\{ \left(\left[n\right],x\right):\left[n\right]\in\Delta,x\in\text{Hom}_{\mathbf{sSet}}\left(\Delta\left[n\right]_{*},X\right)=X_{n}\right\} ={\displaystyle \coprod_{n\geq0}X_{n}}$.
+\item [{Morphisms:}] $\text{Hom}\left(\left(\left[n\right],x\right),\left(\left[m\right],y\right)\right)=\left\{ f:\left[n\right]\to\left[m\right]|X\left(f\right)y=y\circ h_{*}\left(f\right)=x\right\} $.
+\end{description}
+\end{example}
+Another way to define $\Delta X$ is to consider $X:\Delta^{op}\to\mathbf{Set}$
+and take the Grothendieck construction $\Delta_{X}^{op}=\Delta^{op}\int X$
+where 
+\begin{description}
+\item [{Objects:}] $Ob\left(\Delta_{X}^{op}\right)=\left\{ \left(\left[m\right],y\right)|\left[m\right]\in Ob\left(\Delta^{op}\right)=Ob\left(\Delta\right),y\in X\left(\left[m\right]\right)=X_{m}\right\} $.
+\item [{Morphisms:}] $\text{Hom}\left(\left(\left[n\right],x\right)\left(\left[m\right],y\right)\right)=\left\{ f\in\text{Hom}_{\Delta^{op}}\left(\left[n\right],\left[m\right]\right)|X\left(f\right)x=y\right\} $. 
+\end{description}
+Hence $\Delta_{X}^{op}\cong\left(\Delta X\right)^{op}$. 
+
+\begin{example}
+Let $\mathcal{C}$ be a small category and take 
+\[
+\begin{array}{cccc}
+\Delta^{*}: & \Delta & \hookrightarrow & \mathbf{Cat}\\
+ & \left[n\right] & \mapsto & \overrightarrow{n}=\left\{ 0\to1\to\cdots\to n\right\} 
+\end{array}
+\]
+This is a fully faithful functor. Then $\Delta^{*}/\mathcal{C}\coloneqq$
+the simplicial complex over $\mathcal{C}$ defined by 
+\begin{description}
+\item [{Objects:}] $Ob\left(\Delta^{*}/\mathcal{C}\right)=\left\{ \left(\left[n\right],f\right)|\left[n\right]\in\Delta,f:\overrightarrow{n}\to\mathcal{C}\right\} \cong{\displaystyle \coprod_{n\geq0}}\mathcal{N}_{n}\mathcal{C}$. 
+\item [{Morphisms:}] $\text{Hom}\left(\left(\left[n\right],f\right),\left(\left[m\right],g\right)\right)=\left\{ \varphi:\overrightarrow{n}\to\overrightarrow{m}|g\circ\Delta^{*}\left(\varphi\right)=f\right\} $. 
+\end{description}
+\end{example}
+Therefore $\Delta^{*}/\mathcal{C}\cong\Delta\mathcal{NC}$. 
+\begin{rem}
+$\Delta X$ and $\left(\Delta X\right)^{op}$ are examples of Reedy
+categories (with fibrant or cofibrant, respectively). 
+\end{rem}
+
+\subsubsection{Computing Kan extension via (co)limits}
+\begin{thm}
+A left Kan extension is pointwise if and only if it can be computed
+by the formula 
+\[
+L_{G}\left(F\right)\left(e\right)=\text{colim}_{G/e}\left(G/e\xrightarrow{U}\mathcal{C}\xrightarrow{F}\mathcal{D}\right).
+\]
+\end{thm}
+%
+\begin{thm}
+(Dual version) A right Kan extension is pointwise if and only if it
+can be computed by the formula 
+\[
+R_{G}\left(F\right)\left(e\right)=\text{lim}_{G/e}\left(e\backslash G\xrightarrow{U}\mathcal{C}\xrightarrow{F}\mathcal{D}\right).
+\]
+\end{thm}
+\begin{proof}
+It suffices (and more convenient) to prove the dual version. Indeed,
+$L_{G}\left(F\right)$ is characterized by 
+\[
+\begin{array}{ccc}
+\text{Hom}_{\mathbf{Fun}\left(\mathcal{E},\mathcal{D}\right)}\left(L_{G}\left(F\right),H\right) & \cong & \text{Hom}_{\mathbf{Fun}\left(\mathcal{C},\mathcal{D}\right)}\left(F,G_{*}H\right)\\
+\cong\downarrow &  & \downarrow\cong\\
+\text{Hom}_{\mathbf{Fun}\left(\mathcal{E},\mathcal{D}\right)^{op}}\left(H,L_{G}\left(F\right)\right) &  & \text{Hom}_{\mathbf{Fun}\left(\mathcal{C},\mathcal{D}\right)^{op}}\left(G_{*}H,F\right)
+\end{array}
+\]
+Note that $\mathbf{Fun}\left(\mathcal{C},\mathcal{D}\right)^{op}=\mathbf{Fun}\left(\mathcal{C}^{op},\mathcal{D}\right)$,
+so $R_{G^{0}}\left(F^{0}\right)\cong L_{G}\left(F\right)$.
+
+Since limits commutes with representable functors, i.e. given $F:\mathcal{J\to\mathcal{D}}$,
+\[
+\text{Hom}_{\mathcal{D}}\left(d,\lim_{\mathcal{J}}F\right)\cong\lim_{\mathcal{J}}\left(\text{Hom}_{\mathcal{D}}\left(d,F\left(-\right)\right)\right)
+\]
+so if $R_{G}\left(F\right)$ is given by such a formula, then it automatically
+commutes with representable functors $h^{d}=\text{Hom}_{\mathcal{D}}\left(d,-\right),\forall d\in\mathcal{D}$. 
+
+Assume that $R_{G}\left(F\right)$ is pointwise, then for any $d\in Ob\left(\mathcal{D}\right)$
+and any $e\in Ob\left(\mathcal{E}\right)$, 
+\[
+\begin{array}{ccl}
+\text{Hom}_{\mathcal{D}}\left(d,R_{G}F\left(e\right)\right) & = & h^{d}\left(R_{G}F\left(e\right)\right)=\left(h^{d}\circ R_{G}F\right)\left(e\right)\\
+ & = & \text{Hom}_{\mathbf{Fun}\left(\mathcal{E},\mathbf{Set}\right)}\left(h^{e},h^{d}\circ R_{G}F\right)\\
+ & \cong & \text{Hom}_{\mathbf{Fun}\left(\mathcal{E},\mathbf{Set}\right)}\left(h^{e},R_{G}\left(h^{d}\circ F\right)\right)\\
+ & \cong & \text{Hom}_{\mathbf{Fun}\left(\mathcal{C},\mathbf{Set}\right)}\left(h^{e}\circ G,h^{d}\circ F\right)\\
+ & \cong & \text{Hom}_{\mathbf{Fun}\left(\mathcal{C},\mathbf{Set}\right)}\left(\text{Hom}_{\mathcal{E}}\left(e,G\left(-\right)\right),\text{Hom}_{\mathbf{Fun}\left(\mathcal{D},\mathbf{Set}\right)}\left(d,F\left(-\right)\right)\right)\\
+ & \cong & \text{the set of cones under }d\text{ of the functor }FU\\
+ & = & \text{Hom}_{\mathbf{Fun}\left(e\backslash G,\mathcal{D}\right)}\left(\text{const}_{d},FU\right)\\
+ & \cong & \text{Hom}_{\mathcal{D}}\left(d,\lim_{e\backslash G}FU\right)
+\end{array}
+\]
+By Yoneda lemma, $R_{G}F\left(e\right)\cong\lim_{e\backslash G}\left(FU\right)$. 
+\end{proof}
+\begin{cor}
+If $\mathcal{D}$ is cocomplete then every left Kan extension of $F:\mathcal{C}\to\mathcal{D}$
+exists and is pointwise. If $\mathcal{D}$ is complete then every
+right Kan extension of $F:\mathcal{C}\to\mathcal{D}$ exists and is
+pointwise. 
+\end{cor}
+%
+\begin{cor}
+If $\mathcal{D}$ is cocomplete and $G$ is fully faithful, then $\eta_{\text{un}}$
+is an isomorphism of functors. 
+\end{cor}
+\begin{proof}
+Take $c\in Ob\left(\mathcal{C}\right)$ and consider $G/G\left(c\right)$,
+then $G$ is fully faithful implies that $G/G\left(c\right)$ has
+terminal object. Indeed, $Ob\left(G/G\left(c\right)\right)=\left\{ \left(c',f'\right)|c'\in Ob\left(\mathcal{C}\right),f':Gc'\to Gc\right\} $.
+Then $\left(c,\text{Id}_{G\left(c\right)}\right)$ is terminal in
+$G/G\left(c\right)$ because
+
+\[
+\text{Hom}\left(\left(c',f'\right),\left(c,\text{Id}_{G\left(c\right)}\right)\right)=\left\{ h:c'\to c|G\left(h\right)\circ\text{Id}_{G\left(e\right)}=f'\right\} =G^{-1}\left(f'\right)
+\]
+contains only one element. 
+
+Recall, by UMP of colimits, if $\mathcal{J}$ has terminal object
+$*$, then for any $F:\mathcal{J}\to\mathcal{D}$, $\text{colim}_{\mathcal{J}}\left(F\right)=F\left(*\right)$.
+Now for any $c\in Ob\left(\mathcal{C}\right)$, take $e=G\left(c\right)$
+and apply formula 
+\[
+L_{G}\left(F\right)\left(e\right)=\text{colim}_{G/G\left(e\right)}\left(FU\right)\cong FU\left(c,\text{Id}_{G\left(c\right)}\right)=F\left(c\right)
+\]
+So $L_{G}F\circ G\cong F$. 
+\end{proof}
+\begin{example}
+(Co-Yoneda lemma) Simplest version. Consider 
+\[
+\xymatrix{\mathcal{C}\ar[r]^{F}\ar[d]_{\text{Id}_{\mathcal{C}}} & \mathcal{D}\\
+\mathcal{C}\ar[ur]_{L_{\text{Id}_{\mathcal{C}}}F\cong F}
+}
+\]
+then we have $L_{\text{Id}_{\mathcal{C}}}F\cong F$ and $F\left(c\right)\cong\text{colim}_{\mathcal{C}/c}\left(\mathcal{C}/c\xrightarrow{U}\mathcal{C}\xrightarrow{F}\mathcal{D}\right)$. 
+\end{example}
+%
+\begin{example}
+Take $\hat{\mathcal{C}}=\mathbf{Fun}\left(\mathcal{C}^{op},\mathbf{Set}\right)$
+and Yoneda functor $h_{*}:\mathcal{C}\hookrightarrow\hat{\mathcal{C}}$
+\[
+\xymatrix{\mathcal{C}\ar@{^{(}->}[r]^{h_{*}}\ar@{^{(}->}[d]_{h_{*}} & \hat{\mathcal{C}}\\
+\hat{\mathcal{C}}\ar[ur]_{L_{h}\left(h\right)\cong\text{Id}_{\hat{\mathcal{C}}}}
+}
+\]
+Every presheaf on a small category $\mathcal{C}$ is canonically a
+colimit of representable presheaf. For any $X\in Ob\left(\hat{\mathcal{C}}\right)$,
+\[
+X\cong\text{colim}_{h_{*}/X}\left(h_{*}/X\xrightarrow{U}\mathcal{C}\xrightarrow{h_{*}}\hat{\mathcal{C}}\right).
+\]
+
+Take $\mathcal{C}=\Delta$, then $\hat{\mathcal{C}}=\mathbf{sSet}$
+and $h/X=\Delta X$ is the category of simplices over $X$. 
+
+$Ob\left(\Delta X\right)=\coprod_{n\geq0}X_{n}$. Note $X_{n}\cong\text{Hom}_{\mathbf{sSet}}\left(\Delta\left[n\right]_{*},X\right)$.
+
+$\text{Hom}_{\Delta X}\left(\left(\left[n\right],x\right),\left(\left[m\right],y\right)\right)=\left\{ f:\left[n\right]\to\left[m\right]|X\left(f\right)y=x\right\} $.
+\[
+\xymatrix{\Delta\ar@{^{(}->}[r]^{h_{*}}\ar[d]_{h_{*}} & \hat{\Delta}=\mathbf{sSet}\\
+\mathbf{sSet}\ar[ur]_{L_{h}\left(h\right)\cong\text{Id}_{\mathbf{sSet}}}
+}
+\]
+
+So we have $X=\text{colim}_{\Delta X}\left(\Delta X\xrightarrow{U}\Delta\xrightarrow{h}\mathbf{sSet}\right)=\text{colim}_{\Delta\left[n\right]_{*}\to X}\Delta\left[n\right]_{*}$. 
+\end{example}
+
+\subsection{Equivalence of Categories}
+
+Given two locally small categories $\mathcal{C}$ and $\mathcal{D}$,
+define $\mathbf{Adj}\left(\mathcal{C},\mathcal{D}\right)$ to be the
+category of adjunctions as 
+\begin{description}
+\item [{Objects:}] $\left\{ \left(L,R,\varphi\right)|\xymatrix{L:\mathcal{C}\ar@<1ex>[r] & \mathcal{D}:R\ar@<1ex>[l]}
+,\varphi:\text{Hom}_{\mathcal{D}}\left(F\left(-\right),-\right)\xrightarrow{\cong}\text{Hom}_{\mathcal{C}}\left(-,G\left(-\right)\right)\right\} $ where $\varphi$ is an isomorphism of bifunctors $\mathcal{C}^{op}\times\mathcal{C}\to\mathbf{Set}$.
+\item [{Morphisms:}] $\text{Hom}_{\mathbf{Adj}\left(\mathcal{C},\mathcal{D}\right)}\left(\left(L,R,\varphi\right),\left(L',R',\varphi'\right)\right)=\left\{ \left(\alpha,\beta\right)|\alpha:L\Rightarrow L',\beta:R'\Rightarrow R,\varphi'=\beta_{*}\circ\varphi\circ\alpha^{*}\right\} $.
+\end{description}
+Explicitly, for each $c\in Ob\left(\mathcal{C}\right),d\in Ob\left(\mathcal{D}\right)$,
+we have a commutative (factorization) diagram
+\[
+\xymatrix{\text{Hom}_{\mathcal{D}}\left(L'\left(c\right),d\right)\ar[r]^{\left(\alpha_{c}\right)^{*}}\ar[d]_{\varphi'_{c,d}} & \text{Hom}_{\mathcal{D}}\left(L\left(c\right),d\right)\ar[d]^{\varphi_{c,d}}\\
+\text{Hom}_{\mathcal{C}}\left(c,R'\left(d\right)\right) & \text{Hom}_{\mathcal{C}}\left(c,R\left(d\right)\right)\ar[l]_{\left(\beta_{d}\right)_{*}}
+}
+\]
+
+\begin{prop}
+Let $\mathcal{C}$ be a small category, and $\mathcal{D}$ a locally
+small, cocomplete, then there exists a natural equivalence of categories
+\[
+\xymatrix{\Phi:\mathcal{D^{C}}\ar@<1ex>[r]^{\cong} & \mathbf{Adj}\left(\hat{\mathcal{C}},\mathcal{D}\right):\Psi\ar@<1ex>[l]}
+\]
+where $\Psi$ is defined by restriction 
+\[
+\begin{array}{l}
+\Psi\left(\xymatrix{L:\hat{\mathcal{C}}\ar@<1ex>[r] & \mathcal{D}:R\ar@<1ex>[l]}
+,\varphi\right)=\left(h^{*}\left(L\right)=L\circ h:\mathcal{C}\overset{h}{\hookrightarrow}\hat{\mathcal{C}}\xrightarrow{L}\mathcal{D}\right)\\
+\Psi\left(\alpha,\beta\right)=h^{*}\left(\alpha\right)=\alpha\circ h
+\end{array}
+\]
+\end{prop}
+\begin{proof}
+Construction of $\Phi$. Given $F\in Ob\left(\mathcal{D^{C}}\right)$,
+define 
+\[
+\Phi\left(F\right):\left(\xymatrix{L\left(F\right):\hat{\mathcal{C}}\ar@<1ex>[r] & \mathcal{D}:R\left(F\right)\ar@<1ex>[l]}
+,\varphi\right)
+\]
+where $L\left(F\right)=L_{h}\left(F\right)$ and 
+\[
+\begin{array}{cccl}
+R\left(F\right): & \mathcal{D} & \to & \hat{\mathcal{C}}\\
+ & d & \mapsto & \text{Hom}_{\mathcal{D}}\left(F\left(-\right),d\right)=h_{d}\circ F:\mathcal{C}^{op}\to\mathbf{Set}
+\end{array}
+\]
+Take any $c\in Ob\left(\mathcal{C}\right),d\in Ob\left(\mathcal{D}\right)$
+and consider $h_{c}\in Ob\left(\hat{\mathcal{C}}\right)$, 
+\[
+\text{Hom}_{\hat{\mathcal{C}}}\left(h_{c},RF\left(d\right)\right)\overset{\text{Yoneda}}{\cong}RF\left(d\right)\left(c\right)=\text{Hom}_{\mathcal{D}}\left(Fc,d\right)=\text{Hom}_{\mathcal{D}}\left(L\left(F\right))h_{c},d\right)
+\]
+where the last equality follows from lemma on left Kan extension along
+fully faithful functors. 
+
+Hence $R\left(F\right)$ is right adjoint to $L\left(F\right)$ on
+the representable functors. 
+
+To extend it to all presheaves $X:\mathcal{C}^{op}\to\mathbf{Set}$,
+we need the following facts 
+\begin{enumerate}
+\item Co-Yonada lemma. 
+\[
+\xymatrix{\mathcal{C}\ar@{^{(}->}[r]^{h}\ar@{^{(}->}[d]^{h} & \hat{\mathcal{C}}\\
+\hat{\mathcal{C}}\ar[ur]_{\text{Id}_{\mathcal{C}}}
+}
+\]
+Every $X$ is canonically a colimit to $h_{c}$'s. 
+\[
+X\cong\text{colim}_{h/X}\left(h/X\xrightarrow{U}\mathcal{C}\overset{h}{\hookrightarrow}\hat{\mathcal{C}}\right)\cong\text{colim}_{h/X}\left(h\right).
+\]
+ 
+\item Left Kan extension is given by 
+\[
+L\left(F\right)X=L_{h}F\left(X\right)\coloneqq\text{colim}_{h/X}\left(h/X\xrightarrow{U}\mathcal{C}\xrightarrow{F}\mathcal{D}\right)=\text{colim}_{h/X}\left(F\right).
+\]
+\end{enumerate}
+Since colimit commutes with hom, 
+\[
+\begin{array}{ccl}
+\text{Hom}_{\hat{\mathcal{C}}}\left(X,RF\left(d\right)\right) & \cong & \text{Hom}_{\hat{\mathcal{C}}}\left(\text{colim}_{h/X}\left(h\right),R\left(F\right)\left(d\right)\right)\\
+ & \cong & \lim_{h/X}\text{Hom}_{\hat{\mathcal{C}}}\left(hU\left(-\right),R\left(F\right)\left(d\right)\right)\\
+ & \cong & \lim_{h/X}\left(\text{Hom}_{\mathcal{D}}\left(LF\left(hU\left(-\right)\right),d\right)\right)\\
+ & \cong & \text{Hom}_{\mathcal{D}}\left(\text{colim}_{h/X}LF\left(hU\left(-\right)\right),d\right)\\
+ & \cong & \text{Hom}_{\mathcal{D}}\left(LF\left(\text{colim}_{h/X}h\right),d\right)\\
+ & \cong & \text{Hom}_{\mathcal{D}}\left(LFX,d\right)
+\end{array}
+\]
+
+We have $\Phi\circ\Psi\left(\xymatrix{L:\hat{\mathcal{C}}\ar@<1ex>[r] & \mathcal{D}:R\ar@<1ex>[l]}
+,\varphi\right)=\left(\xymatrix{L:\hat{\mathcal{C}}\ar@<1ex>[r] & \mathcal{D}:R\ar@<1ex>[l]}
+,\varphi\right)$ and a natural transformation $F\Rightarrow\Psi\circ\Phi\left(F\right)=h\circ L_{h}F$
+by the universal property of left Kan extension.
+
+Check that $\Phi$ and $\Psi$ are inverse to each other.  
+\end{proof}
+\begin{example}
+The adjoint pair $\xymatrix{\left|-\right|:\mathbf{sSet}\ar@<1ex>[r] & \mathbf{Top}:\mathcal{S}\ar@<1ex>[l]}
+$ comes from a cosimplicial object 
+\[
+\begin{array}{ccccc}
+\Delta & \xrightarrow{\Delta^{*}} & \mathbf{sSet} & \xrightarrow{\left|-\right|} & \mathbf{Top}\\
+\left[n\right] & \mapsto & \Delta\left[n\right] & \mapsto & \Delta^{n}
+\end{array}
+\]
+\end{example}
+%
+\begin{example}
+{[}Dold-Kan{]} The adjoint pair 
+\[
+\xymatrix{\mathcal{N}:\mathbf{sAb}\ar@<1ex>[r] & \mathbf{Ch}_{\geq0}\left(\mathbf{Ab}\right):\Gamma\ar@<1ex>[l]}
+\]
+comes from a cosimplicial object 
+\[
+\begin{array}{ccccccc}
+\Delta & \xrightarrow{\Delta^{*}} & \mathbf{sSet} & \xrightarrow{\mathbb{Z}\left[-\right]} & \mathbf{sAb} & \xrightarrow{\mathcal{N}} & \mathbf{Ch}_{\geq0}\left(\mathbf{Ab}\right)\\
+\left[n\right] & \mapsto & \Delta\left[n\right] & \mapsto & \mathbb{Z}\left[\Delta\left[n\right]\right] & \mapsto & \mathcal{N}_{*}\left(\mathbb{Z}\left[\Delta\left[n\right]\right]\right)
+\end{array}
+\]
+\end{example}
+
+\subsection{Dold-Kan correspondence}
+
+\subsubsection{Simplicial Abelian Groups}
+
+The functor $\xymatrix{\mathcal{N}:\mathbf{sAb}\ar[r] & \mathbf{Ch}_{\geq0}\left(\mathbf{Ab}\right)}
+$ is defined as follows. 
+\begin{defn}
+The \emph{Moore complex} $A_{*}$associated to a simplcial abelian
+group $A_{\bullet}$ is given by $A_{n}$ in dimension $n$ with differential
+$\partial={\displaystyle \sum_{i=0}^{n}}\left(-1\right)^{i}d_{i}$
+given by the alternating sum of the face maps.
+\end{defn}
+The simplicial identities easily imply that this is in fact a chain
+complex. Thus $A_{\bullet}\mapsto A_{*}$ defines a functor from simplicial
+abelian groups to chain complexes.
+\begin{prop}
+Let $A_{\bullet}$ be a simplicial abelian group. There is a subcomplex
+$DA_{*}\subset A_{*}$ of the Moore complex such that $DA_{n}$ consists
+of the sums of degenerate simplices in degree $n$.
+\end{prop}
+Consequently, if $A_{\bullet}$ is a simplicial abelian group, we
+can consider the chain complex $\left(A/DA\right)_{*}$. This is functorial
+in $A_{\bullet}$, and there is a natural transformation $A_{*}\to\left(A/DA\right)_{*}$. 
+
+Nonetheless, in defining the Dold-Kan correspondence, we shall use
+a different construction (which we will prove is isomorphic to $\left(A/DA\right)_{*}$).
+\begin{defn}
+Given a simplicial abelian group $A_{\bullet}$, we define the \emph{normalized
+complex} $NA_{*}$ as 
+\[
+NA_{n}={\displaystyle \bigcap_{i<n}\left(d_{i}:A_{n}\to A_{n-1}\right)}
+\]
+with differential 
+\[
+d=d_{n}|_{NA_{n}}:NA_{n}\to NA_{n-1}.
+\]
+\end{defn}
+This is a well-defined chain complex since for any element $a$ in
+$NA_{n}$, $d_{i}a=0,i<n$, so $d_{i}d_{n}a=d_{n-1}d_{i}a=0$, i.e.
+$d_{0}a\in NA_{n-1}$. Furthermore, $d_{n-1}d_{n}a=d_{n-1}d_{n-1}a=0$,
+so $d$ is a differential. 
+
+We thus have three different ways of obtaining a complex from $A_{\bullet}$.
+By the way we defined the normalized chain complex, we have natural
+morphisms 
+\[
+\xymatrix{NA_{*}\ar[r] & A_{*}\ar[r] & \left(A/DA\right)_{*}}
+.
+\]
+
+
+\subsubsection{Dold-Kan correspondence}
+
+Our goal is to prove: 
+\begin{thm}
+The adjoint pair 
+\[
+\xymatrix{\mathcal{N}:\mathbf{sAb}\ar@<1ex>[r] & \mathbf{Ch}_{\geq0}\left(\mathbf{Ab}\right):\Gamma\ar@<1ex>[l]}
+\]
+axsis an equivalence of categories. Moreover, the three complexes
+$NA_{*},A_{*},\left(A/DA\right)_{*}$ are all naturally homotopically
+equivalent (and the first and the last are even isomorphic).
+\end{thm}
+%
+The normalized chain complex of a simplicial abelian group $A_{\bullet}$
+ looks a lot different from $A_{\bullet}$, which has much more structure.
+Nonetheless, we are going to see that it is possible to recover $A_{\bullet}$
+entirely from this chain complex.
+
+A key step in the proof of the Dold-Kan correspondence will be the
+establishment of the functorial decomposition for any simplicial abelian
+group 
+\begin{equation}
+\bigoplus_{\left[n\right]\twoheadrightarrow\left[k\right]}NA_{k}\cong A_{n}.\label{eq:decomp}
+\end{equation}
+Here the map from a factor $NA_{k}$ corresponding to some $\varphi:\left[n\right]\twoheadrightarrow\left[k\right]$
+to $A_{n}$ is given by pulling back by $\varphi$. 
+
+Now, let us assume that \ref{eq:decomp} is true. Motivated by this,
+we shall define a functor from chain complexes to simplicial abelian
+groups. Let us now determine how the simplicial maps will play with
+the decomposition.
+
+Given a map $f:\left[m\right]\to\left[n\right]$, we can compose it
+with $\varphi:\left[n\right]\twoheadrightarrow\left[k\right]$ to
+get a map $\varphi\circ f:\left[m\right]\to\left[k\right]$ which
+can be factored as a surjection followed by an injection
+\[
+\xymatrix{\left[m\right]\ar@{->>}[r]^{\varphi_{1}} & \left[l\right]\ar@{^{(}->}[r]^{\varphi_{2}} & \left[k\right]}
+.
+\]
+This corresponds to a map $NA_{k}\hookrightarrow A_{n}\xrightarrow{f^{*}}A_{m}$,
+and we want to know where $f^{*}$ takes $NA_{k}$ into $A_{m}$.
+Note that simplicial maps induced by injections in $\Delta$ preserve
+$NA$. Hence we have a commutative diagram 
+\[
+\xymatrix{NA_{k}\ar[r]^{\varphi_{2}^{*}}\ar@{^{(}->}[d]_{\varphi^{*}} & NA_{l}\ar@{^{(}->}[d]^{\varphi_{1}^{*}}\\
+A_{n}\ar[r]^{f^{*}} & A_{m}
+}
+\]
+where $\varphi_{1}$ is surjective and thus $\varphi_{1}^{*}$ corresponds
+to one of the map of the canonical decomposition. It follows that
+we have a recipe for determining where the $\varphi$-factor $NA_{k}$
+of $A_{n}$ goes. 
+
+Given an chain complex $C_{*}$, we define a simplicial abelian group
+$\Gamma C_{\bullet}$ by 
+\[
+\Gamma C_{n}=\bigoplus_{\left[n\right]\twoheadrightarrow\left[k\right]}C_{k}
+\]
+where the sum is taken over all surjections $\left[n\right]\twoheadrightarrow\left[k\right]$.
+We can make this into a simplicial abelian group using the above \textquotedblleft recipe\textquotedblright{}
+describing how the canonical decomposition for a simplicial abelian
+group behaves, but there is a bit of subtlety.
+
+Since the $\varphi_{2}^{*}$ in the explanation above does not make
+sense, let us note that if we restrict to the subcategory $\Delta'\subset\Delta$
+consisting of injective maps, then the map $\left[n\right]\mapsto C_{n}$
+becomes a contravariant functor in a natural way. Indeed, we let the
+map $C_{n}\to C_{m}$ induced by an injection $\left[m\right]\hookrightarrow\left[n\right]$
+be zero unless $m=n-1$, in which case we let the map $C_{n}\to C_{n-1}$
+be the differential. Since $C_{*}$ is a chain complex, this is indeed
+a functor. So a chain complex gives an abelian presheaf on the \textquotedblleft semi-simplicial\textquotedblright{}
+category. Note that if we started with a simplicial abelian group
+$A_{\bullet}$, then if the chain complex $NA_{*}$ is made into a
+contravariant functor $\Delta'\to\mathbf{Ab}$, we have gotten nothing
+new: we just recover the simplicial structure maps. Indeed, if $\varphi:\left[m\right]\hookrightarrow\left[n\right]$
+is an injection, then the map $\varphi^{*}:NA_{n}\to NA_{m}$ is zero
+unless $\varphi=d_{n}$ and $m=n-1$. Otherwise $\varphi$ will contain
+a $d_{i}$ for some $i<n$, and the definition of $NA_{*}$ completes
+the proof. We thus see:
+\begin{lem}
+Let $C_{\ast}$ be a chain complex. Then there is a functor $\Delta'\to\mathbf{Ab},\left[n\right]\mapsto C_{n}$
+and an injection $\left[m\right]\hookrightarrow\left[n\right]$ to
+zero unless $m=n-1$ and the injection is $d_{n}$, in which case
+it is the differential. If $A_{\bullet}$ is a simplicial abelian
+group, this construction agrees with the simplicial maps when restricted
+to $NA_{*}$. 
+\end{lem}
+%
+Now, let us show how to make $\Gamma C_{\bullet}$ into a simplicial
+abelian group. 
+
+Given some map $\left[m\right]\to\left[n\right]$ in $\Delta$, we
+map the individual terms as follows. Let $\varphi:\left[n\right]\twoheadrightarrow\left[k\right]$
+be an epimorphism in $\Delta$, giving a factor $C_{k}\subset\Gamma C_{n}$,
+we then define 
+\[
+C_{k}\to\Gamma C_{m}=\bigoplus_{\left[m\right]\twoheadrightarrow\left[l\right]}C_{l}
+\]
+as follows. We have a map $\left[m\right]\to\left[n\right]\twoheadrightarrow\left[k\right]$,
+which we can factor as a composite $\left[m\right]\twoheadrightarrow\left[l\right]\hookrightarrow\left[k\right]$,
+of a surjection and an injection. So we send $C_{k}$ (via $\varphi^{*}$,
+which is defined by the functoriality) to $C_{m'}$, imbedded in $\Gamma C_{m}$
+as the factor corresponding to the surjection $\left[m\right]\twoheadrightarrow\left[l\right]$. 
+\begin{lem}
+The above construction gives a functor from chain complexes to simplicial
+abelian groups. 
+\end{lem}
+%
+In fact, the above construction will give a simplicial object from
+any semi-simplicial object.
+
+As a result, we have constructed our functor \textgreek{sv} from chain
+complexes to simplicial abelian groups. Note that there is a natural
+transformation 
+\[
+\left(\Gamma NA_{*}\right)_{\bullet}\to A_{\bullet}
+\]
+for any simplicial abelian group $A_{\bullet}$. On the $n$-simplices,
+this is the map 
+\[
+\bigoplus_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}NA_{k}\to A_{n}
+\]
+where the factor corresponding to $\varphi$ is mapped to $A_{n}$
+by pulling back by $\varphi$. This is the map discussed above. It
+is immediate from the definition that this is a simplicial map. The
+crux of the proof of the Dold-Kan correspondence is that this is an
+isomorphism. 
+\begin{prop}
+\label{sab-ch} For a simplicial abelian group $A_{\bullet}$, we
+have for each $n$, an isomorphism of abelian groups 
+\[
+\bigoplus_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}NA_{k}\cong A_{n}
+\]
+Here the map is given by sending a summand $NA_{k}$ to $A_{n}$ via
+the pull-back by the term $\varphi$. Alternatively, the morphism
+of simplicial abelian groups 
+\[
+\left(\Gamma NA_{*}\right)_{\bullet}\to A_{\bullet}
+\]
+is an isomorphism. 
+\end{prop}
+This is going to take some work, and we are going to need first a
+simpler splitting that will, incidentally, show that $NA_{*}$ and
+$\left(A/DA\right)_{*}$ are isomorphic. We are going to prove the
+above result by induction, using: 
+\begin{lem}
+Let $A_{\bullet}$ be a simplicial abelian group, then the map 
+\[
+NA_{n}\oplus DA_{n}\to A_{n}
+\]
+is an isomorphism. 
+\end{lem}
+\begin{proof}
+(Sketch) The proof is by induction. Namely, for each $k<n$, we define
+$N_{k}A_{n}={\displaystyle \bigcap_{0}^{k}}\ker d_{k}$ and $D_{k}A_{n}$
+to be the group generated by the images of $s_{j}\left(A_{n-1}\right),j\leq k$.
+So these are partial versions of $NA_{n},DA_{n}$. The claim is that
+there is a natural splitting 
+\[
+N_{k}A_{n}\oplus D_{k}A_{n}\cong A_{n}.
+\]
+
+When $k=0$, this is $\ker d_{0}\oplus\text{Im}s_{0}\cong A_{n}$
+which follows from 
+\[
+\xymatrix{A_{n-1}\ar@<1ex>[r]^{s_{0}} & A_{n}\ar@<1ex>[l]^{d_{0}}}
+\]
+where $d_{0}s_{0}=\text{Id}_{A_{n-1}}$, $s_{0}$ is called the splitting
+injection and $d_{0}$ is a section. Hence $A_{n}$ splits as $\ker d_{0}\oplus\text{Im}s_{0}$. 
+
+Now assume the splitting holds for $k-1$, $N_{k-1}A_{n}\oplus D_{k-1}A_{n}\cong A_{n}$. 
+
+We have a split exact sequence 
+\[
+\xymatrix{0\ar[r] & A_{n-1}/D_{k-1}A_{n-1}\ar[r]^{s_{k}} & A_{n}/D_{k-1}A_{n}\ar[r] & A_{n}/D_{k}A_{n}\ar[r] & 0}
+\]
+where the splitting is given by $d_{k}$. 
+
+Similarly, we have a split exact sequence (where the simplicial identities
+show that $s_{k}\left(N_{k-1}A_{n-1}\right)\subset N_{k-1}A_{n}$)
+\[
+\xymatrix{0\ar[r] & N_{k-1}A_{n-1}\ar[r]^{s_{k}} & N_{k-1}A_{n}\ar[r] & N_{k}A_{n}\ar[r] & 0}
+.
+\]
+
+Thus we have a commutative diagram 
+\[
+\xymatrix{0\ar[r] & N_{k-1}A_{n-1}\ar[r]^{s_{k}}\ar[d]^{\cong} & N_{k-1}A_{n}\ar[r]\ar[d]^{\cong} & N_{k}A_{n}\ar[r]\ar[d] & 0\\
+0\ar[r] & A_{n-1}/D_{k-1}A_{n-1}\ar[r]^{s_{k}} & A_{n}/D_{k-1}A_{n}\ar[r] & A_{n}/D_{k}A_{n}\ar[r] & 0
+}
+\]
+so by five lemma, $N_{k}A_{n}\cong A_{n}/D_{k}A_{n}$. Furthermore,
+we have a map 
+\[
+\begin{array}{cccl}
+r: & A_{n} & \to & N_{k}A\\
+ & a & \mapsto & a-{\displaystyle \sum_{i=0}^{k}s_{i}d_{i}a}
+\end{array}
+\]
+which gives the splitting. 
+\end{proof}
+\begin{cor}
+The map $NA_{\ast}\to\left(A/DA\right)_{*}$ is an isomorphism of
+chain complexes. 
+\end{cor}
+%
+\begin{cor}
+The map $NA_{*}\to\left(A/DA\right)_{*}$ is an isomorphism of chain
+complexes. 
+\end{cor}
+%
+Now we can prove proposition \ref{sab-ch}. 
+\begin{claim}
+The map 
+\[
+\Phi_{n}:\bigoplus_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}A_{k}\to A_{n}
+\]
+is an isomorphism. 
+\end{claim}
+\begin{proof}
+First we need to show $\Phi_{n}$ is surjective. By induction on $n$,
+we may assume that $\Phi_{m}:\left(\Gamma NA_{*}\right)_{m}\to A_{m}$
+is surjective for smaller $m<n$. Now An splits as the sum of $NA_{n}$
+and $DA_{n}$. Clearly $NA_{n}$ is in the image of $\Phi_{n}$ (from
+the factor $NA_{n}$). But by the inductive hypothesis, everything
+in $A_{n-1}$ is in the image of $\Phi_{n-1}$, and taking degeneracies
+now shows that anything in $DA_{n}$ is in the image of $\Phi_{n}$.
+Thus $\Phi_{n}$ is surjective. 
+
+Let us now show that $\Phi_{n}$ is injective. Suppose a family $\left(a_{\varphi}\right)\in{\displaystyle \bigoplus_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}A_{k}}$
+maps to zero under $\Phi_{n}$. By assumption, we have 
+\[
+\sum_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}\varphi^{*}\left(a_{\varphi}\right)=0,
+\]
+then $a_{1:\left[n\right]\to\left[n\right]}\in A_{n}$ is zero since
+this is the only term not in $DA_{n}$. 
+
+We shall now define an ordering on the surjections $\varphi:\left[n\right]\twoheadrightarrow\left[k\right]$.
+Say that $\varphi_{1}\leq\varphi_{2}$ if $\varphi_{1}\left(i\right)\leq\varphi_{2}\left(i\right)$
+for each $i\in\left[n\right]$. We can assume that $\varphi$ is chosen
+minimal with respect to this (partial) ordering such that $a_{\varphi}\neq0$.
+Now choose a section $\phi:$$\left[k\right]\hookrightarrow\left[n\right]$
+which is maximal in that $\phi$ is not a section of any $\varphi'>\varphi$.
+If we think of $\varphi$ as determining a partition of $\left[n\right]$
+into $k$ subsets, then we have $\phi$ sending $i\in\left[k\right]$
+to the last element of the ith subset of $\left[n\right]$. Then $\varphi$
+is a section of $\varphi$, and of no other $\varphi'<\varphi$. If
+we apply $\phi^{*}$ to the equation $\sum_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}\varphi^{*}\left(a_{\varphi}\right)=0$,
+we find that 
+\[
+\Phi_{k}\left(\phi^{*}\left(a_{\varphi}\right)\right)=0
+\]
+which implies by the inductive hypothesis (as $k<n$) that $\phi^{*}$
+pulls back $\left(a_{\varphi}\right)\in{\displaystyle \bigoplus_{\varphi:\left[n\right]\twoheadrightarrow\left[k\right]}A_{k}}$
+to zero. But the component of the identity $\left[k\right]\to\left[k\right]$
+of this pull-back is just $a_{\varphi}$. This means that $a_{\varphi}=0$. 
+\end{proof}
+%
+We thus have defined a functor $\mathcal{N}$ from simplicial abelian
+groups to chain complexes. We have defined a functor $\Gamma$ in
+the opposite direction. We have, moreover, seen that the simplicial
+abelian group associated to $NA_{*}$ for $A_{\bullet}$ a simplicial
+abelian group is just $A_{\bullet}$ itself, in view of the canonical
+decomposition of a simplicial abelian group. It suffices now, at least,
+to prove that the normalized chain complex associated to $\Gamma C_{\bullet}$
+is just $C_{*}$, for any chain complex $C_{*}$. So we need to compute
+$N\left(\Gamma C_{\bullet}\right)_{*}$. 
+
+In degree $n$, this consists of elements of ${\displaystyle \bigoplus_{\left[n\right]\twoheadrightarrow\left[k\right]}}C_{k}$
+that are killed by the $d_{i},i<n$. The claim is that this consists
+precisely of $C_{n}$ under the identity $\left[n\right]\twoheadrightarrow\left[n\right]$.
+We can see this because we can show that $C_{n}\subset N\left(\Gamma C\right)_{n}$
+by direct computation; if $i<n$, then the map $d^{i}:\left[n-1\right]\to\left[n\right]\twoheadrightarrow\left[n\right]$
+pulls $C_{n}$ down to $C_{n-1}$ via the functor $\Delta'\to\mathbf{Ab}$
+induced; however, this functor induces zero on coface maps that are
+not the highest index. Conversely, we must show that $N\left(\Gamma C\right)_{n}\subset C_{n}$.
+To do this, we know that $N\left(\Gamma C\right)_{n}$ is a complement
+to the degeneracies. However, the $C_{k},k<n$ occurring in the expression
+for $\left(\Gamma C\right)_{n}$ are all degeneracies. Thus our assertion
+is clear. 
+
+\subsection{{*}Simplicial groups and spaces}
+
+\subsubsection{Twisted Cartesian products and principal bundles }
+
+Let $\mathbf{sGr}=\mathbf{Fun}\left(\Delta^{op},\mathbf{Gr}\right)$
+be the category of simplicial groups. 
+
+Let $G_{*}=\left\{ G_{n}\right\} _{n\geq0}\in Ob\left(\mathbf{sGr}\right)$
+and $X_{*}\in Ob\left(\mathbf{sSet}\right)$. 
+\begin{defn}
+A \emph{twisting function} $\tau:X_{*}\to G_{*-1}$ is a family of
+maps $\left\{ \tau_{n}:X_{n}\to G_{n-1}\right\} _{n\geq1}$ such that
+\[
+\begin{array}{cclc}
+d_{0}\left(\tau\left(x\right)\right) & = & \tau\left(d_{0}x\right)^{-1}\tau\left(d_{1}x\right)\\
+d_{i}\left(\tau\left(x\right)\right) & = & \tau\left(d_{i+1}x\right) & i\geq1\\
+s_{j}\left(\tau\left(x\right)\right) & = & \tau\left(s_{j+1}x\right) & j\geq0\\
+\tau\left(s_{0}\left(x\right)\right) & = & 1_{G_{n}} & \forall x\in G_{n}
+\end{array}
+\]
+\end{defn}
+%
+\begin{defn}
+A \emph{(principal) twisted Cartesian product} with fibre $G_{*}$
+and base $X_{*}$, and twisting function $\tau:X_{*}\to G_{*-1}$
+is a simplicial set $E_{*}=G_{*}\times_{\tau}X_{*}$ with 
+\[
+E_{n}\coloneqq G_{n}\times X_{n},n\geq0
+\]
+and 
+\[
+\begin{array}{ccl}
+d_{i}\left(g,x\right) & = & \begin{cases}
+\left(\tau\left(x\right)\cdot d_{0}g,d_{0}x\right) & i=0,\\
+\left(d_{i}g,d_{i}x\right) & i>0.
+\end{cases}\\
+s_{j}\left(g,x\right) & = & \left(s_{j}g,s_{j}x\right)\ \ \ \ \ \ \ \ \ \ \ \ \ \ j\geq0.
+\end{array}
+\]
+\end{defn}
+\begin{prop}
+\label{prop-fib} Any principal $G_{*}$-fibration $p_{*}:E_{*}\to X_{*}$
+with right $G_{*}$ action on $E_{*}$ with local cross section $\sigma_{*}:X_{*}\to E_{*}$
+(i.e. $\sigma_{n}:X_{n}\to E_{n}$ such that $p_{n}\sigma_{n}=\text{Id}_{X_{n}}$
+and $d_{i}\sigma=\sigma d_{i},\forall i>0$, $s_{j}\sigma=\sigma s_{j},\forall j\geq0$)
+can be identified with $G\times_{\tau}X\to X$ where $\tau:X_{*}\to G_{*-1}$
+is determined by $d_{0}\sigma\left(x\right)=\sigma\left(d_{0}x\right)\cdot\tau\left(x\right)$. 
+\end{prop}
+
+\subsection{Classifying Space of Simplicial Groups }
+
+Given $G_{*}\in Ob\left(\mathbf{sGr}\right)$, define a reduced simplicial
+set $\overline{\mathcal{W}}\left(G_{*}\right)$ by 
+\[
+\overline{\mathcal{W}}_{0}\left(G\right)\coloneqq\left\{ *\right\} ,\overline{\mathcal{W}}_{n}\left(G\right)\coloneqq G_{n-1}\times G_{n-2}\times\cdots\times G_{n},n\geq0
+\]
+with 
+\[
+\begin{array}{rccc}
+s_{0}: & \overline{\mathcal{W}}{}_{0}\left(G\right) & \to & \overline{\mathcal{W}}{}_{1}\left(G\right)\\
+ & * & \mapsto & 1_{G_{0}}\\
+d_{0}=d_{1}: & \overline{\mathcal{W}}_{1}\left(G\right) & \to & \overline{\mathcal{W}}_{0}\left(G\right)\\
+ & g & \mapsto & *
+\end{array}
+\]
+and for $n\geq1$,
+\[
+\begin{array}{rll}
+d_{0}\left(g_{n-1},\cdots,g_{0}\right) & = & \left(g_{n-2},\cdots,g_{0}\right)\\
+d_{i+1}\left(g_{n-1},\cdots,g_{0}\right) & = & \left(d_{i}g_{n-1},\cdots,d_{1}g_{n-i},g_{n-i-2}\cdot d_{0}g_{n-i-1},g_{n-i-3},\cdots,g_{0}\right)\\
+s_{0}\left(g_{n-1},\cdots,g_{0}\right) & = & \left(1,g_{n-1},\cdots,g_{0}\right)\\
+s_{j+1}\left(g_{n-1},\cdots,g_{0}\right) & = & \left(s_{j}g_{n-2},\cdots s_{0}g_{n-j-1},1,g_{n-i-2},\cdots,g_{0}\right)
+\end{array}
+\]
+This is a simplicial set  with a twisting function 
+\[
+\begin{array}{cccc}
+\tau_{n}\left(G\right): & \overline{\mathcal{W}}_{n}\left(G\right) & \to & G_{n-1}\\
+ & \left(g_{n-1},\cdots,g_{0}\right) & \mapsto & g_{n-1}
+\end{array}
+\]
+
+\begin{lem}
+\label{lem-twist} $\tau\left(G\right)$ is a universal twisting function
+in the sense that any principal twisted product $G\times_{\tau}X$
+can be induced from $G_{*}\times_{\tau\left(G\right)}X_{*}$ by a
+unique classifying map $X_{*}\mapsto\overline{\mathcal{W}}\left(G_{*}\right)$
+given by 
+\[
+x\in X_{n}\mapsto\left(\tau\left(x\right),\tau\left(d_{0}x\right),\cdots,\tau\left(d_{0}^{n-1}x\right)\right)\in\overline{\mathcal{W}}_{n}\left(G_{*}\right).
+\]
+\end{lem}
+%
+\begin{example}
+If $G_{*}=\left\{ G_{n}\right\} _{n\geq0}$ is a discrete simplicial
+group, $\overline{\mathcal{W}}\left(G\right)=B_{*}G$ the simplicial
+nerve of $G$, then 
+\[
+\begin{array}{ccc}
+G\times_{\tau\left(G\right)}\overline{\mathcal{W}}\left(G\right) & \cong & E_{*}G\\
+G^{n+1} & \longleftrightarrow & E_{n}\left(G\right)\\
+\left(g_{0},g_{0}g_{1},\cdots,g_{0}\cdots g_{n}\right) & \longleftrightarrow & \left(g_{0},\cdots,g_{n}\right)
+\end{array}
+\]
+\end{example}
+%
+
+\subsubsection{The Kan loop group of simplicial sets}
+
+Conversely, given $X_{*}\in Ob\left(\mathbf{sSet}_{0}\right)$ a reduced
+simplicial set, define the Kan loop group of $X$, $\mathbb{G}\left(X\right)_{*}\in Ob\left(\mathbf{sGr}\right)$
+by 
+\[
+\mathbb{G}_{n}\left(X\right)\coloneqq\mathbb{F}\left\langle X_{n+1}\right\rangle /\left(s_{0}\left(x\right)=1,\forall x\in X_{n}\right)
+\]
+induced by 
+\[
+B_{n}=X_{n+1}\backslash s_{0}\left(X_{n}\right)\hookrightarrow X_{n+1}
+\]
+(but $\left\{ B_{n}\right\} $ do not form a simplicial set), with
+\[
+\begin{array}{ccl}
+d_{i}^{\mathbb{G}}\left(x\right) & = & \begin{cases}
+d_{1}\left(x\right)d_{0}\left(x\right)^{-1} & i=0,\\
+d_{i+1}x & i>0.
+\end{cases}\\
+s_{j}^{\mathbb{G}}\left(x\right) & = & s_{j+1}x\ \ \ \ \ \ \ \ \ \ \ \qquad j\geq0.
+\end{array}
+\]
+
+Define 
+\[
+\tau\left(X\right):X_{*}\to\mathbb{G}\left(X\right)_{*-1}
+\]
+by 
+\[
+\tau_{n}\left(X\right):X_{n}\hookrightarrow\mathbb{F}\left\langle X_{n}\right\rangle \twoheadrightarrow\mathbb{G}X_{n-1}.
+\]
+ 
+
+Given $X_{*}\in Ob\left(\mathbf{sSet}\right)$ and $G_{*}\in Ob\left(\mathbf{sGr}\right)$
+define 
+\[
+\text{Tw}\left(X_{*},G_{*}\right)\coloneqq\left\{ \text{twisting functions }\tau:X_{*}\to G_{*}\right\} .
+\]
+
+\begin{thm}
+\label{Thm-bij} There are natural bijections 
+\[
+\begin{array}{ccccc}
+\text{Hom}_{\mathbf{sGr}}\left(\mathbb{G}X_{*},G_{*}\right) & \xrightarrow{\sim} & \text{Tw}\left(X_{*},G_{*}\right) & \xleftarrow{\sim} & \text{Hom}_{\mathbf{sSet}}\left(X_{*},\overline{\mathcal{W}}G_{*}\right)\\
+f & \mapsto & f\circ\tau\left(X\right)\\
+ &  & \tau\left(G)\circ g\right) & \mapsfrom & g
+\end{array}
+\]
+Hence we have adjunction 
+\[
+\xymatrix{\mathbb{G}:\mathbf{sSet}_{0}\ar@<1ex>[r] & \mathbf{sGr}:\overline{\mathcal{W}}\ar@<1ex>[l]}
+.
+\]
+\end{thm}
+Theorem \ref{Thm-bij}, proposition \ref{prop-fib} and lemma \ref{lem-twist}
+implies
+\begin{cor}
+For fixed $G_{*}\in Ob\left(\mathbf{sGr}\right),X\in Ob\left(\mathbf{sSet}\right)$,
+there is a natural bijection between the set of twisting function
+$\text{Tw}\left(X_{*},G_{*}\right)$ and the isomorphism classes of
+pairs $\left(E_{*},G_{*}\right)$ where $E_{*}$ is a principal $G_{*}$-bundle
+over $X_{*}$ with local section $\sigma:X_{*}\to E_{*}$. The bijection
+is given by 
+\[
+\tau\mapsto\left(G\times_{\tau}X,\sigma\right)
+\]
+where $d_{0}\sigma_{n}\left(x\right)=\sigma_{n-1}\left(d_{0}x\right)\tau\left(x\right)$. 
+\end{cor}
+%
+Our main theorem is the following. 
+\begin{thm}
+(Kan) 
+\begin{enumerate}
+\item For $X_{*}\in Ob\left(\mathbf{sSet}_{0}\right)$ a reduced simplicial
+set and $G_{*}\in Ob\left(\mathbf{sGr}\right)$, there are weak homotopy
+equivalences of spaces 
+\[
+\begin{array}{ccc}
+\left|\mathbb{G}\left(X_{*}\right)\right| & \simeq & \Omega\left|X_{*}\right|\\
+\left|\overline{\mathcal{W}}\left(G_{*}\right)\right| & \simeq & B\left|G_{*}\right|
+\end{array}
+\]
+This shows that the homotopy type of $\left|\mathbb{G}\left(X_{*}\right)\right|$
+is the loop space of $\left|X\right|$, and the homotopy type of $\left|\overline{\mathcal{W}}\left(G_{*}\right)\right|$
+is the classifying space of $\left|G_{*}\right|$, which is the reason
+for the name of the two functors. 
+\item The adjoint functors $\left(\mathbb{G},\overline{\mathcal{W}}\right)$
+give Quillen pair of model categories 
+\[
+\xymatrix{\mathbb{G}:\mathbf{sSet}_{0}\ar@<1ex>[r] & \mathbf{sGr}:\overline{\mathcal{W}}\ar@<1ex>[l]}
+\]
+and 
+\[
+\text{Ho}\left(\mathbf{sSet}_{0}\right)\cong\text{Ho}\left(\mathbf{sGr}\right).
+\]
+\end{enumerate}
+\end{thm}
+%
+
+\subsection{Geometric Bar Construction }
+
+Let $\mathcal{U}$ be the category of compactly generated weak Hausdorff
+spaces. Let $\mathcal{W}$ be the full subcategory of $\mathcal{U}$
+of spaces having the same homotopy type of CW complexes. 
+
+\subsubsection{Neighborhood Deformation Retract}
+
+The object is to define a category of pairs $\left(X,A\right)$ where
+$X\in Ob\left(\mathcal{U}\right)$ and $A$ is a closed subset in
+$X$ having certain useful properties. Most important is that each
+$\left(X,A\right)$ should have the homotopy extension property (i.e.
+the inclusion $A\subset X$ is a cofibration). Also we require that
+the category should be closed under the operations of forming products
+and adjunction spaces. 
+\begin{defn}
+\cite{key-3-1} A closed subset $A$ of a space $X\in Ob\left(\mathcal{U}\right)$
+is called a \emph{neighborhood deformation retract }(NDR) in $X$
+if there exists a map $u:X\to I$ such that $A=u^{-1}\left(0\right)$
+and a homotopy $h:I\times X\to X$ such that $h\left(0,x\right)=x$
+for all $x\in X$, $h\left(t,a\right)=a$ for all $\left(t,a\right)\in I\times A$,
+and $h\left(1,x\right)\in A$ for all $x\in u^{-1}[0,1)$. The pair
+$\left(X,A\right)$ is called an \emph{NDR-pair}. The pair $\left(h,u\right)$
+is said to be a \emph{representation} of $\left(X,A\right)$ as an
+NDR-pair. If in addition, $h\left(1,x\right)\in A$ for all $x\in X$,
+then $A$ is a \emph{deformation retract} of $X$ and $\left(X,A\right)$
+is a \emph{DR-pair}. An NDR-pair $\left(X,A\right)$ is a \emph{strong
+NDR-pair} if $u\circ h\left(t,x\right)<1$ whenever $u\left(x\right)<1$;
+thus if $B=u^{-1}[0,1)$, it is required that $\left(h,u\right)$
+restrict to a representation of $\left(B,A\right)$ as a DR-pair.
+\end{defn}
+%
+The pair $\left(X,\emptyset\right)$ is always an NDR pair. $\left(X,X\right)$
+and $\left(I,\left\{ 0\right\} \right)$ is always a DR pair. 
+\begin{thm}
+\label{Thm-NDR-prod} If $\left(X,A\right)$ and $\left(Y,B\right)$
+are NDR pairs, then so is their product 
+\[
+\left(X,A\right)\times\left(Y,B\right)=\left(X\times Y,X\times B\cup A\times Y\right).
+\]
+If in addition, one of them is a DR pair, then their product is a
+DR pair. 
+\end{thm}
+\begin{proof}
+Let $\left(h,u\right)$ and $\left(j,v\right)$ be the representations
+of $\left(X,A\right)$ and $\left(Y,B\right)$ respectively. Define
+\[
+\begin{array}{cccc}
+w: & X\times Y & \to & I\\
+ & \left(x,y\right) & \mapsto & u\left(x\right)v\left(y\right)
+\end{array}
+\]
+then $X\times B\cup A\times Y=w^{-1}\left(0\right)$. Define the homotopy
+\[
+\begin{array}{cccc}
+q: & I\times X\times Y & \to & X\times Y\\
+ & \left(t,x,y\right) & \mapsto & \begin{cases}
+\left(x,y\right) & x\in A,y\in B\\
+\left(h\left(t,x\right),j\left(\frac{u\left(x\right)}{v\left(y\right)}t,y\right)\right) & u\left(x\right)\leq v\left(y\right),v\left(y\right)>0\\
+\left(h\left(\frac{v\left(y\right)}{u\left(x\right)}t,x\right),j\left(t,y\right)\right) & v\left(y\right)\leq u\left(x\right),u\left(x\right)>0
+\end{cases}
+\end{array}
+\]
+The domain of the last two lanes intersect in the relatively closed
+set where $u\left(x\right)=v\left(y\right)>0$ which both reduce to
+$\left(h\left(t,x\right),j\left(t,y\right)\right)$, thus $q$ is
+continuous on $I\times\left(X\times Y-A\times B\right)$. Thus we
+just need to verify that $q$ is continuous at a point $\left(t,x,y\right)$
+in $I\times A\times B$. Let $U\ni x,V\ni y$ be open sets in $X$
+and $Y$ respectively, then we have $I\times\left\{ x\right\} \in h^{-1}\left(U\right)$
+and $I\times\left\{ y\right\} \in j^{-1}\left(V\right)$. Since $I$
+is compact and $h^{-1}\left(U\right)$ is open, there is an open neighborhood
+$S\ni x$ such that $I\times S\subset h^{-1}\left(U\right)$. Similarly,
+there is an open neighborhood $T\ni y$ such that $I\times T\subset j^{-1}\left(V\right)$,
+so $q\left(I\times S\times T\right)\subset U\times V$. Thus $q$
+is continuous. 
+
+We also see that $q\left(t,x,y\right)=\left(x,y\right)$ whenever
+$x\in A$ (equivalently, $u\left(x\right)=0$)or $y\in B$ (equivalently,
+$v\left(y\right)=0$). 
+
+When $t=1$, suppose that $0<w\left(x,y\right)<1$. 
+\begin{enumerate}
+\item If $u\left(x\right)<1$, we have 
+\begin{enumerate}
+\item $u\left(x\right)\leq v\left(y\right)$, then $q\left(1,x,y\right)=\left(h\left(1,x\right),j\left(\frac{u\left(x\right)}{v\left(y\right)},y\right)\right)\in A\times Y$.
+\item $v\left(y\right)\leq u\left(x\right)$, then $q\left(1,x,y\right)=\left(h\left(\frac{v\left(y\right)}{u\left(x\right)},x\right),j\left(1,y\right)\right)\in X\times B$.
+\end{enumerate}
+\item If $v\left(y\right)<1$, the proof is similar. 
+\end{enumerate}
+Thus $\left(X,A\right)\times\left(Y,B\right)=\left(X\times Y,X\times B\cup A\times Y\right)$
+is a NDR pair. 
+
+In addition, if $\left(h,u\right)$ represents $\left(X,A\right)$
+as a DR pair, replace $u$ by $u'=\frac{1}{2}u$, then $\left(h,u'\right)$
+also represents $\left(X,A\right)$ as a DR pair, then the product
+is a DR pair. 
+\end{proof}
+\begin{thm}
+If $X$ is CGWH and $A$ is closed in $X$, then TFAE: 
+\begin{enumerate}
+\item $\left(X,A\right)$ is an NDR, 
+\item $\left\{ 0\right\} \times X\cup I\times A$ is a DR of $I\times X$, 
+\item $\left\{ 0\right\} \times X\cup I\times A$ is a retract of $I\times X$, 
+\item $\left(X,A\right)$ has the homotopy extension property, i.e. the
+inclusion $A\subset X$ is a cofibration. 
+\end{enumerate}
+\end{thm}
+\begin{proof}
+$1\implies2$: By previous theorem \ref{Thm-NDR-prod}. 
+
+$2\implies3$: trivial. 
+
+$3\implies4$: trivial. 
+
+$4\implies1$: 
+\end{proof}
+
+\subsubsection{Geometric Realization}
+
+Let $\Delta^{n}$ denote the standar topological $n$-simplex 
+\[
+\Delta^{n}=\left\{ \left(x_{0},\cdots,x_{n}\right)\in\mathbf{R}^{n+1}|\sum x_{i}=1,x_{i}\geq0\right\} .
+\]
+Define $\delta_{i}:\Delta^{n-1}\to\Delta^{n}$ and $\sigma_{j}:\Delta^{n+1}\to\Delta^{n}$
+for $0\leq i,j\leq n$ by 
+\[
+\begin{array}{ccl}
+\delta_{i}\left(x_{0},\cdots,x_{n-1}\right) & = & \left(x_{0},\cdots,x_{i-1},0,x_{i},\cdots,x_{n-1}\right)\\
+\sigma_{j}\left(x_{0},\cdots,x_{n+1}\right) & = & \left(x_{0},\cdots,x_{i-1},x_{i}+x_{i+1},\cdots,x_{n+1}\right)
+\end{array}
+\]
+
+\begin{defn}
+Given a simplicial object $X$ in $\mathcal{U}$, $X\in Ob\left(s\mathcal{U}\right)$,
+the \emph{geometric realization} $\left|X\right|$ of $X$ is a topological
+space defined as 
+\[
+\left|X\right|=\coprod_{n\geq0}X_{n}\times\Delta^{n}/\sim
+\]
+where $\left(\partial_{i}x,u\right)\sim\left(x,\delta_{i}u\right)$
+for $x\in X_{n},u\in\Delta^{n-1}$ and $\left(s_{j}x,u\right)\sim\left(x,\sigma_{j}\right)$
+for $x\in X_{n},u\in\Delta^{n+1}$. The topology on $X$ is given
+by the coproduct topology of the quotient topology of the product
+topology. 
+\end{defn}
+%
+If $X$ is a simplicial set, then the classical geometric realization
+of $X$ coincides with the geometric realization of $X$ as a discrete
+simplicial space. 
+\begin{defn}
+Let $X$ be a simplicial space, $X\in Ob\left(s\mathcal{U}\right)$,
+define $sX_{n}={\displaystyle \bigcup_{j=0}^{n}s_{j}X_{n}\subset X_{n+1}}$.
+We say $X$ is \emph{proper} if each $\left(X_{n+1},sX_{n}\right)$
+is a strong NDR pair and $X$ is \emph{strictly proper} if in addition,
+each $\left(X_{n+1},s_{k}X_{n}\right),0\leq k\leq n$ is a strong
+NDR pair via a homotopy $h:I\times X_{n+1}\to X_{n+1}$ such that
+\[
+h\left(I\times\bigcup_{j=0}^{k-1}s_{j}X_{n}\right)\subset\bigcup_{j=1}^{k-1}s_{j}X_{n}
+\]
+\end{defn}
+\begin{thm}
+\label{Thm-connect} Fix $n\geq0$. If $X$ is a (strictly) proper
+simplicial space scuh that each $X_{i}$ is $\left(n-i\right)$-connected
+for all $i\leq n$, then $\left|X\right|$ is $n$-connected. 
+\end{thm}
+\begin{proof}
+ 
+\end{proof}
+\begin{defn}
+An object $X\in Ob\left(s\mathcal{U}\right)$ is \emph{cellular} if
+each $X_{n}$ is a CW complex and each $\partial_{i},s_{j}$ is a
+cellular map. 
+\end{defn}
+\begin{thm}
+For $X,Y\in Ob\left(s\mathcal{U}\right)$, the map $\left|\pi_{1}\right|\times\left|\pi_{2}\right|:\left|X\times Y\right|\to\left|X\right|\times\left|Y\right|$
+is a natural homeomorphism whose inverse $\zeta$ is commutative and
+associative and is cellular if $X$ and $Y$ are cellular. 
+\end{thm}
+
+\subsubsection{Classifying Spaces of Topological Monoid}
+
+Let $G$ be a topological monoid such that its identity element $e$
+is a strongly nondegenerated basepoint (in the sense that $\left(G,e\right)$
+is a strong NDR-pair). 
+
+Let $X$ and $Y$ be left and right $G$-spaces. Define a simplicical
+topological space $B_{*}\left(Y,G,X\right)$ by letting the space
+of $j$-simplices be $Y\times G^{j}\times X$ with elements $y\left[g_{1},\cdots,g_{j}\right]x$
+and the face and degeneracy maps are 
+\[
+\partial_{i}\left(y\left[g_{1},\cdots,g_{j}\right]x\right)=\begin{cases}
+yg_{1}\left[g_{2},\cdots,g_{j}\right]x & i=0\\
+y\left[g_{1},\cdots,g_{i-1},g_{i}g_{i+1},g_{i+2},\cdots,g_{j}\right]x & 1\leq i<j\\
+y\left[g_{1},\cdots,g_{j-1}\right]g_{j}x & i=j
+\end{cases}
+\]
+and 
+\[
+s_{j}\left(y\left[g_{1},\cdots,g_{j}\right]x\right)=y\left[g_{1},\cdots,g_{i},e,g_{i+1},\cdots,g_{j}\right]x.
+\]
+
+Let $B\left(Y,G,X\right)$ be the geometric realization of $B_{*}\left(Y,G,X\right)$.
+Then $B$ is a functor 
+\[
+\begin{array}{cccc}
+B: & \mathcal{A}\left(\mathcal{U}\right) & \to & \mathcal{U}\\
+ & \left(Y,G,X\right) & \mapsto & \left|B_{*}\left(Y,G,X\right)\right|
+\end{array}
+\]
+where $\mathcal{A}\left(\mathcal{U}\right)$ is the category where
+objects are triples $\left(Y,G,X\right)$ and morphisms are $\left(k,f,j\right):\left(Y,G,X\right)\to\left(Y',G',X'\right)$
+where $f:G\to G'$ is a map of topological monoids, and $k:Y\to Y'$
+and $j:X\to X'$ are $f$-equivariant maps, i.e. $j\left(gx\right)=f\left(g\right)j\left(x\right)$
+and $k\left(yg\right)=k\left(y\right)f\left(g\right)$. 
+
+Let $*$ be the one-point $G$-space and define 
+\[
+\begin{array}{ccc}
+BG & = & B\left(*,G,*\right)\\
+EG & = & B\left(*,G,G\right)
+\end{array}
+\]
+then $BG$ is the standard classifying space of $G$. 
+
+Now we state basic facts about the topological behavior of the functor
+$B$. 
+\begin{prop}
+$B_{*}\left(Y,G,X\right)$ is a proper simplicial space. $B\left(Y,G,X\right)$
+is $n$-connected if $G$ is $\left(n-1\right)$-connected and $X$
+and $Y$ are $n$-connected. 
+\end{prop}
+\begin{proof}
+The first statement is equivalent to say that 
+\[
+\left(Y,\emptyset\right)\times\left(G,e\right)^{j}\times\left(X,\emptyset\right)
+\]
+ is a strong NDR pair, which follows from Theorem \ref{Thm-NDR-prod}. 
+
+The second statement follows from Theorem \ref{Thm-connect}. 
+\end{proof}
+\begin{prop}
+If $Y,G,X$ are in $\mathcal{W}$ then so is $B\left(Y,G,X\right)$. 
+\end{prop}
+%
+\begin{prop}
+Let $\left(k,f,j\right):\left(Y,G,X\right)\to\left(Y',G',X'\right)$
+be a morphism in $\mathcal{A}\left(\mathcal{U}\right)$. 
+\begin{enumerate}
+\item If $k,f,j$ induces isomorphsims on integral homology, then so does
+$B\left(k,f,j\right)$. 
+\item If $k,f,j$ are homotopy equivalences, then so is $B\left(k,f,j\right)$. 
+\end{enumerate}
+\end{prop}
+%
+\begin{prop}
+$B$ preserves products. 
+\end{prop}
+\begin{defn}
+A map $p:E\to B$ is a \emph{quasifibration} if $p$ is onto and 
+\[
+p_{*}:\pi_{i}\left(E,p^{-1}\left(x\right),y\right)\to\pi_{i}\left(B,x\right)
+\]
+is an isomorphism for all $x\in B$, $y\in p^{-1}\left(x\right)$
+and $i\geq0$. A subset $U\subseteq B$ is \emph{distinguished} if
+$p:p^{-1}\left(U\right)\to U$ is a quasi-fibration. 
+\end{defn}
+%
+\begin{lem}
+Let $p:E\to B$ be a map onto a filtered space $B$, then each $F_{j}B$
+is distinguished and $p$ is a quasifibration provided that 
+\begin{enumerate}
+\item $F_{0}B$ and each open subset of $F_{j}B-F_{j-1}B$ for $j>0$ is
+distinguished. 
+\item For each $j>0$, there is an open subset $U$ of $F_{j}B$ which contains
+$F_{j-1}B$ and there are homotopies $h_{t}:U\to U$ and $H_{t}:p^{-1}\left(U\right)\to p^{-1}\left(U\right)$
+such that 
+\begin{enumerate}
+\item $h_{0}=1,h_{t}\left(F_{j-1}B\right)\subset F_{j-1}B$ and $h_{1}\left(U\right)\subset F_{i-1}B$. 
+\item $H_{0}=1$ and $H$ covers $h$, $pH_{t}=h_{t}p$; and
+\item $H_{1}:p^{-1}\left(x\right)\to p^{-1}\left(h_{1}\left(x\right)\right)$
+is a weak homotopy equivalence for all $x\in U$. 
+\end{enumerate}
+\end{enumerate}
+\end{lem}
+%
+Let $p:B\left(Y,G,X\right)\to B\left(Y,G,*\right)$ and $q:\left(Y,G,X\right)\to B\left(*,G,X\right)$
+be the maps induced by the trivial $G$-maps $X\to*$ and $Y\to*$. 
+\begin{thm}
+If $G$ is grouplike, then $p$ and $q$ are quasi-fibrations. 
+\end{thm}
+\begin{defn}
+A cover $\mathscr{C}$ of a space $B$ is \emph{numerable} if it is
+locally finite and if for each $U\in\mathscr{C}$, there is a map
+$\lambda_{U}:B\to I$ such that $U=\lambda_{U}^{-1}(0,1]$.
+\end{defn}
+\pagebreak{}
+\begin{thebibliography}{M1}
+\bibitem[M1]{key-1-1} J. Milnor, Construction of universal bundles.
+I, Ann. of Math. (2) 63 (1956), 272-284. 
+
+\bibitem[M2]{key-1-2} J. Milnor, Construction of universal bundles.
+II, Ann. of Math. (2) 63 (1956), 430\textendash 436. 
+
+\bibitem[Se]{key-2} G. B. Segal, Classifying spaces and spectral
+sequences, Publ. Math. IHES 34 (1968), 105-112. 
+
+\bibitem[M1]{key-3-1} {]} J. P. May. The Geometry of Iterated Loop
+Spaces. Springer Lecture Notes in Mathematics Volume 271 (1972). 
+
+\bibitem[M2]{key-3-2} J. P. May. Classifying spaces and fibrations.
+Memoirs Amer. Math. Soc. 155 (1975). 
+
+\bibitem[M3]{key-3-3} J. P. May. $E_{\infty}$-spaces, group completions,
+and permutative categories. London Math. Soc. Lecture Notes No.11
+(1974), 61-93. 
+
+\bibitem[St]{key-4} N. E. Steenrod, A convenient category of topological
+spaces. Mich. Math J 14 (1967), 133-152. 
+
+\bibitem{key-13} AA
+\end{thebibliography}
+
+\end{document}
